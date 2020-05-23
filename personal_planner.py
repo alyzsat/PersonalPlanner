@@ -1,6 +1,7 @@
 from gui.assign_dialog import AssignmentDialog
 from gui.course_dialog import CourseDialog
-from planner import Planner
+from gui.popup import PlannerPopUp
+from planner import Planner, DuplicateCourseError
 from PyQt5.QtWidgets import QWidget, QApplication, QHBoxLayout, QListWidget, QVBoxLayout, QPushButton, QCheckBox, \
     QLabel, QListWidgetItem, QMessageBox, QInputDialog, QDialog, QLineEdit, QComboBox, QGridLayout
 from PyQt5.QtCore import QSize
@@ -125,21 +126,18 @@ class PersonalPlanner(QWidget):
 
     def add_course_clicked(self):
         """Called when Add Course button is clicked, adds a new Course"""
-        dialog = CourseDialog()
+        dialog = CourseDialog(self.planner)
         ok_clicked = dialog.exec_()
         if ok_clicked:
-            self.planner.add_course(dialog.get_info())
             self.refresh_course_view()
 
     def add_assign_clicked(self):
         """Called when Add Assignment button is clicked, adds a
         new assignment to the current course
         """
-        dialog = AssignmentDialog()
+        dialog = AssignmentDialog(self.planner, self.current_course_name)
         ok_clicked = dialog.exec_()
         if ok_clicked:
-            name, month, day = dialog.get_info()
-            self.planner.find_course(self.current_course_name).add_assignment(name, month, day)
             self.refresh_assign_view()
 
     def test(self, info):
@@ -151,6 +149,3 @@ if __name__ == "__main__":
     app = QApplication(sys.argv)
     window = PersonalPlanner(app.primaryScreen().size())
     sys.exit(app.exec_())
-
-
-

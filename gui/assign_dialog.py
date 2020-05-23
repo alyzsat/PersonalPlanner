@@ -1,16 +1,18 @@
 from PyQt5.QtWidgets import QLineEdit, QComboBox
 
-from gui.PlannerQDialog import PlannerQDialog
+from course import DuplicateAssignmentError
+from gui.dialog import PlannerQDialog
+from planner import Planner
 
 
 class AssignmentDialog(PlannerQDialog):
-    def __init__(self):
-        super().__init__("Create New Assignment", 3)
+    def __init__(self, planner: Planner, course_name: str):
+        super().__init__(planner, "Create New Assignment", 3)
 
+        self.course_name = course_name
         months = ["January", "February", "March", "April", "May",
                   "June", "July", "August", "September", "October",
                   "November", "December"]
-
         days = [str(i+1) for i in range(31)]
 
         # Create Widgets
@@ -26,16 +28,7 @@ class AssignmentDialog(PlannerQDialog):
         self.add_widget("Month", self.month_box)
         self.add_widget("Day", self.day_box)
 
-    def check_text(self, text):
-        """Disable ok button if field is empty"""
-        if text.strip() != "":
-            self.ok_button.setDisabled(False)
-        else:
-            self.ok_button.setDisabled(True)
-
-    def get_info(self) -> (str, int, int):
-        """Returns a tuple holding the name, month number, and day"""
-        return self.name_box.text(), self.month_box.currentIndex(), self.day_box.currentIndex()
+        self.name_box.setFocus()
 
     def load_info(self, info: list) -> None:
         """Loads assignment information into dialog to edit"""
@@ -44,6 +37,15 @@ class AssignmentDialog(PlannerQDialog):
         self.month_box.setCurrentIndex(month)
         self.day_box.setCurrentIndex(day)
 
-    def set_message(self, text: str):
-        """Sets a message to display more info"""
-        self.message_box.setText(text)
+    def ok_clicked(self):
+        """Attempts to add assignment to course"""
+        self.set_message("")
+        try:
+            self.planner.add_assign_to_course(
+                self.course_name,
+                self.name_box.text(),
+                self.month_box.currentIndex(),
+                self.day_box.currentIndex())
+            self.accept()
+        except DuplicateAssignmentError:
+            self.set_message("Assignment Already Exists")

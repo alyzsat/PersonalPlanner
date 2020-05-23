@@ -1,6 +1,10 @@
 from course import Course
 
 
+class DuplicateCourseError(Exception):
+    pass
+
+
 class CourseNotFoundError(Exception):
     pass
 
@@ -18,10 +22,12 @@ class Planner:
             raise CourseNotFoundError()
 
     def add_course(self, name: str) -> None:
-        # Increase the counter to automatically assign a unique
-        # id to each course
-        course = Course(name)
-        self._courses.append(course)
+        index = self._find_index(name)
+        if index == -1:
+            course = Course(name)
+            self._courses.append(course)
+        else:
+            raise DuplicateCourseError()
 
     def remove_course(self, name: str) -> None:
         index = self._find_index(name)
