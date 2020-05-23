@@ -5,13 +5,20 @@ class AssignmentNotFoundError(Exception):
     pass
 
 
+class DuplicateAssignmentError(Exception):
+    pass
+
+
 class Course:
     def __init__(self, name: str):
         self._assignments = []
         self._name = name
 
-    def add_assignment(self, name: str, due_date: (int, int)) -> None:
-        self._assignments.append(Assignment(name, due_date))
+    def add_assignment(self, name: str, due_month: int, due_day: int) -> None:
+        if self._find_index(name) == -1:
+            self._assignments.append(Assignment(name, (due_month, due_day)))
+        else:
+            raise DuplicateAssignmentError()
 
     def remove_assignment(self, name: str) -> None:
         index = self._find_index(name)
