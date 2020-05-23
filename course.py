@@ -41,6 +41,9 @@ class Course:
     def name(self) -> str:
         return self._name
 
+    def change_name(self, name: str) -> None:
+        self._name = name
+
     def _find_index(self, name: str) -> int:
         for i in range(len(self._assignments)):
             if self._assignments[i].name() == name:

@@ -142,7 +142,12 @@ class PersonalPlanner(QWidget):
 
     def course_opt_clicked(self):
         dialog = CourseDialog(self.planner, f"Edit Course: {self.current_course_name}")
-        dialog.exec_()
+        dialog.load_info(self.current_course_name)
+        ok_clicked = dialog.exec_()
+        if ok_clicked:
+            new_name = dialog.get_info()
+            self.planner.find_course(self.current_course_name).change_name(new_name)
+            self.refresh_course_view()
 
     def test(self, info):
         """Delete this later"""

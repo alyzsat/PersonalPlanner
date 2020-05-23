@@ -1,11 +1,14 @@
+from PyQt5.QtGui import QIcon
 from PyQt5.QtWidgets import QDialog, QGridLayout, QLabel, QPushButton, QWidget
-
+from PyQt5.QtCore import Qt
 from planner import Planner
 
 
 class PlannerQDialog(QDialog):
     def __init__(self, planner: Planner, window_name: str, rows: int):
         super().__init__()
+        self.setWindowFlag(Qt.WindowContextHelpButtonHint, False)
+        self.setWindowIcon(QIcon("logo.png"))
         self.planner = planner
         self.setWindowTitle(window_name)
         self.row_count = 0
