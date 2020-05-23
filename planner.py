@@ -47,8 +47,6 @@ class Planner:
         index = self._find_index(name)
         if index != -1:
             return self._courses[index]
-        else:
-            raise CourseNotFoundError()
 
     def courses(self) -> [Course]:
         return self._courses

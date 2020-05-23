@@ -42,6 +42,10 @@ class PlannerQDialog(QDialog):
         """Load info into fields to edit"""
         pass
 
+    def get_info(self) -> tuple:
+        """Return info from fields"""
+        pass
+
     def check_text(self, text) -> None:
         """Disable ok button if text is empty, clear message box
         if text is empty

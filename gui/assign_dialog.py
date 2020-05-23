@@ -6,8 +6,8 @@ from planner import Planner
 
 
 class AssignmentDialog(PlannerQDialog):
-    def __init__(self, planner: Planner, course_name: str):
-        super().__init__(planner, "Create New Assignment", 3)
+    def __init__(self, planner: Planner, course_name: str, title: str):
+        super().__init__(planner, title, 3)
 
         self.course_name = course_name
         months = ["January", "February", "March", "April", "May",
@@ -30,6 +30,10 @@ class AssignmentDialog(PlannerQDialog):
 
         self.name_box.setFocus()
 
+    def get_info(self) -> (str, int, int):
+        """Return name, month, and day from fields"""
+        return self.name_box.text(), self.month_box.currentIndex(), self.day_box.currentIndex()
+
     def load_info(self, info: list) -> None:
         """Loads assignment information into dialog to edit"""
         name, month, day = info
@@ -40,12 +44,7 @@ class AssignmentDialog(PlannerQDialog):
     def ok_clicked(self):
         """Attempts to add assignment to course"""
         self.set_message("")
-        try:
-            self.planner.add_assign_to_course(
-                self.course_name,
-                self.name_box.text(),
-                self.month_box.currentIndex(),
-                self.day_box.currentIndex())
+        if self.planner.find_course(self.course_name).find_assignment(self.name_box.text()) is None:
             self.accept()
-        except DuplicateAssignmentError:
+        else:
             self.set_message("Assignment Already Exists")

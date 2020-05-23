@@ -59,8 +59,7 @@ class PersonalPlanner(QWidget):
         self.setWindowIcon(QIcon("logo.png"))
         self.setLayout(self.layout)
         self.setup_sidebar()
-        self.setup_assignment_view()
-        self.setup_hidden_assignment_view()
+        self.setup_course_page()
 
     def setup_sidebar(self):
         """Sets up the layout of the side bar"""
@@ -79,10 +78,10 @@ class PersonalPlanner(QWidget):
         sidebar.addWidget(self.add_course_btn)
         sidebar.addWidget(self.course_view)
 
-    def setup_assignment_view(self):
+    def setup_course_page(self):
         """Creates the layout for the assignment view"""
-        assignment_view = QVBoxLayout()
-        self.layout.addLayout(assignment_view)
+        course_page = QVBoxLayout()
+        self.layout.addLayout(course_page)
 
         # Set size with respect to the screen resolution
         self.add_assign_btn.setFixedSize(int(self.width()/7), int(self.height()/16))
@@ -95,13 +94,10 @@ class PersonalPlanner(QWidget):
 
         self.refresh_assign_view()
         self.add_assign_btn.clicked.connect(self.add_assign_clicked)
+        self.course_opt_btn.clicked.connect(self.course_opt_clicked)
 
-        assignment_view.addLayout(course_bar)
-        assignment_view.addWidget(self.assign_view)
-
-    def setup_hidden_assignment_view(self):
-        """Sets up the layout for the hidden assignments"""
-        pass
+        course_page.addLayout(course_bar)
+        course_page.addWidget(self.assign_view)
 
     def refresh_assign_view(self):
         """Reloads the assignments to show changes in the assignment list
@@ -126,19 +122,27 @@ class PersonalPlanner(QWidget):
 
     def add_course_clicked(self):
         """Called when Add Course button is clicked, adds a new Course"""
-        dialog = CourseDialog(self.planner)
+        dialog = CourseDialog(self.planner, "Create New Course")
         ok_clicked = dialog.exec_()
         if ok_clicked:
+            name = dialog.get_info()
+            self.planner.add_course(name)
             self.refresh_course_view()
 
     def add_assign_clicked(self):
         """Called when Add Assignment button is clicked, adds a
         new assignment to the current course
         """
-        dialog = AssignmentDialog(self.planner, self.current_course_name)
+        dialog = AssignmentDialog(self.planner, self.current_course_name, "Create New Assignment")
         ok_clicked = dialog.exec_()
         if ok_clicked:
+            name, month, day = dialog.get_info()
+            self.planner.add_assign_to_course(self.current_course_name, name, month, day)
             self.refresh_assign_view()
+
+    def course_opt_clicked(self):
+        dialog = CourseDialog(self.planner, f"Edit Course: {self.current_course_name}")
+        dialog.exec_()
 
     def test(self, info):
         """Delete this later"""

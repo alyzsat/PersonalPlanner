@@ -31,8 +31,6 @@ class Course:
         index = self._find_index(name)
         if index != -1:
             return self._assignments[index]
-        else:
-            raise AssignmentNotFoundError()
 
     def clear(self) -> None:
         self._assignments = []
