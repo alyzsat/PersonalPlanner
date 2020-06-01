@@ -100,19 +100,18 @@ class PersonalPlanner(QWidget):
         course_bar.addWidget(self.course_opt_btn)
 
         # Add Assignment Button
-        self.add_assign_btn.setFixedSize(int(self.width()/7), int(self.height()/16))
+        self.add_assign_btn.setFixedSize(int(self.width()/5), int(self.height()/16))
         self.add_assign_btn.setCursor(Qt.PointingHandCursor)
+        self.add_assign_btn.clicked.connect(self.add_assign_clicked)
 
         # Course Option Button
         self.course_opt_btn.setFixedSize(int(self.width()/25), int(self.height()/16))
         self.course_opt_btn.setCursor(Qt.PointingHandCursor)
+        self.course_opt_btn.clicked.connect(self.course_opt_clicked)
 
         # Assignment View
         self.assign_view.setObjectName("Assignments")
         self.refresh_assign_view()
-
-        self.add_assign_btn.clicked.connect(self.add_assign_clicked)
-        self.course_opt_btn.clicked.connect(self.course_opt_clicked)
 
     def refresh_assign_view(self):
         """Reloads the assignments to show changes in the assignment list

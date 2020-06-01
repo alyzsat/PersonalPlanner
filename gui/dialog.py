@@ -8,7 +8,8 @@ class PlannerQDialog(QDialog):
     def __init__(self, planner: Planner, window_name: str, rows: int):
         super().__init__()
         self.setWindowFlag(Qt.WindowContextHelpButtonHint, False)
-        self.setWindowIcon(QIcon("logo.png"))
+        self.setWindowIcon(QIcon("assets/logo.png"))
+        self.setMinimumWidth(700)
         self.planner = planner
         self.setWindowTitle(window_name)
         self.row_count = 0
@@ -24,10 +25,12 @@ class PlannerQDialog(QDialog):
         self.ok_button.clicked.connect(self.ok_clicked)
         self.ok_button.setDefault(True)
         self.ok_button.setDisabled(True)
+        self.ok_button.setCursor(Qt.PointingHandCursor)
 
         # Cancel Button
         cancel_button = QPushButton("Cancel")
         cancel_button.clicked.connect(self.reject)
+        cancel_button.setCursor(Qt.PointingHandCursor)
 
         # Configure Layout
         self.layout = QGridLayout()
