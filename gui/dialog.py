@@ -13,6 +13,9 @@ class PlannerQDialog(QDialog):
         self.setWindowTitle(window_name)
         self.row_count = 0
 
+        with open("assets/stylesheet.qss") as ss:
+            self.setStyleSheet(ss.read())
+
         # Message Box
         self.message_box = QLabel()
 

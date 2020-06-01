@@ -1,0 +1,65 @@
+QWidget {
+    background-color: @background1;
+    color: white;
+}
+
+QLabel#CourseNameLabel {
+    padding: 10px;
+}
+
+QLineEdit {
+    background-color: @background2;
+    color: white;
+    padding: 5px;
+    border-radius: 10px;
+}
+
+QListWidget {
+    border-radius: 5px;
+    outline: 0;
+}
+
+QListWidget::item {
+    color: white;
+}
+
+QListWidget::item:selected#Courses,
+QListWidget::item:focus#Courses,
+QListWidget::item:hover#Courses {
+    background-color: @background2;
+    border-top-left-radius: 5px;
+    border-bottom-left-radius: 5px;
+}
+
+QListWidget#Assignments {
+    border-top-left-radius: 0px;
+    border-bottom-left-radius: 0px;
+    background-color: @background2;
+    color: black;
+}
+
+QComboBox {
+    background-color: @background2;
+    color: white;
+    padding: 5px;
+    border-radius: 10px;
+    border-top-right: 0px;
+    border-bottom-right: 0px;
+}
+
+QComboBox::down-arrow {
+    background-color: green;
+    border-style: none;
+    outline: 0;
+}
+
+QPushButton {
+    border-radius: 5px;
+    background-color: qlineargradient(
+                        x1:0, y1:0,
+                        x2:1, y2:1,
+                        stop:0 @accent1,
+                        stop:1 @accent2);
+    color: white;
+    padding: 5px;
+}
