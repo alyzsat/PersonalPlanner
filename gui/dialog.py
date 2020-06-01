@@ -1,5 +1,5 @@
 from PyQt5.QtGui import QIcon
-from PyQt5.QtWidgets import QDialog, QGridLayout, QLabel, QPushButton, QWidget
+from PyQt5.QtWidgets import QDialog, QGridLayout, QLabel, QPushButton, QWidget, QHBoxLayout
 from PyQt5.QtCore import Qt
 from planner import Planner
 
@@ -35,8 +35,13 @@ class PlannerQDialog(QDialog):
         # Configure Layout
         self.layout = QGridLayout()
         self.layout.addWidget(self.message_box, rows + 1, 1, 1, 2)
-        self.layout.addWidget(self.ok_button, rows + 2, 1)
-        self.layout.addWidget(cancel_button, rows + 2, 2)
+
+        # Button Box
+        button_box = QHBoxLayout()
+        button_box.addWidget(cancel_button)
+        button_box.addWidget(self.ok_button)
+
+        self.layout.addLayout(button_box, rows + 2, 2)
         self.setLayout(self.layout)
 
     def add_widget(self, text: str, widget: QWidget):
