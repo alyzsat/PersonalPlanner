@@ -7,11 +7,12 @@
 class StyleSheetProcessor:
     def __init__(self):
         self.color_palette = {
-            "background1": "#2e2e2e",  # black
-            "background2": "#3d3d3d",  # dark gray
-            "accent1": "#ffa600",  # yellow
-            "accent2": "#fa8561",  # coral
-            "accent3": "#E4572E"  # orange
+            "background1": "#2e2e2e",   # black
+            "background2": "#3d3d3d",   # dark gray
+            "accent1": "#ffa600",       # yellow
+            "accent2": "#fa8561",       # coral
+            "accent3": "#E4572E",       # orange
+            "text1": "#ffffff"
         }
 
     def run(self):

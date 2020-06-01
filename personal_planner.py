@@ -76,7 +76,6 @@ class PersonalPlanner(QWidget):
         self.course_view.setObjectName("Courses")
         self.refresh_course_view()
         self.course_view.setFixedWidth(int(self.width() / 4))
-        self.course_view.setCurrentRow(0)
         self.course_view.itemClicked.connect(self.course_clicked)
 
         # Add Course
@@ -120,12 +119,14 @@ class PersonalPlanner(QWidget):
         assignments = [a.name() for a in self.planner.find_course(self.current_course_name).assignments()]
         self.assign_view.clear()
         self.assign_view.addItems(assignments)
+        self.course_view.setCurrentRow(self.planner.find_index(self.current_course_name))
 
     def refresh_course_view(self):
         """Reloads the courses to show changes in the course list"""
         courses = [c.name() for c in self.planner.courses()]
         self.course_view.clear()
         self.course_view.addItems(courses)
+        self.course_view.setCurrentRow(self.planner.find_index(self.current_course_name))
 
     def course_clicked(self, item: QListWidgetItem):
         """Called when a course is selected, switches the view
@@ -165,6 +166,8 @@ class PersonalPlanner(QWidget):
         if ok_clicked:
             new_name = dialog.get_info()
             self.planner.find_course(self.current_course_name).change_name(new_name)
+            self.current_course_name = new_name
+            self.current_course.setText(new_name)
             self.refresh_course_view()
 
     def test(self, info):

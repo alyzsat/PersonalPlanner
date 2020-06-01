@@ -1,6 +1,6 @@
 QWidget {
     background-color: #2e2e2e;
-    color: white;
+    color: #ffffff;
 }
 
 QLabel#CourseNameLabel {
@@ -9,7 +9,7 @@ QLabel#CourseNameLabel {
 
 QLineEdit {
     background-color: #3d3d3d;
-    color: white;
+    color: #ffffff;
     padding: 5px;
     border-radius: 15px;
     selection-background-color: #E4572E;
@@ -47,7 +47,7 @@ QListWidget#Assignments {
 
 QComboBox {
     background-color: #3d3d3d;
-    color: white;
+    color: #ffffff;
     padding: 5px;
     border-radius: 15px;
 }
@@ -63,7 +63,7 @@ QPushButton {
                         x2:1, y2:0,
                         stop:0 #ffa600,
                         stop:1 #fa8561);
-    color: white;
+    color: #ffffff;
     padding: 10px;
 }
 
