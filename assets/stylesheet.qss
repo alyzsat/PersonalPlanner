@@ -52,10 +52,6 @@ QComboBox {
     border-radius: 15px;
 }
 
-QComboBox::down-arrow {
-
-}
-
 QPushButton {
     border-radius: 15px;
     background-color: QLinearGradient(
