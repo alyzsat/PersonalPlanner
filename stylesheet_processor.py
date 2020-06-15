@@ -2,18 +2,13 @@
 # different parts of the theme easily
 #
 # This is where the theme colors are changed
+import json
 
 
 class StyleSheetProcessor:
-    def __init__(self):
-        self.color_palette = {
-            "background1": "#2e2e2e",   # black
-            "background2": "#3d3d3d",   # dark gray
-            "accent1": "#ffa600",       # yellow
-            "accent2": "#fa8561",       # coral
-            "accent3": "#E4572E",       # orange
-            "text1": "#ffffff"
-        }
+    def __init__(self, theme_name: str):
+        with open(f"assets/themes/{theme_name}", "r") as theme:
+            self.color_palette = json.load(theme)
 
     def run(self):
         raw_ss = open("assets/raw-stylesheet.qss", "r")

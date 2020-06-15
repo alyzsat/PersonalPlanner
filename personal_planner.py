@@ -5,31 +5,21 @@ from PyQt5.QtWidgets import QWidget, QHBoxLayout, QListWidgetItem
 from PyQt5.QtCore import QSize
 from PyQt5.QtGui import QIcon
 
+from stylesheet_processor import StyleSheetProcessor
+
 
 class PersonalPlanner(QWidget):
     def __init__(self, size: QSize):
         super().__init__()
         self.planner = Planner()
-        self.test_planner()
+        self.test_planner()  # ======================== Temporary ========================
         self.layout = QHBoxLayout(self)
-        self.layout.setSpacing(0)
-
-        # Setup widgets and Load Planner Details
-        # try:
-        #     with open("save.txt","r") as file:
-        #         file.read()
-        # except FileNotFoundError:
-        #     with open ("save.txt", "w") as file:
-        #         file.write()
-
-        with open("assets/stylesheet.qss") as ss:
-            self.setStyleSheet(ss.read())
-
         self.setup_window(size)
 
         # Set up GUI components
         self.sidebar = Sidebar(self.planner, self.width())
         self.sidebar.listwidget_courses.itemClicked.connect(self.course_clicked)
+        self.sidebar.button_add_course.clicked.connect(self.add_course_clicked)
         self.sidebar.refresh()
 
         self.course_page = CoursePage(self.planner, self.width())
@@ -66,6 +56,9 @@ class PersonalPlanner(QWidget):
         self.setWindowTitle("Personal Planner")
         self.setWindowIcon(QIcon("assets/logo.png"))
 
+        self.set_theme("default")
+
+        self.layout.setSpacing(0)
         self.setLayout(self.layout)
 
     # On this module because of interactions outside of SideBar
@@ -76,15 +69,30 @@ class PersonalPlanner(QWidget):
         self.planner.set_current_course(item.text())
         self.course_page.refresh()
 
+    # On this module because of interactions outside of Side Bar
+    def add_course_clicked(self):
+        self.sidebar.add_course_clicked()
+        self.course_page.refresh()
+
     # On this module because of interactions outside of Course Page
     def course_options_clicked(self):
         """Calls on the course page's function for when the course
-        options button is edited. Refreshes the sidebar to reflect changes
-        in the name
+        options button is edited. Refreshes the sidebar to reflect
+        changes in the name
         """
         self.course_page.course_options_clicked()
         self.sidebar.refresh()
 
+    def set_theme(self, theme_name: str):
+        """Runs the StyleSheetProcessor which will replace the
+        placeholders in the raw-stylesheet.qss with the attributes
+        of the theme, and then sets the stylesheet with the newly
+        created stylesheet.qss
+        """
+        StyleSheetProcessor(theme_name).run()
+        with open("assets/stylesheet.qss") as ss:
+            self.setStyleSheet(ss.read())
+
     def test(self, info):
-        """Delete this later"""
+        # ======================== Temporary ========================
         print("Testing button", info)

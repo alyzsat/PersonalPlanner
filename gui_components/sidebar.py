@@ -18,13 +18,13 @@ class Sidebar(QVBoxLayout):
         # Sizes for widgets
         size_widgets = int(planner_width / 4)
 
-        # Configure Widgets
-        self.setup_add_course(size_widgets)
-        self.setup_courses(size_widgets)
-
         # Add Widgets to layout
         self.addWidget(self.button_add_course)
         self.addWidget(self.listwidget_courses)
+
+        # Configure Widgets
+        self.setup_add_course(size_widgets)
+        self.setup_courses(size_widgets)
 
     def setup_courses(self, width: int):
         """Configures the QListWidget for holding courses"""
@@ -34,7 +34,6 @@ class Sidebar(QVBoxLayout):
     def setup_add_course(self, width: int):
         """Configures the button to add a new course"""
         self.button_add_course.setText("Add Course +")
-        self.button_add_course.clicked.connect(self.add_course_clicked)
         self.button_add_course.setFixedWidth(width)
         self.button_add_course.setCursor(Qt.PointingHandCursor)
 
@@ -45,7 +44,8 @@ class Sidebar(QVBoxLayout):
         courses = [c.name() for c in self.planner.courses()]
         self.listwidget_courses.clear()
         self.listwidget_courses.addItems(courses)
-        self.listwidget_courses.setCurrentRow(self.planner.get_current_course_index())
+        if not self.planner.is_empty():
+            self.listwidget_courses.setCurrentRow(self.planner.get_current_course_index())
 
     def add_course_clicked(self):
         """Called when the add course button is clicked and opens a

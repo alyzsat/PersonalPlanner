@@ -14,7 +14,7 @@ class Planner:
     def __init__(self):
         self._courses = []
         self._hidden_courses = []
-        self._current_course_index = 0
+        self._current_course_index = None
 
     def add_assign(self, course_name: str, assign_name: str, month: int, day: int) -> None:
         """Add an assignment to the given course"""
@@ -36,7 +36,10 @@ class Planner:
         index = self.find_index(name)
         if index == -1:
             course = Course(name)
+            if self.is_empty():
+                self._current_course_index = 0
             self._courses.append(course)
+
         else:
             raise DuplicateCourseError()
 
@@ -44,6 +47,8 @@ class Planner:
         index = self.find_index(name)
         if index != -1:
             self._courses.pop(index)
+            if self.is_empty():
+                self._current_course_index = None
         else:
             raise CourseNotFoundError()
 
@@ -76,6 +81,12 @@ class Planner:
 
     def set_current_course(self, name: str) -> None:
         self._current_course_index = self.find_index(name)
+
+    def is_empty(self):
+        """Returns True if there are no courses in self._courses
+        Ignores self._hidden_courses
+        """
+        return len(self._courses) == 0
 
     def _course_method(self, course_name: str, fxn: str, args: list) -> None:
         """Helper function that calls the function (fxn) given

@@ -22,12 +22,6 @@ class CoursePage(QVBoxLayout):
         size_add_assign = int(planner_width / 5)
         size_course_options = int(planner_width / 25)
 
-        # Configure Widgets
-        self.setup_assignments()
-        self.setup_current_course()
-        self.setup_course_options(size_course_options)
-        self.setup_add_assignment(size_add_assign)
-
         # Create course bar sublayout and add to layout
         course_bar = QHBoxLayout()
         self.addLayout(course_bar)
@@ -37,6 +31,12 @@ class CoursePage(QVBoxLayout):
         course_bar.addWidget(self.button_add_assign)
         course_bar.addWidget(self.button_course_options)
         self.addWidget(self.listwidget_assignments)
+
+        # Configure Widgets
+        self.setup_assignments()
+        self.setup_current_course()
+        self.setup_course_options(size_course_options)
+        self.setup_add_assignment(size_add_assign)
 
     def setup_assignments(self) -> None:
         """QListWidget that displays all of the assignments for
@@ -75,10 +75,13 @@ class CoursePage(QVBoxLayout):
         newly selected course. Also changes the course name at
         the top of the page if the course has changed.
         """
-        assignments = [a.name() for a in self.planner.get_current_course().assignments()]
         self.listwidget_assignments.clear()
-        self.listwidget_assignments.addItems(assignments)
-        self.label_current_course.setText(self.planner.get_current_course().name())
+        if self.planner.is_empty():
+            self.label_current_course.setText("")
+        else:
+            self.label_current_course.setText(self.planner.get_current_course().name())
+            assignments = [a.name() for a in self.planner.get_current_course().assignments()]
+            self.listwidget_assignments.addItems(assignments)
 
     def course_options_clicked(self):
         """Opens a dialog to edit the course name"""
