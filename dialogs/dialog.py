@@ -1,7 +1,7 @@
 from PyQt5.QtGui import QIcon
 from PyQt5.QtWidgets import QDialog, QGridLayout, QLabel, QPushButton, QWidget, QHBoxLayout
 from PyQt5.QtCore import Qt
-from planner import Planner
+from planner_parts.planner import Planner
 
 
 class PlannerQDialog(QDialog):

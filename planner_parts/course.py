@@ -1,4 +1,4 @@
-from assignment import Assignment
+from planner_parts.assignment import Assignment
 
 
 class AssignmentNotFoundError(Exception):

@@ -1,8 +1,8 @@
 from datetime import datetime
 
 from PyQt5.QtWidgets import QLineEdit, QComboBox
-from gui.dialog import PlannerQDialog
-from planner import Planner
+from dialogs.dialog import PlannerQDialog
+from planner_parts.planner import Planner
 
 
 class AssignmentDialog(PlannerQDialog):
