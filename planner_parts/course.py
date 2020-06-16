@@ -46,6 +46,6 @@ class Course:
 
     def _find_index(self, name: str) -> int:
         for i in range(len(self._assignments)):
-            if self._assignments[i].name() == name:
+            if self._assignments[i].name().lower() == name.lower():
                 return i
         return -1

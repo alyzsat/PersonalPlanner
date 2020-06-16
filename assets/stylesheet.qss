@@ -1,14 +1,22 @@
 QWidget {
-    background-color: #4d5657;
+    background-color: #35393d;
     color: #ffffff;
 }
 
-QLabel#CourseNameLabel {
+QLabel#LabelCourseName {
     padding-left: 20px;
 }
 
+QLabel#LabelUpcoming {
+    font-size: 9pt;
+    background-color: #E4572E;
+    border-top-left-radius: 20px;
+    border-top-right-radius: 20px;
+    padding: 8px;
+}
+
 QLineEdit {
-    background-color: #626f70;
+    background-color: #454a4f;
     color: #ffffff;
     padding: 5px;
     border-radius: 15px;
@@ -16,53 +24,61 @@ QLineEdit {
 }
 
 QListWidget {
-    border-radius: 15px;
+    border-radius: 30px;
     outline: 0;
 }
 
 QListWidget::item {
     border: 0px;
-    color: white;
+    color: #ffffff;
     padding: 20px;
 }
 
 QListWidget::item:focus#Courses,
 QListWidget::item:selected#Courses {
-    color: #ffa600;
-    background-color: #626f70;
+    color: #fa8561;
+    background-color: #454a4f;
     border-top-left-radius: 15px;
     border-bottom-left-radius: 15px;
 }
 
 QListWidget::item:hover#Courses {
-    color: #ffa600;
+    color: #fa8561;
 }
 
 QListWidget#Assignments {
     border-top-left-radius: 0px;
     border-bottom-left-radius: 0px;
-    background-color: #626f70;
+    background-color: #454a4f;
     color: black;
 }
 
+QListWidget#Upcoming  {
+    background-color: red;
+}
+
 QComboBox {
-    background-color: #626f70;
+    background-color: #454a4f;
     color: #ffffff;
     padding: 5px;
     border-radius: 15px;
+}
+
+QPushButton#CourseOptions {
+    background-color: none;
 }
 
 QPushButton {
     border-radius: 15px;
     background-color: QLinearGradient(
                         x1:0, y1:0,
-                        x2:1, y2:0.2,
+                        x2:1, y2:0.1,
                         stop:0 #ffa600,
                         stop:1 #fa8561);
     color: #ffffff;
-    padding: 10px;
+    padding: 20px;
 }
 
 QPushButton:disabled {
-    background-color: #626f70;
+    background-color: #454a4f;
 }

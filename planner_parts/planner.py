@@ -69,7 +69,7 @@ class Planner:
 
     def find_index(self, name: str) -> int:
         for i in range(len(self._courses)):
-            if self._courses[i].name() == name:
+            if self._courses[i].name().lower() == name.lower():
                 return i
         return -1
 

@@ -16,6 +16,8 @@ class AssignmentDialog(PlannerQDialog):
         days = [str(i+1) for i in range(31)]
         current_date = datetime.now()
 
+        self.old_name = None
+
         # Create Widgets
         self.name_box = QLineEdit()
         self.name_box.textChanged.connect(self.check_text)
@@ -42,14 +44,17 @@ class AssignmentDialog(PlannerQDialog):
     def load_info(self, info: list) -> None:
         """Loads assignment information into dialog to edit"""
         name, month, day = info
+        self.old_name = name
         self.name_box.setText(name)
         self.month_box.setCurrentIndex(month - 1)
         self.day_box.setCurrentIndex(day - 1)
 
     def ok_clicked(self):
         """Attempts to add assignment to course"""
-        self.set_message("")
-        if self.planner.find_course(self.course_name).find_assignment(self.name_box.text()) is None:
+        name = self.name_box.text()
+        if self.old_name is not None and name.lower() == self.old_name.lower():
+            self.accept()
+        elif self.planner.find_course(self.course_name).find_assignment(name) is None:
             self.accept()
         else:
             self.set_message("Assignment Already Exists")

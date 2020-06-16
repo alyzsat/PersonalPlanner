@@ -20,7 +20,7 @@ class CoursePage(QVBoxLayout):
 
         # Sizes for Widgets
         size_add_assign = int(planner_width / 5)
-        size_course_options = int(planner_width / 25)
+        size_course_options = int(planner_width / 20)
 
         # Create course bar sublayout and add to layout
         course_bar = QHBoxLayout()
@@ -28,8 +28,9 @@ class CoursePage(QVBoxLayout):
 
         # Add Widgets
         course_bar.addWidget(self.label_current_course)
-        course_bar.addWidget(self.button_add_assign)
         course_bar.addWidget(self.button_course_options)
+        course_bar.addStretch()
+        course_bar.addWidget(self.button_add_assign)
         self.addWidget(self.listwidget_assignments)
 
         # Configure Widgets
@@ -48,13 +49,14 @@ class CoursePage(QVBoxLayout):
         """Label placed at the top of the window to represent
         the current course to display
         """
-        self.label_current_course.setObjectName("CourseNameLabel")
+        self.label_current_course.setObjectName("LabelCourseName")
 
     def setup_course_options(self, width: int) -> None:
         """Button that, when clicked, opens a dialog to edit
         the course name
         """
         self.button_course_options.setFixedWidth(width)
+        self.button_course_options.setObjectName("CourseOptions")
         self.button_course_options.setText("•••")
         self.button_course_options.setCursor(Qt.PointingHandCursor)
 

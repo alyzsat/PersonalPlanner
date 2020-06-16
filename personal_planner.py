@@ -1,4 +1,5 @@
 from gui_components.course_page import CoursePage
+from gui_components.overview_panel import OverviewPanel
 from gui_components.sidebar import Sidebar
 from planner_parts.planner import Planner
 from PyQt5.QtWidgets import QWidget, QHBoxLayout, QListWidgetItem
@@ -26,9 +27,15 @@ class PersonalPlanner(QWidget):
         self.course_page.button_course_options.clicked.connect(self.course_options_clicked)
         self.course_page.refresh()
 
+        # self.overview_panel = OverviewPanel(self.planner, self.width())
+
         # Add GUI components
         self.layout.addLayout(self.sidebar)
         self.layout.addLayout(self.course_page)
+        # self.layout.addLayout(self.overview_panel)
+
+        self.set_theme("default")
+        # self.set_theme("light")
 
         self.show()
 
@@ -55,8 +62,6 @@ class PersonalPlanner(QWidget):
 
         self.setWindowTitle("Personal Planner")
         self.setWindowIcon(QIcon("assets/logo.png"))
-
-        self.set_theme("default")
 
         self.layout.setSpacing(0)
         self.setLayout(self.layout)
