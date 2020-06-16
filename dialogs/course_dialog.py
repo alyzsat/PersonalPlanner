@@ -1,12 +1,10 @@
 from PyQt5.QtWidgets import QLineEdit
 from dialogs.dialog import PlannerQDialog
-from planner_parts.planner import Planner
 
 
 class CourseDialog(PlannerQDialog):
-    def __init__(self, planner: Planner, title: str):
-        super().__init__(planner, title, 1)
-
+    def __init__(self, app, title: str):
+        super().__init__(app, title, 1)
         self.old_name = None
 
         # Create Widgets
@@ -34,7 +32,7 @@ class CourseDialog(PlannerQDialog):
         name = self.name_box.text()
         if self.old_name is not None and name.lower() == self.old_name.lower():
             self.accept()
-        elif self.planner.find_course(name) is None:
+        elif self.app.planner.find_course(name) is None:
             self.accept()
         else:
             self.set_message("Course Already Exists")

@@ -18,12 +18,12 @@ class PersonalPlanner(QWidget):
         self.setup_window(size)
 
         # Set up GUI components
-        self.sidebar = Sidebar(self.planner, self.width())
+        self.sidebar = Sidebar(self, self.width())
         self.sidebar.listwidget_courses.itemClicked.connect(self.course_clicked)
         self.sidebar.button_add_course.clicked.connect(self.add_course_clicked)
         self.sidebar.refresh()
 
-        self.course_page = CoursePage(self.planner, self.width())
+        self.course_page = CoursePage(self, self.width())
         self.course_page.button_course_options.clicked.connect(self.course_options_clicked)
         self.course_page.refresh()
 
@@ -34,8 +34,8 @@ class PersonalPlanner(QWidget):
         self.layout.addLayout(self.course_page)
         # self.layout.addLayout(self.overview_panel)
 
-        self.set_theme("default")
-        # self.set_theme("light")
+        self.current_theme = "default"
+        self.set_theme(self.current_theme)
 
         self.show()
 
@@ -50,6 +50,9 @@ class PersonalPlanner(QWidget):
         self.planner.add_course("ICS 139W")
         self.planner.add_assign("ICS 139W", "Discussion 3", 5, 21)
         self.planner.add_assign("ICS 139W", "Proposal Draft", 5, 26)
+
+        for i in range(1, 10):
+            self.planner.add_course("Fake Course " + str(i))
 
     def setup_window(self, size: QSize):
         """Set up window dimensions, placement, title, and layout"""

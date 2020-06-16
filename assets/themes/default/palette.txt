@@ -1,4 +1,5 @@
 {
+"theme": "default",
 "background1": "#35393d",
 "background2": "#454a4f",
 "accent1": "#ffa600",

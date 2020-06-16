@@ -1,0 +1,10 @@
+{
+"theme": "mintlight",
+"background1": "#f5fcf7",
+"background2": "#ddede2",
+"accent1": "#a1d4c2",
+"accent2": "#a3ced4",
+"accent3": "#4a6d91",
+"text1": "#3e4a57",
+"text2": "#ffffff"
+}

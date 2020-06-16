@@ -2,11 +2,10 @@ from datetime import datetime
 
 from PyQt5.QtWidgets import QLineEdit, QComboBox
 from dialogs.dialog import PlannerQDialog
-from planner_parts.planner import Planner
 
 
 class AssignmentDialog(PlannerQDialog):
-    def __init__(self, planner: Planner, course_name: str, title: str):
+    def __init__(self, planner, course_name: str, title: str):
         super().__init__(planner, title, 3)
         self.course_name = course_name
 
@@ -54,7 +53,7 @@ class AssignmentDialog(PlannerQDialog):
         name = self.name_box.text()
         if self.old_name is not None and name.lower() == self.old_name.lower():
             self.accept()
-        elif self.planner.find_course(self.course_name).find_assignment(name) is None:
+        elif self.app.planner.find_course(self.course_name).find_assignment(name) is None:
             self.accept()
         else:
             self.set_message("Assignment Already Exists")

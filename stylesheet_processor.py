@@ -7,7 +7,7 @@ import json
 
 class StyleSheetProcessor:
     def __init__(self, theme_name: str):
-        with open(f"assets/themes/{theme_name}", "r") as theme:
+        with open(f"assets/themes/{theme_name}/palette.txt", "r") as theme:
             self.color_palette = json.load(theme)
 
     def run(self):

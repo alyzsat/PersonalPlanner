@@ -1,26 +1,28 @@
 from PyQt5.QtCore import Qt
-from PyQt5.QtWidgets import QVBoxLayout, QHBoxLayout, QListWidget, QLabel, QPushButton
+from PyQt5.QtWidgets import QVBoxLayout, QHBoxLayout, QLabel, QPushButton, QTableWidget, QTableWidgetItem
 
 from dialogs.assign_dialog import AssignmentDialog
 from dialogs.course_dialog import CourseDialog
-from planner_parts.planner import Planner
+from dialogs.settings_dialog import SettingsDialog
 
 
 class CoursePage(QVBoxLayout):
-    def __init__(self, planner: Planner, planner_width: int):
+    def __init__(self, app, planner_width: int):
         super().__init__()
-        self.planner = planner
+        self.app = app
         self.setSpacing(20)
 
         # Initialize Widgets
-        self.listwidget_assignments = QListWidget()
+        self.tablewidget_assignments = QTableWidget()
         self.label_current_course = QLabel()
         self.button_course_options = QPushButton()
         self.button_add_assign = QPushButton()
+        self.button_settings = QPushButton()
 
         # Sizes for Widgets
         size_add_assign = int(planner_width / 5)
         size_course_options = int(planner_width / 20)
+        size_settings = int(planner_width / 30)
 
         # Create course bar sublayout and add to layout
         course_bar = QHBoxLayout()
@@ -31,19 +33,23 @@ class CoursePage(QVBoxLayout):
         course_bar.addWidget(self.button_course_options)
         course_bar.addStretch()
         course_bar.addWidget(self.button_add_assign)
-        self.addWidget(self.listwidget_assignments)
+        course_bar.addWidget(self.button_settings)
+        self.addWidget(self.tablewidget_assignments)
 
         # Configure Widgets
         self.setup_assignments()
         self.setup_current_course()
         self.setup_course_options(size_course_options)
         self.setup_add_assignment(size_add_assign)
+        self.setup_settings(size_settings)
 
     def setup_assignments(self) -> None:
         """QListWidget that displays all of the assignments for
         the current course that is selected
         """
-        self.listwidget_assignments.setObjectName("Assignments")
+        self.tablewidget_assignments.setObjectName("Assignments")
+        self.tablewidget_assignments.verticalHeader().hide()
+        self.tablewidget_assignments.horizontalHeader().hide()
 
     def setup_current_course(self) -> None:
         """Label placed at the top of the window to represent
@@ -63,6 +69,12 @@ class CoursePage(QVBoxLayout):
         # Moved connection to PersonalPlanner to be able to refresh the sidebar
         # self.button_course_options.clicked.connect(self.course_options_clicked)
 
+    def setup_settings(self, width: int):
+        self.button_settings.setObjectName("Settings")
+        self.button_settings.setCursor(Qt.PointingHandCursor)
+        self.button_settings.setFixedWidth(width)
+        self.button_settings.clicked.connect(self.settings_clicked)
+
     def setup_add_assignment(self, width: int) -> None:
         """Button that, when clicked, opens a dialog to add
         a new assignment to the current course
@@ -77,33 +89,48 @@ class CoursePage(QVBoxLayout):
         newly selected course. Also changes the course name at
         the top of the page if the course has changed.
         """
-        self.listwidget_assignments.clear()
-        if self.planner.is_empty():
+        self.tablewidget_assignments.clear()
+        if self.app.planner.is_empty():
             self.label_current_course.setText("")
         else:
-            self.label_current_course.setText(self.planner.get_current_course().name())
-            assignments = [a.name() for a in self.planner.get_current_course().assignments()]
-            self.listwidget_assignments.addItems(assignments)
+            current_course = self.app.planner.get_current_course()
+            self.label_current_course.setText(current_course.name())
+
+            n_items = len(current_course.assignments())
+            self.tablewidget_assignments.setRowCount(n_items)
+            self.tablewidget_assignments.setColumnCount(1)
+
+            for i in range(n_items):
+                assignment = current_course.assignments()[i]
+                item = QTableWidgetItem(assignment.name())
+                self.tablewidget_assignments.setItem(i, 0, item)
 
     def course_options_clicked(self):
         """Opens a dialog to edit the course name"""
         current_course_name = self.label_current_course.text()
-        dialog = CourseDialog(self.planner, f"Edit Course: {current_course_name}")
+        dialog = CourseDialog(self.app, f"Edit Course: {current_course_name}")
         dialog.load_info(current_course_name)
         ok_clicked = dialog.exec_()
         if ok_clicked:
             new_name = dialog.get_info()
-            self.planner.change_course_name(current_course_name, new_name)
+            self.app.planner.change_course_name(current_course_name, new_name)
             self.label_current_course.setText(new_name)
 
     def add_assignment_clicked(self):
         """Called when Add Assignment button is clicked, adds a
         new assignment to the current course
         """
-        current_course_name = self.planner.get_current_course().name()
-        dialog = AssignmentDialog(self.planner, current_course_name, "Create New Assignment")
+        current_course_name = self.app.planner.get_current_course().name()
+        dialog = AssignmentDialog(self.app, current_course_name, "Create New Assignment")
         ok_clicked = dialog.exec_()
         if ok_clicked:
             name, month, day = dialog.get_info()
-            self.planner.add_assign(current_course_name, name, month, day)
+            self.app.planner.add_assign(current_course_name, name, month, day)
             self.refresh()
+
+    def settings_clicked(self):
+        """Called when the Settings button is clicked, opens
+        a QDialog box to change program settings
+        """
+        dialog = SettingsDialog(self.app)
+        dialog.exec_()

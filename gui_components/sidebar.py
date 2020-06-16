@@ -7,29 +7,25 @@ from planner_parts.planner import Planner
 
 
 class Sidebar(QVBoxLayout):
-    def __init__(self, planner: Planner, planner_width: int):
+    def __init__(self, app, planner_width: int):
         super().__init__()
-        self.planner = planner
+        self.app = app
         self.setSpacing(20)
 
         # Initialize widgets
         self.button_add_course = QPushButton()
-        self.button_settings = QPushButton()
         self.listwidget_courses = QListWidget()
 
         # Sizes for widgets
         size_widgets = int(planner_width / 4)
-        size_settings = int(planner_width / 8)
 
         # Add Widgets to layout
         self.addWidget(self.button_add_course)
         self.addWidget(self.listwidget_courses)
-        self.addWidget(self.button_settings, alignment=Qt.AlignCenter)
 
         # Configure Widgets
         self.setup_add_course(size_widgets)
         self.setup_courses(size_widgets)
-        self.setup_settings(size_settings)
 
     def setup_courses(self, width: int):
         """Configures the QListWidget for holding courses"""
@@ -43,29 +39,23 @@ class Sidebar(QVBoxLayout):
         self.button_add_course.setFixedWidth(width)
         self.button_add_course.setCursor(Qt.PointingHandCursor)
 
-    def setup_settings(self, width: int):
-        self.button_settings.setText("Settings")
-        self.button_settings.setObjectName("Settings")
-        self.button_settings.setFixedWidth(width)
-        self.button_settings.setCursor(Qt.PointingHandCursor)
-
     def refresh(self):
         """Refreshes the course list view to reflect any changes
         in the list
         """
-        courses = [c.name() for c in self.planner.courses()]
+        courses = [c.name() for c in self.app.planner.courses()]
         self.listwidget_courses.clear()
         self.listwidget_courses.addItems(courses)
-        if not self.planner.is_empty():
-            self.listwidget_courses.setCurrentRow(self.planner.get_current_course_index())
+        if not self.app.planner.is_empty():
+            self.listwidget_courses.setCurrentRow(self.app.planner.get_current_course_index())
 
     def add_course_clicked(self):
         """Called when the add course button is clicked and opens a
         dialog to add a new course to the planner
         """
-        dialog = CourseDialog(self.planner, "Create New Course")
+        dialog = CourseDialog(self.app, "Create New Course")
         ok_clicked = dialog.exec_()
         if ok_clicked:
             name = dialog.get_info()
-            self.planner.add_course(name)
+            self.app.planner.add_course(name)
             self.refresh()

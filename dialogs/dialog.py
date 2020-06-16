@@ -1,16 +1,15 @@
 from PyQt5.QtGui import QIcon
 from PyQt5.QtWidgets import QDialog, QGridLayout, QLabel, QPushButton, QWidget, QHBoxLayout
 from PyQt5.QtCore import Qt
-from planner_parts.planner import Planner
 
 
 class PlannerQDialog(QDialog):
-    def __init__(self, planner: Planner, window_name: str, rows: int):
+    def __init__(self, app, window_name: str, rows: int):
         super().__init__()
         self.setWindowFlag(Qt.WindowContextHelpButtonHint, False)
         self.setWindowIcon(QIcon("assets/logo.png"))
         self.setMinimumWidth(700)
-        self.planner = planner
+        self.app = app
         self.setWindowTitle(window_name)
         self.row_count = 0
 
@@ -19,6 +18,7 @@ class PlannerQDialog(QDialog):
 
         # Message Box
         self.message_box = QLabel()
+        self.message_box.setObjectName("Message")
 
         # Ok Button
         self.ok_button = QPushButton("Ok")

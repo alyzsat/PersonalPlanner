@@ -4,7 +4,7 @@ QWidget {
 }
 
 QLabel#LabelCourseName {
-    padding-left: 20px;
+    padding-left: 40px;
 }
 
 QLabel#LabelUpcoming {
@@ -36,7 +36,7 @@ QListWidget::item {
 
 QListWidget::item:focus#Courses,
 QListWidget::item:selected#Courses {
-    color: @accent2;
+    color: @accent1;
     background-color: @background2;
     border-top-left-radius: 15px;
     border-bottom-left-radius: 15px;
@@ -46,26 +46,100 @@ QListWidget::item:hover#Courses {
     color: @accent2;
 }
 
-QListWidget#Assignments {
-    border-top-left-radius: 0px;
-    border-bottom-left-radius: 0px;
-    background-color: @background2;
-    color: black;
-}
-
 QListWidget#Upcoming  {
     background-color: red;
+}
+
+QTableWidget#Assignments {
+    border-top-right-radius: 30px;
+    border-bottom-right-radius: 30px;
+    background-color: @background2;
+    color: @text2;
+    border: red;
+    gridline-color: @background2;
+    outline: 0;
+    padding-left: 20px;
+}
+
+QTableWidget::item#Assignments {
+    color: @text1;
+    border: none;
+    padding-left: 20px;
+}
+
+QTableWidget::item:selected#Assignments {
+    padding-left: 20px;
+    background-color: none;
+}
+
+QTableWidget::item:hover#Assignments {
+    color: @accent1;
 }
 
 QComboBox {
     background-color: @background2;
     color: @text1;
-    padding: 5px;
+    padding: 10px;
+    padding-left: 20px;
     border-radius: 15px;
+}
+
+QComboBox:on {
+    border-bottom-left-radius: 0px;
+    border-bottom-right-radius: 0px;
+}
+
+QComboBox::drop-down {
+    width: 30px;
+    padding-right: 20px;
+    border-top-right-radius: 15px;
+    border-bottom-right-radius: 15px;
+}
+
+QComboBox::down-arrow {
+    image: url(assets/themes/@theme/down_arrow.png);
+}
+
+QComboBox QAbstractItemView {
+    border-radius: 15px;
+    background-color: @background2;
+    selection-background-color: @background2;
+    selection-color: @accent1;
+    selection-border-radius: 3px;
+    outline: 0;
+    padding: 5px;
+}
+
+QComboBox QScrollBar {
+    background-color: @background2;
+    width: 25px;
+}
+
+QComboBox QScrollBar::handle {
+    background-color: @background1;
+    border-radius: 7px;
+}
+
+QComboBox QScrollBar::sub-line,
+QComboBox QScrollBar::add-line,
+QComboBox QScrollBar::sub-page,
+QComboBox QScrollBar::add-page {
+    background: none;
 }
 
 QPushButton#CourseOptions {
     background-color: none;
+    color: @accent2;
+    margin: 0px;
+}
+
+QPushButton#Settings {
+    border-radius: 0px;
+    background-image: url(assets/themes/@theme/settings_bars.png);
+    background-repeat: no-repeat;
+    background-color: none;
+    background-position: center;
+    margin: 0px;
 }
 
 QPushButton {
@@ -81,4 +155,8 @@ QPushButton {
 
 QPushButton:disabled {
     background-color: @background2;
+}
+
+QDialog QLabel#Message {
+    color: @accent3;
 }
