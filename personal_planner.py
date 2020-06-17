@@ -1,5 +1,4 @@
 from gui_components.course_page import CoursePage
-from gui_components.overview_panel import OverviewPanel
 from gui_components.sidebar import Sidebar
 from planner_parts.planner import Planner
 from PyQt5.QtWidgets import QWidget, QHBoxLayout, QListWidgetItem
