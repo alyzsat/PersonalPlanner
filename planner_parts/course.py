@@ -32,6 +32,9 @@ class Course:
         if index != -1:
             return self._assignments[index]
 
+    def mark_assignment(self, index: int, status: bool):
+        self._assignments[index].mark_complete(status)
+
     def clear(self) -> None:
         self._assignments = []
 

@@ -72,10 +72,6 @@ QTableWidget::item:selected#Assignments {
     background-color: none;
 }
 
-QTableWidget::item:hover#Assignments {
-    color: @accent1;
-}
-
 QComboBox {
     border: 1px solid @background1;
     background-color: @background2;
@@ -161,4 +157,16 @@ QPushButton:disabled {
 
 QDialog QLabel#Message {
     color: @accent3;
+}
+
+QTableWidget::indicator {
+    border-radius: 10px;
+}
+
+QTableWidget::indicator:unchecked {
+    background-color: @background1;
+}
+
+QTableWidget::indicator:checked {
+    background-color: @accent2;
 }

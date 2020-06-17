@@ -50,6 +50,9 @@ class CoursePage(QVBoxLayout):
         self.tablewidget_assignments.setObjectName("Assignments")
         self.tablewidget_assignments.verticalHeader().hide()
         self.tablewidget_assignments.horizontalHeader().hide()
+        self.tablewidget_assignments.setColumnCount(3)
+        self.tablewidget_assignments.resizeColumnToContents(0)
+        self.tablewidget_assignments.itemChanged.connect(self.update_completed_status)
 
     def setup_current_course(self) -> None:
         """Label placed at the top of the window to represent
@@ -93,17 +96,32 @@ class CoursePage(QVBoxLayout):
         if self.app.planner.is_empty():
             self.label_current_course.setText("")
         else:
+            self.tablewidget_assignments.disconnect()
             current_course = self.app.planner.get_current_course()
             self.label_current_course.setText(current_course.name())
 
             n_items = len(current_course.assignments())
             self.tablewidget_assignments.setRowCount(n_items)
-            self.tablewidget_assignments.setColumnCount(1)
 
             for i in range(n_items):
                 assignment = current_course.assignments()[i]
-                item = QTableWidgetItem(assignment.name())
-                self.tablewidget_assignments.setItem(i, 0, item)
+
+                completed = QTableWidgetItem()
+                completed.setCheckState(2 if assignment.is_completed() else 0)
+                self.tablewidget_assignments.setItem(i, 0, completed)
+
+                name = QTableWidgetItem(assignment.name())
+                self.tablewidget_assignments.setItem(i, 1, name)
+
+                due_date = QTableWidgetItem(f"{assignment.due_date()[0]}/{assignment.due_date()[1]}")
+                self.tablewidget_assignments.setItem(i, 2, due_date)
+            self.tablewidget_assignments.itemChanged.connect(self.update_completed_status)
+
+    def update_completed_status(self, item):
+        if item.column() == 0:
+            course_name = self.app.planner.get_current_course().name()
+            status = True if item.checkState() == 2 else False
+            self.app.planner.mark_assign(course_name, item.row(), status)
 
     def course_options_clicked(self):
         """Opens a dialog to edit the course name"""

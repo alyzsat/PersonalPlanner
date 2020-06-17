@@ -24,6 +24,10 @@ class Planner:
         """Removes an assignment from the given course"""
         self._course_method(course_name, "remove_assignment", [assign_name])
 
+    def mark_assign(self, course_name: str, assign_index: str, status: bool) -> None:
+        """Removes an assignment from the given course"""
+        self._course_method(course_name, "mark_assignment", [assign_index, status])
+
     def get_assign(self, assign_name: str) -> Assignment:
         """Returns the specified assignment for the current course"""
         return self._courses[self._current_course_index].find_assignment(assign_name)

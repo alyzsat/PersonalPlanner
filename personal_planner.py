@@ -24,6 +24,7 @@ class PersonalPlanner(QWidget):
 
         self.course_page = CoursePage(self, self.width())
         self.course_page.button_course_options.clicked.connect(self.course_options_clicked)
+
         self.course_page.refresh()
 
         # self.overview_panel = OverviewPanel(self.planner, self.width())
