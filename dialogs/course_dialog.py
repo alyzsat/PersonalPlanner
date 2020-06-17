@@ -8,28 +8,28 @@ class CourseDialog(PlannerQDialog):
         self.old_name = None
 
         # Create Widgets
-        self.name_box = QLineEdit()
-        self.name_box.textChanged.connect(self.check_text)
+        self.lineedit_name = QLineEdit()
+        self.lineedit_name.textChanged.connect(self.check_text)
 
         # Add the widget to dialog
-        self.add_widget("Name", self.name_box)
+        self.add_widget("Name", self.lineedit_name)
 
-        self.name_box.setFocus()
+        self.lineedit_name.setFocus()
 
     def load_info(self, name: str) -> None:
         """Loads the course name to edit course"""
-        self.name_box.setText(name)
+        self.lineedit_name.setText(name)
         self.old_name = name
 
     def get_info(self) -> str:
         """Return name"""
-        return self.name_box.text()
+        return self.lineedit_name.text()
 
     def ok_clicked(self):
         """Check if course name already exists for creating new course, or
         edit course and change name
         """
-        name = self.name_box.text()
+        name = self.lineedit_name.text()
         if self.old_name is not None and name.lower() == self.old_name.lower():
             self.accept()
         elif self.app.planner.find_course(name) is None:

@@ -1,5 +1,5 @@
 from PyQt5.QtGui import QIcon
-from PyQt5.QtWidgets import QDialog, QGridLayout, QLabel, QPushButton, QWidget, QHBoxLayout
+from PyQt5.QtWidgets import QDialog, QGridLayout, QLabel, QPushButton, QWidget, QHBoxLayout, QComboBox, QFrame
 from PyQt5.QtCore import Qt
 
 
@@ -21,16 +21,16 @@ class PlannerQDialog(QDialog):
         self.message_box.setObjectName("Message")
 
         # Ok Button
-        self.ok_button = QPushButton("Ok")
-        self.ok_button.clicked.connect(self.ok_clicked)
-        self.ok_button.setDefault(True)
-        self.ok_button.setDisabled(True)
-        self.ok_button.setCursor(Qt.PointingHandCursor)
+        self.button_ok = QPushButton("Ok")
+        self.button_ok.clicked.connect(self.ok_clicked)
+        self.button_ok.setDefault(True)
+        self.button_ok.setDisabled(True)
+        self.button_ok.setCursor(Qt.PointingHandCursor)
 
         # Cancel Button
-        cancel_button = QPushButton("Cancel")
-        cancel_button.clicked.connect(self.reject)
-        cancel_button.setCursor(Qt.PointingHandCursor)
+        button_cancel = QPushButton("Cancel")
+        button_cancel.clicked.connect(self.reject)
+        button_cancel.setCursor(Qt.PointingHandCursor)
 
         # Configure Layout
         self.layout = QGridLayout()
@@ -38,8 +38,8 @@ class PlannerQDialog(QDialog):
 
         # Button Box
         button_box = QHBoxLayout()
-        button_box.addWidget(cancel_button)
-        button_box.addWidget(self.ok_button)
+        button_box.addWidget(button_cancel)
+        button_box.addWidget(self.button_ok)
 
         self.layout.addLayout(button_box, rows + 2, 2)
         self.setLayout(self.layout)
@@ -48,6 +48,12 @@ class PlannerQDialog(QDialog):
         """Add more widgets along with a label. This keeps track
         of the row count to make adding more widgets easier
         """
+        if type(widget) == QComboBox:
+            # Remove Drop Shadow Effect on QComboBox's menu
+            # Daegun Kim / Philip Nelson
+            # https://stackoverflow.com/questions/27739536/remove-qcombobox-listview-shadow-effect
+            widget.findChild(QFrame).setWindowFlags(Qt.Popup | Qt.NoDropShadowWindowHint)
+
         self.row_count += 1
         self.layout.addWidget(QLabel(text), self.row_count, 1)
         self.layout.addWidget(widget, self.row_count, 2)
@@ -67,9 +73,9 @@ class PlannerQDialog(QDialog):
         if text == "":
             self.message_box.clear()
         if text.strip() != "":
-            self.ok_button.setDisabled(False)
+            self.button_ok.setDisabled(False)
         else:
-            self.ok_button.setDisabled(True)
+            self.button_ok.setDisabled(True)
 
     def set_message(self, text: str):
         """Sets a message to display more info"""

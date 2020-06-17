@@ -35,7 +35,7 @@ class PersonalPlanner(QWidget):
         # self.layout.addLayout(self.overview_panel)
 
         self.current_theme = "default"
-        self.set_theme(self.current_theme)
+        self.set_theme(self.current_theme, self)
 
         self.show()
 
@@ -91,7 +91,7 @@ class PersonalPlanner(QWidget):
         self.course_page.course_options_clicked()
         self.sidebar.refresh()
 
-    def set_theme(self, theme_name: str):
+    def set_theme(self, theme_name: str, widget: QWidget):
         """Runs the StyleSheetProcessor which will replace the
         placeholders in the raw-stylesheet.qss with the attributes
         of the theme, and then sets the stylesheet with the newly
@@ -99,7 +99,7 @@ class PersonalPlanner(QWidget):
         """
         StyleSheetProcessor(theme_name).run()
         with open("assets/stylesheet.qss") as ss:
-            self.setStyleSheet(ss.read())
+            widget.setStyleSheet(ss.read())
 
     def test(self, info):
         # ======================== Temporary ========================

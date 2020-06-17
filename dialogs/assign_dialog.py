@@ -18,39 +18,39 @@ class AssignmentDialog(PlannerQDialog):
         self.old_name = None
 
         # Create Widgets
-        self.name_box = QLineEdit()
-        self.name_box.textChanged.connect(self.check_text)
+        self.lineedit_name = QLineEdit()
+        self.lineedit_name.textChanged.connect(self.check_text)
 
-        self.month_box = QComboBox()
-        self.month_box.addItems(months)
-        self.month_box.setCurrentIndex(current_date.month - 1)
+        self.combobox_month = QComboBox()
+        self.combobox_month.addItems(months)
+        self.combobox_month.setCurrentIndex(current_date.month - 1)
 
-        self.day_box = QComboBox()
-        self.day_box.addItems(days)
-        self.day_box.setCurrentIndex(current_date.day - 1)
+        self.combobox_day = QComboBox()
+        self.combobox_day.addItems(days)
+        self.combobox_day.setCurrentIndex(current_date.day - 1)
 
         # Add the Widgets
-        self.add_widget("Name", self.name_box)
-        self.add_widget("Month", self.month_box)
-        self.add_widget("Day", self.day_box)
+        self.add_widget("Name", self.lineedit_name)
+        self.add_widget("Month", self.combobox_month)
+        self.add_widget("Day", self.combobox_day)
 
-        self.name_box.setFocus()
+        self.lineedit_name.setFocus()
 
     def get_info(self) -> (str, int, int):
         """Return name, month, and day from fields"""
-        return self.name_box.text(), self.month_box.currentIndex() + 1, self.day_box.currentIndex() + 1
+        return self.lineedit_name.text(), self.combobox_month.currentIndex() + 1, self.combobox_day.currentIndex() + 1
 
     def load_info(self, info: list) -> None:
         """Loads assignment information into dialog to edit"""
         name, month, day = info
         self.old_name = name
-        self.name_box.setText(name)
-        self.month_box.setCurrentIndex(month - 1)
-        self.day_box.setCurrentIndex(day - 1)
+        self.lineedit_name.setText(name)
+        self.combobox_month.setCurrentIndex(month - 1)
+        self.combobox_day.setCurrentIndex(day - 1)
 
     def ok_clicked(self):
         """Attempts to add assignment to course"""
-        name = self.name_box.text()
+        name = self.lineedit_name.text()
         if self.old_name is not None and name.lower() == self.old_name.lower():
             self.accept()
         elif self.app.planner.find_course(self.course_name).find_assignment(name) is None:

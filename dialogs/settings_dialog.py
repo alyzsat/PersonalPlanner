@@ -6,7 +6,7 @@ from dialogs.dialog import PlannerQDialog
 class SettingsDialog(PlannerQDialog):
     def __init__(self, app):
         super().__init__(app, "Settings", 1)
-        self.ok_button.setEnabled(True)
+        self.button_ok.setEnabled(True)
 
         themes = ["Default", "DefaultLight", "Mint", "MintLight"]
         self.old_theme = app.current_theme
@@ -24,10 +24,11 @@ class SettingsDialog(PlannerQDialog):
         self.rejected.connect(self.reset_theme)
 
     def reset_theme(self):
-        self.app.set_theme(self.old_theme)
+        self.app.set_theme(self.old_theme, self.app)
 
     def set_planner_theme(self, theme: str) -> None:
-        self.app.set_theme(theme.lower())
+        self.app.set_theme(theme.lower(), self.app)
+        self.app.set_theme(theme.lower(), self)
 
     def test_theme(self, index: int):
         theme = self.combobox_theme.itemText(index)

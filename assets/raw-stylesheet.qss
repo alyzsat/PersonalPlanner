@@ -77,6 +77,7 @@ QTableWidget::item:hover#Assignments {
 }
 
 QComboBox {
+    border: 1px solid @background1;
     background-color: @background2;
     color: @text1;
     padding: 10px;
@@ -101,7 +102,8 @@ QComboBox::down-arrow {
 }
 
 QComboBox QAbstractItemView {
-    border-radius: 15px;
+    border: 1px solid @background1;
+    border-top: none;
     background-color: @background2;
     selection-background-color: @background2;
     selection-color: @accent1;
@@ -117,7 +119,7 @@ QComboBox QScrollBar {
 
 QComboBox QScrollBar::handle {
     background-color: @background1;
-    border-radius: 7px;
+    border-radius: 10px;
 }
 
 QComboBox QScrollBar::sub-line,
