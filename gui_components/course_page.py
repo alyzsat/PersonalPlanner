@@ -20,9 +20,10 @@ class CoursePage(QVBoxLayout):
         self.button_settings = QPushButton()
 
         # Sizes for Widgets
-        size_add_assign = int(planner_width / 5)
+        size_add_assign = int(planner_width / 6)
         size_course_options = int(planner_width / 20)
         size_settings = int(planner_width / 30)
+        size_assignments = int(planner_width / 2)
 
         # Create course bar sublayout and add to layout
         course_bar = QHBoxLayout()
@@ -37,13 +38,13 @@ class CoursePage(QVBoxLayout):
         self.addWidget(self.tablewidget_assignments)
 
         # Configure Widgets
-        self.setup_assignments()
+        self.setup_assignments(size_assignments)
         self.setup_current_course()
         self.setup_course_options(size_course_options)
         self.setup_add_assignment(size_add_assign)
         self.setup_settings(size_settings)
 
-    def setup_assignments(self) -> None:
+    def setup_assignments(self, width: int) -> None:
         """QListWidget that displays all of the assignments for
         the current course that is selected
         """
@@ -51,8 +52,10 @@ class CoursePage(QVBoxLayout):
         self.tablewidget_assignments.verticalHeader().hide()
         self.tablewidget_assignments.horizontalHeader().hide()
         self.tablewidget_assignments.setColumnCount(3)
-        self.tablewidget_assignments.resizeColumnToContents(0)
         self.tablewidget_assignments.itemChanged.connect(self.update_completed_status)
+        self.tablewidget_assignments.setColumnWidth(0, int(width / 10))
+        self.tablewidget_assignments.setColumnWidth(1, int(2 * width / 3))
+        self.tablewidget_assignments.setColumnWidth(2, int(2 * width / 10))
 
     def setup_current_course(self) -> None:
         """Label placed at the top of the window to represent
@@ -113,7 +116,7 @@ class CoursePage(QVBoxLayout):
                 name = QTableWidgetItem(assignment.name())
                 self.tablewidget_assignments.setItem(i, 1, name)
 
-                due_date = QTableWidgetItem(f"{assignment.due_date()[0]}/{assignment.due_date()[1]}")
+                due_date = QTableWidgetItem(f"due {assignment.due_date()[0]}/{assignment.due_date()[1]}")
                 self.tablewidget_assignments.setItem(i, 2, due_date)
             self.tablewidget_assignments.itemChanged.connect(self.update_completed_status)
 

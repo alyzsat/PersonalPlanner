@@ -1,4 +1,5 @@
 from gui_components.course_page import CoursePage
+from gui_components.overview_panel import OverviewPanel
 from gui_components.sidebar import Sidebar
 from planner_parts.planner import Planner
 from PyQt5.QtWidgets import QWidget, QHBoxLayout, QListWidgetItem
@@ -22,17 +23,20 @@ class PersonalPlanner(QWidget):
         self.sidebar.button_add_course.clicked.connect(self.add_course_clicked)
         self.sidebar.refresh()
 
-        self.course_page = CoursePage(self, self.width())
-        self.course_page.button_course_options.clicked.connect(self.course_options_clicked)
+        self.course_page = QWidget()
+        self.course_page.setLayout(CoursePage(self, self.width()))
+        self.course_page.setFixedWidth(self.width() / 2)
+        self.course_page.layout().button_course_options.clicked.connect(self.course_options_clicked)
+        self.course_page.layout().setContentsMargins(0, 0, 0, 0)
+        self.course_page.layout().refresh()
 
-        self.course_page.refresh()
-
-        # self.overview_panel = OverviewPanel(self.planner, self.width())
+        self.overview_panel = OverviewPanel(self.planner, self.width())
 
         # Add GUI components
         self.layout.addLayout(self.sidebar)
-        self.layout.addLayout(self.course_page)
-        # self.layout.addLayout(self.overview_panel)
+        self.layout.addWidget(self.course_page)
+        self.layout.addLayout(self.overview_panel)
+        self.layout.addStretch()
 
         self.current_theme = "default"
         self.set_theme(self.current_theme, self)
@@ -75,12 +79,12 @@ class PersonalPlanner(QWidget):
         to display assignments for that course
         """
         self.planner.set_current_course(item.text())
-        self.course_page.refresh()
+        self.course_page.layout().refresh()
 
     # On this module because of interactions outside of Side Bar
     def add_course_clicked(self):
         self.sidebar.add_course_clicked()
-        self.course_page.refresh()
+        self.course_page.layout().refresh()
 
     # On this module because of interactions outside of Course Page
     def course_options_clicked(self):
