@@ -5,8 +5,8 @@ from dialogs.dialog import PlannerQDialog
 
 
 class AssignmentDialog(PlannerQDialog):
-    def __init__(self, planner, course_name: str, title: str):
-        super().__init__(planner, title, 3)
+    def __init__(self, app, course_name: str, title: str):
+        super().__init__(app, title, 3)
         self.course_name = course_name
 
         months = ["January", "February", "March", "April", "May",

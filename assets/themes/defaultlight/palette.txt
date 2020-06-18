@@ -1,7 +1,7 @@
 {
 "theme": "defaultlight",
-"background1": "#fffdfc",
-"background2": "#ffefe6",
+"background1": "#ffefe6",
+"background2": "#fffdfc",
 "accent1": "#ffa600",
 "accent2": "#fa8561",
 "accent3": "#E4572E",

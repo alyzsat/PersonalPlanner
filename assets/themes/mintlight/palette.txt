@@ -1,7 +1,7 @@
 {
 "theme": "mintlight",
-"background1": "#f5fcf7",
-"background2": "#ddede2",
+"background1": "#ddede2",
+"background2": "#f5fcf7",
 "accent1": "#a1d4c2",
 "accent2": "#a3ced4",
 "accent3": "#4a6d91",

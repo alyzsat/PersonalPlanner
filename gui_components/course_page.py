@@ -48,19 +48,6 @@ class CoursePage(QWidget):
         self.setup_add_assignment(size_add_assign)
         self.setup_settings(size_settings)
 
-    def setup_assignments(self, width: int) -> None:
-        """QListWidget that displays all of the assignments for
-        the current course that is selected
-        """
-        self.tablewidget_assignments.setObjectName("Assignments")
-        self.tablewidget_assignments.verticalHeader().hide()
-        self.tablewidget_assignments.horizontalHeader().hide()
-        self.tablewidget_assignments.setColumnCount(3)
-        self.tablewidget_assignments.itemChanged.connect(self.update_completed_status)
-        self.tablewidget_assignments.setColumnWidth(0, int(width / 10))
-        self.tablewidget_assignments.setColumnWidth(1, int(7 * width / 11))
-        self.tablewidget_assignments.setColumnWidth(2, int( width / 5))
-
     def setup_current_course(self) -> None:
         """Label placed at the top of the window to represent
         the current course to display
@@ -84,6 +71,19 @@ class CoursePage(QWidget):
         self.button_settings.setCursor(Qt.PointingHandCursor)
         self.button_settings.setFixedWidth(width)
         self.button_settings.clicked.connect(self.settings_clicked)
+
+    def setup_assignments(self, width: int) -> None:
+        """QListWidget that displays all of the assignments for
+        the current course that is selected
+        """
+        self.tablewidget_assignments.setObjectName("Assignments")
+        self.tablewidget_assignments.verticalHeader().hide()
+        self.tablewidget_assignments.horizontalHeader().hide()
+        self.tablewidget_assignments.setColumnCount(3)
+        self.tablewidget_assignments.itemChanged.connect(self.update_completed_status)
+        self.tablewidget_assignments.setColumnWidth(0, int(width / 10))
+        self.tablewidget_assignments.setColumnWidth(1, int(7 * width / 11))
+        self.tablewidget_assignments.setColumnWidth(2, int(width / 5))
 
     def setup_add_assignment(self, width: int) -> None:
         """Button that, when clicked, opens a dialog to add

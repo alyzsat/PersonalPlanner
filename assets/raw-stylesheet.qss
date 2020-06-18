@@ -21,6 +21,7 @@ QLineEdit {
     padding: 5px;
     border-radius: 15px;
     selection-background-color: @accent3;
+    padding-left: 20px;
 }
 
 QListWidget {
@@ -169,4 +170,15 @@ QPushButton:disabled {
 
 QDialog QLabel#Message {
     color: @accent3;
+    margin: 0px;
+    padding: 0px;
+}
+
+QDialog QLabel#Name {
+    font: 10pt;
+}
+
+QDialog {
+    padding: 0px;
+    margin: 0px;
 }
