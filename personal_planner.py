@@ -23,12 +23,10 @@ class PersonalPlanner(QWidget):
         self.sidebar.button_add_course.clicked.connect(self.add_course_clicked)
         self.sidebar.refresh()
 
-        self.course_page = QWidget()
-        self.course_page.setLayout(CoursePage(self, self.width()))
-        self.course_page.setFixedWidth(self.width() / 2)
-        self.course_page.layout().button_course_options.clicked.connect(self.course_options_clicked)
-        self.course_page.layout().setContentsMargins(0, 0, 0, 0)
-        self.course_page.layout().refresh()
+        course_page_width = self.width() / 2
+        self.course_page = CoursePage(self, course_page_width)
+        self.course_page.button_course_options.clicked.connect(self.course_options_clicked)
+        self.course_page.refresh()
 
         self.overview_panel = OverviewPanel(self.planner, self.width())
 
@@ -79,12 +77,12 @@ class PersonalPlanner(QWidget):
         to display assignments for that course
         """
         self.planner.set_current_course(item.text())
-        self.course_page.layout().refresh()
+        self.course_page.refresh()
 
     # On this module because of interactions outside of Side Bar
     def add_course_clicked(self):
         self.sidebar.add_course_clicked()
-        self.course_page.layout().refresh()
+        self.course_page.refresh()
 
     # On this module because of interactions outside of Course Page
     def course_options_clicked(self):

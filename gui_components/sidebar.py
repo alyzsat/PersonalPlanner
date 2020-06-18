@@ -58,4 +58,5 @@ class Sidebar(QVBoxLayout):
         if ok_clicked:
             name = dialog.get_info()
             self.app.planner.add_course(name)
+            self.app.planner.set_current_course(name)
             self.refresh()

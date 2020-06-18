@@ -1,16 +1,20 @@
 from PyQt5.QtCore import Qt
-from PyQt5.QtWidgets import QVBoxLayout, QHBoxLayout, QLabel, QPushButton, QTableWidget, QTableWidgetItem
+from PyQt5.QtWidgets import QVBoxLayout, QHBoxLayout, QLabel, QPushButton, QTableWidget, QTableWidgetItem, QWidget
 
 from dialogs.assign_dialog import AssignmentDialog
 from dialogs.course_dialog import CourseDialog
 from dialogs.settings_dialog import SettingsDialog
 
 
-class CoursePage(QVBoxLayout):
-    def __init__(self, app, planner_width: int):
+class CoursePage(QWidget):
+    def __init__(self, app, width: int):
         super().__init__()
         self.app = app
-        self.setSpacing(20)
+        self.setFixedWidth(width)
+        self.layout = QVBoxLayout()
+        self.layout.setContentsMargins(0, 0, 0, 0)
+        self.layout.setSpacing(20)
+        self.setLayout(self.layout)
 
         # Initialize Widgets
         self.tablewidget_assignments = QTableWidget()
@@ -20,14 +24,14 @@ class CoursePage(QVBoxLayout):
         self.button_settings = QPushButton()
 
         # Sizes for Widgets
-        size_add_assign = int(planner_width / 6)
-        size_course_options = int(planner_width / 20)
-        size_settings = int(planner_width / 30)
-        size_assignments = int(planner_width / 2)
+        size_add_assign = int(width / 3)
+        size_course_options = int(width / 10)
+        size_settings = int(width / 15)
+        size_assignments = width
 
         # Create course bar sublayout and add to layout
         course_bar = QHBoxLayout()
-        self.addLayout(course_bar)
+        self.layout.addLayout(course_bar)
 
         # Add Widgets
         course_bar.addWidget(self.label_current_course)
@@ -35,7 +39,7 @@ class CoursePage(QVBoxLayout):
         course_bar.addStretch()
         course_bar.addWidget(self.button_add_assign)
         course_bar.addWidget(self.button_settings)
-        self.addWidget(self.tablewidget_assignments)
+        self.layout.addWidget(self.tablewidget_assignments)
 
         # Configure Widgets
         self.setup_assignments(size_assignments)
@@ -54,8 +58,8 @@ class CoursePage(QVBoxLayout):
         self.tablewidget_assignments.setColumnCount(3)
         self.tablewidget_assignments.itemChanged.connect(self.update_completed_status)
         self.tablewidget_assignments.setColumnWidth(0, int(width / 10))
-        self.tablewidget_assignments.setColumnWidth(1, int(2 * width / 3))
-        self.tablewidget_assignments.setColumnWidth(2, int(2 * width / 10))
+        self.tablewidget_assignments.setColumnWidth(1, int(7 * width / 11))
+        self.tablewidget_assignments.setColumnWidth(2, int( width / 5))
 
     def setup_current_course(self) -> None:
         """Label placed at the top of the window to represent
