@@ -82,7 +82,7 @@ class CoursePage(QWidget):
         self.tablewidget_assignments.setColumnCount(3)
         self.tablewidget_assignments.itemChanged.connect(self.update_completed_status)
         self.tablewidget_assignments.setColumnWidth(0, int(width / 10))
-        self.tablewidget_assignments.setColumnWidth(1, int(7 * width / 11))
+        self.tablewidget_assignments.setColumnWidth(1, int(6 * width / 11))
         self.tablewidget_assignments.setColumnWidth(2, int(width / 5))
 
     def setup_add_assignment(self, width: int) -> None:
@@ -125,6 +125,9 @@ class CoursePage(QWidget):
             self.tablewidget_assignments.itemChanged.connect(self.update_completed_status)
 
     def update_completed_status(self, item):
+        """Update the planner to mark whether or not the assignment
+        is completed
+        """
         if item.column() == 0:
             course_name = self.app.planner.get_current_course().name()
             status = True if item.checkState() == 2 else False

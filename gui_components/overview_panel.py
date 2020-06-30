@@ -1,5 +1,5 @@
 from PyQt5.QtCore import Qt
-from PyQt5.QtWidgets import QVBoxLayout, QLabel
+from PyQt5.QtWidgets import QVBoxLayout, QLabel, QCalendarWidget
 
 
 class OverviewPanel(QVBoxLayout):
@@ -7,3 +7,4 @@ class OverviewPanel(QVBoxLayout):
         super().__init__()
         self.app = app
         # self.addWidget(QLabel("Placeholder"), Qt.AlignCenter)
+        # self.addWidget(QCalendarWidget())

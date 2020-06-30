@@ -1,10 +1,11 @@
 {
 "theme": "defaultlight",
-"background1": "#ffefe6",
-"background2": "#fffdfc",
-"accent1": "#ffa600",
-"accent2": "#fa8561",
+"background1": "#faf7f5",
+"background2": "#ffffff",
+"accent1": "#fcc358",
+"accent2": "#fa9e82",
 "accent3": "#E4572E",
 "text1": "#5e4e4a",
-"text2": "#ffffff"
+"text2": "#ffffff",
+"disabled": "#f0e6df"
 }

@@ -37,7 +37,7 @@ QListWidget::item {
 
 QListWidget::item:focus#Courses,
 QListWidget::item:selected#Courses {
-    color: @accent1;
+    color: @accent3;
     background-color: @background2;
     border-top-left-radius: 15px;
     border-bottom-left-radius: 15px;
@@ -85,6 +85,24 @@ QTableWidget::indicator:checked {
     background-color: @accent2;
 }
 
+QTableWidget QScrollBar {
+    background-color: @background2;
+    width: 30px;
+    padding: 10px;
+}
+
+QTableWidget QScrollBar::add-line,
+QTableWidget QScrollBar::sub-line,
+QTableWidget QScrollBar::sub-page,
+QTableWidget QScrollBar::add-page {
+    background-color: @background2;
+}
+
+QTableWidget QScrollBar::handle {
+    background: @accent2;
+    border-radius: 5px;
+}
+
 QComboBox {
     border: 1px solid @background1;
     background-color: @background2;
@@ -123,12 +141,12 @@ QComboBox QAbstractItemView {
 
 QComboBox QScrollBar {
     background-color: @background2;
-    width: 25px;
+    width: 15px;
 }
 
 QComboBox QScrollBar::handle {
     background-color: @background1;
-    border-radius: 10px;
+    border-radius: 5px;
 }
 
 QComboBox QScrollBar::sub-line,
@@ -153,7 +171,28 @@ QPushButton#Settings {
     margin: 0px;
 }
 
+QPushButton#Close {
+    background-color: none;
+    color: white;
+    font: 7pt;
+}
+
+QPushButton:hover#Close {
+    background-color: @accent2;
+    border-radius: 0px;
+    border-top-right-radius: 25px;
+    color: white;
+    font: 7pt;
+}
+
 QPushButton {
+    border-radius: 15px;
+    background-color: @accent1;
+    color: @text2;
+    padding: 20px;
+}
+
+QPushButton:hover {
     border-radius: 15px;
     background-color: QLinearGradient(
                         x1:0, y1:0,
@@ -165,7 +204,7 @@ QPushButton {
 }
 
 QPushButton:disabled {
-    background-color: @background2;
+    background-color: @disabled;
 }
 
 QDialog QLabel#Message {
@@ -175,10 +214,17 @@ QDialog QLabel#Message {
 }
 
 QDialog QLabel#Name {
-    font: 10pt;
+    font: 8pt;
+    background-color: @disabled;
 }
 
-QDialog {
-    padding: 0px;
-    margin: 0px;
+QDialog QWidget#NameBar {
+    background-color: @disabled;
+    border-top-left-radius: 25px;
+    border-top-right-radius: 25px;
+}
+
+QDialog QFrame {
+    background-color: @background1;
+    border-radius: 25px;
 }

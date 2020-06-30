@@ -6,5 +6,6 @@
 "accent2": "#fa8561",
 "accent3": "#E4572E",
 "text1": "#ffffff",
-"text2": "#ffffff"
+"text2": "#ffffff",
+"disabled": "#5b5e61"
 }
