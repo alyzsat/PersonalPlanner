@@ -96,8 +96,9 @@ class PlannerQDialog(QDialog):
     def mousePressEvent(self, a0: QtGui.QMouseEvent) -> None:
         # Click is at the top portion of dialog
         if (0 < a0.x() < self.width()) and (0 < a0.y() < 80):
-            self.dragging = True
+            # Position of mouse at click relative to dialog
             self.local_position = a0.localPos()
+            self.dragging = True
 
     def mouseReleaseEvent(self, a0: QtGui.QMouseEvent) -> None:
         self.dragging = False

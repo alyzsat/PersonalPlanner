@@ -23,7 +23,7 @@ class PersonalPlanner(QWidget):
         self.sidebar.button_add_course.clicked.connect(self.add_course_clicked)
         self.sidebar.refresh()
 
-        course_page_width = self.width() / 2
+        course_page_width = 11 * self.width() / 20
         self.course_page = CoursePage(self, course_page_width)
         self.course_page.button_course_options.clicked.connect(self.course_options_clicked)
         self.course_page.refresh()
@@ -33,8 +33,8 @@ class PersonalPlanner(QWidget):
         # Add GUI components
         self.layout.addLayout(self.sidebar)
         self.layout.addWidget(self.course_page)
-        self.layout.addLayout(self.overview_panel)
         self.layout.addStretch()
+        self.layout.addWidget(self.overview_panel)
 
         self.current_theme = "default"
         self.set_theme(self.current_theme, self)
@@ -62,9 +62,9 @@ class PersonalPlanner(QWidget):
     def setup_window(self, size: QSize):
         """Set up window dimensions, placement, title, and layout"""
         width = int(size.width() / 2)
-        height = int(size.height() / 2)
-        x = width - int(width / 2)
-        y = height - int(height / 2)
+        height = int(3 * size.height() / 5)
+        x = size.width() / 2 - int(width / 2)
+        y = size.height() / 2 - int(height / 2)
         self.setGeometry(x, y, width, height)
         self.setFixedSize(width, height)
 
@@ -72,6 +72,7 @@ class PersonalPlanner(QWidget):
         self.setWindowIcon(QIcon("assets/logo.png"))
 
         self.layout.setSpacing(0)
+        self.layout.setContentsMargins(0, 0, 0, 0)
         self.setLayout(self.layout)
 
     # On this module because of interactions outside of SideBar

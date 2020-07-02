@@ -12,7 +12,7 @@ class CoursePage(QWidget):
         self.app = app
         self.setFixedWidth(width)
         self.layout = QVBoxLayout()
-        self.layout.setContentsMargins(0, 0, 0, 0)
+        self.layout.setContentsMargins(0, 20, 0, 50)
         self.layout.setSpacing(20)
         self.setLayout(self.layout)
 
@@ -42,6 +42,7 @@ class CoursePage(QWidget):
         self.layout.addWidget(self.tablewidget_assignments)
 
         # Configure Widgets
+        self.setFixedWidth(9 * width / 10)
         self.setup_assignments(size_assignments)
         self.setup_current_course()
         self.setup_course_options(size_course_options)
@@ -82,7 +83,7 @@ class CoursePage(QWidget):
         self.tablewidget_assignments.setColumnCount(3)
         self.tablewidget_assignments.itemChanged.connect(self.update_completed_status)
         self.tablewidget_assignments.setColumnWidth(0, int(width / 10))
-        self.tablewidget_assignments.setColumnWidth(1, int(6 * width / 11))
+        self.tablewidget_assignments.setColumnWidth(1, int(11 * width / 20))
         self.tablewidget_assignments.setColumnWidth(2, int(width / 5))
 
     def setup_add_assignment(self, width: int) -> None:
