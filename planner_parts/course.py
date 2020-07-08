@@ -32,8 +32,20 @@ class Course:
         if index != -1:
             return self._assignments[index]
 
+    def has_assignment(self, name: str) -> bool:
+        return self.find_assignment(name) is not None
+
+    def assignment_at(self, index: int) -> Assignment:
+        return self._assignments[index]
+
     def mark_assignment(self, index: int, status: bool):
         self._assignments[index].mark_complete(status)
+
+    def rename_assignment(self, index: int, new_name: str) -> None:
+        self._assignments[index].change_name(new_name)
+
+    def change_assignment_dd(self, index: int, new_date: (int, int)) -> None:
+        self._assignments[index].change_due_date(new_date)
 
     def clear(self) -> None:
         self._assignments = []

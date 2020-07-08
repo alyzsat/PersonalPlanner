@@ -15,8 +15,8 @@ class Assignment:
     def change_name(self, name: str) -> None:
         self._name = name
 
-    def change_due_date(self, month: int, day: int) -> None:
-        self._due_date = (month, day)
+    def change_due_date(self, due_date: (int, int)) -> None:
+        self._due_date = due_date
 
     def mark_complete(self, status: bool) -> None:
         self._completed = status

@@ -2,7 +2,7 @@
 "theme": "default",
 "background1": "#35393d",
 "background2": "#454a4f",
-"background3": "#8a939c",
+"background3": "#2d2f30",
 "accent1": "#ffa600",
 "accent2": "#fa8561",
 "accent3": "#E4572E",

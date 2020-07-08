@@ -2,7 +2,7 @@
 "theme": "mint",
 "background1": "#35393d",
 "background2": "#454a4f",
-"background3": "#8a939c",
+"background3": "#27292b",
 "accent1": "#84cfb5",
 "accent2": "#70abb3",
 "accent3": "#768ea8",

@@ -24,13 +24,20 @@ class Planner:
         """Removes an assignment from the given course"""
         self._course_method(course_name, "remove_assignment", [assign_name])
 
+    def get_assign(self, assign_name: str) -> Assignment:
+        """Returns the specified assignment for the current course"""
+        return self._courses[self._current_course_index].find_assignment(assign_name)
+
     def mark_assign(self, course_name: str, assign_index: str, status: bool) -> None:
         """Removes an assignment from the given course"""
         self._course_method(course_name, "mark_assignment", [assign_index, status])
 
-    def get_assign(self, assign_name: str) -> Assignment:
-        """Returns the specified assignment for the current course"""
-        return self._courses[self._current_course_index].find_assignment(assign_name)
+    def change_assign_dd(self, course_name: str, assign_index: str, new_date: (int, int)):
+        self._course_method(course_name, "change_assignment_dd", [assign_index, new_date])
+
+    def change_assign_name(self, course_name: str, assign_index: int, new_name: str) -> None:
+        """Change the name of the assignment"""
+        self._course_method(course_name, "rename_assignment", [assign_index, new_name])
 
     def change_course_name(self, course_name: str, new_name: str) -> None:
         """Change the name of the given course"""
