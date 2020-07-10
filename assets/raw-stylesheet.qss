@@ -78,8 +78,6 @@ QDialog QWidget#NameBar {
     border-top-right-radius: 25px;
 }
 
-
-
 QLabel#LabelCourseName {
     padding-left: 40px;
 }

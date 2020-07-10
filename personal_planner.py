@@ -53,7 +53,7 @@ class PersonalPlanner(QWidget):
         self.planner.add_assign("ICS 139W", "Discussion 3", 5, 21)
         self.planner.add_assign("ICS 139W", "Proposal Draft", 5, 26)
 
-        for i in range(1, 10):
+        for i in range(1, 5):
             self.planner.add_course("Fake Course #" + str(i))
 
         for i in range(1, 10):

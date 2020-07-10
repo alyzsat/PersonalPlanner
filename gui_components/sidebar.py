@@ -1,9 +1,8 @@
 from PyQt5.QtCore import Qt
-from PyQt5.QtGui import QIcon
 from PyQt5.QtWidgets import QVBoxLayout, QPushButton, QListWidget
 
 from dialogs.course_dialog import CourseDialog
-from planner_parts.planner import Planner
+from dialogs.popup import PlannerPopUp
 
 
 class Sidebar(QVBoxLayout):
@@ -54,10 +53,13 @@ class Sidebar(QVBoxLayout):
         """Called when the add course button is clicked and opens a
         dialog to add a new course to the planner
         """
-        dialog = CourseDialog(self.app, "Create New Course")
-        ok_clicked = dialog.exec_()
-        if ok_clicked:
-            name = dialog.get_info()
-            self.app.planner.add_course(name)
-            self.app.planner.set_current_course(name)
-            self.refresh()
+        if len(self.app.planner.courses()) == 8:
+            PlannerPopUp(self.app, "Error", "Max course count reached (8)").show()
+        else:
+            dialog = CourseDialog(self.app, "Create New Course")
+            ok_clicked = dialog.exec_()
+            if ok_clicked:
+                name = dialog.get_info()
+                self.app.planner.add_course(name)
+                self.app.planner.set_current_course(name)
+                self.refresh()

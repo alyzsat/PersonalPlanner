@@ -4,6 +4,7 @@ from PyQt5.QtWidgets import QVBoxLayout, QHBoxLayout, QLabel, QPushButton, QTabl
 
 from dialogs.assign_dialog import AssignmentDialog
 from dialogs.course_dialog import CourseDialog
+from dialogs.popup import PlannerPopUp
 from dialogs.settings_dialog import SettingsDialog
 
 
@@ -143,36 +144,55 @@ class CoursePage(QWidget):
 
         # If the assignment name changes
         elif item.column() == 1:
-            original_assignment = self.app.planner.get_current_course().assignment_at(item.row())
-            new_name = item.text()
-
-            # Change back to original name if assignment name already exists
-            if self.app.planner.get_current_course().has_assignment(new_name):
-                name = original_assignment.name()
-                self.tablewidget_assignments.item(item.row(), item.column()).setText(name)
-
-            # Otherwise, save new name into planner
-            else:
-                self.app.planner.change_assign_name(course_name, item.row(), new_name)
+            self.update_name(item, course_name)
 
         # If the date changes
         elif item.column() == 2:
-            original_assignment = self.app.planner.get_current_course().assignment_at(item.row())
-            original_due_date = original_assignment.due_date()
-            date_str = item.text()
-            regex = QRegExp("[01]?\d/[0123]?\d")
-            validator = QRegExpValidator(regex)
+            self.update_date(item, course_name)
 
-            # If the date string seems like an acceptable date, save to planner
-            if validator.validate(date_str, 0)[0] == 2:
-                month, year = date_str.split("/")
-                self.app.planner.change_assign_dd(course_name, item.row(), (int(month), int(year)))
+    def update_name(self, item: QTableWidgetItem, course_name: str):
+        """If the assignment name was changed, update the planner to reflect
+        the changes. If the assignment name is already in use, show a
+        popup stating that.
+        """
+        original_assignment = self.app.planner.get_current_course().assignment_at(item.row())
+        new_name = item.text()
 
-            # Otherwise, change the date back to the original date
-            else:
-                original_date_str = f"{original_due_date[0]}/{original_due_date[1]}"
-                print(original_date_str)
-                self.tablewidget_assignments.item(item.row(), item.column()).setText(original_date_str)
+        # Change back to original name if assignment name already exists
+        if self.app.planner.get_current_course().has_assignment(new_name):
+            PlannerPopUp(self.app, "Error", "Assignment name already in use").show()
+
+            name = original_assignment.name()
+            # Prevent duplicate popup from showing when assignment name
+            # is changed back
+            self.tablewidget_assignments.itemChanged.disconnect()
+            self.tablewidget_assignments.item(item.row(), item.column()).setText(name)
+            self.tablewidget_assignments.itemChanged.connect(self.item_changed)
+
+        # Otherwise, save new name into planner
+        else:
+            self.app.planner.change_assign_name(course_name, item.row(), new_name)
+
+    def update_date(self, item: QTableWidgetItem, course_name: str):
+        """Update the date for the assignment if the date seems valid"""
+        original_assignment = self.app.planner.get_current_course().assignment_at(item.row())
+        original_due_date = original_assignment.due_date()
+        date_str = item.text()
+        regex = QRegExp("[01]?\d/[0123]?\d")
+        validator = QRegExpValidator(regex)
+
+        # If the date string seems like an acceptable date, save to planner
+        if validator.validate(date_str, 0)[0] == 2:
+            month, year = date_str.split("/")
+            self.app.planner.change_assign_dd(course_name, item.row(), (int(month), int(year)))
+
+        # Otherwise, change the date back to the original date
+        else:
+            # Show popup bubble stating invalid date error
+            PlannerPopUp(self.app, "Error", "Invalid date").show()
+
+            original_date_str = f"{original_due_date[0]}/{original_due_date[1]}"
+            self.tablewidget_assignments.item(item.row(), item.column()).setText(original_date_str)
 
     def course_options_clicked(self):
         """Opens a dialog to edit the course name"""
@@ -203,9 +223,3 @@ class CoursePage(QWidget):
         """
         dialog = SettingsDialog(self.app)
         dialog.exec_()
-
-    def is_valid_date(self, string: str):
-        """Returns True if the string is in the format of MM/DD.
-        Months or days can be one digit
-        """
-        pass
