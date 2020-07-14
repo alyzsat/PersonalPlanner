@@ -24,8 +24,8 @@ class OverviewPanel(QFrame):
         layout.addWidget(self.listwidget_upcoming)
 
         # Configure Widgets
-        self.setup_calendar(size_widgets)
-        self.setup_upcoming(size_widgets)
+        self.setup_calendar(int(size_widgets))
+        self.setup_upcoming(int(size_widgets))
 
         self.setLayout(layout)
         self.setObjectName("OverviewPanel")

@@ -1,11 +1,15 @@
-from collections import namedtuple
+import itertools
 
 
 class Assignment:
+
+    _counter = itertools.count()
+
     def __init__(self, name: str, due_date: (int, int)):
         self._name = name
         self._due_date = due_date
         self._completed = False
+        self._id = next(self._counter)
 
     def __str__(self):
         due_date = f"{self._due_date[0]}/{self._due_date[1]}"
@@ -30,4 +34,5 @@ class Assignment:
     def is_completed(self) -> bool:
         return self._completed
 
-
+    def ID(self) -> int:
+        return self._id

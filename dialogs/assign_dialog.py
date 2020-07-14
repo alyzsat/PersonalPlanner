@@ -51,9 +51,15 @@ class AssignmentDialog(PlannerQDialog):
     def ok_clicked(self):
         """Attempts to add assignment to course"""
         name = self.lineedit_name.text()
+
+        # If the assignment is being edited and the name is the same
+        # except with capitalization changes, accept change
         if self.old_name is not None and name.lower() == self.old_name.lower():
             self.accept()
-        elif self.app.planner.find_course(self.course_name).find_assignment(name) is None:
-            self.accept()
-        else:
+
+        # If the assignment name is already being used, set message
+        elif self.app.planner.get_current_course().has_assignment(name):
             self.set_message("Assignment Already Exists")
+
+        else:
+            self.accept()

@@ -1,33 +1,14 @@
 from PyQt5 import QtGui
-from PyQt5.QtGui import QIcon, QImage, QPixmap, QPainter
 from PyQt5.QtWidgets import QDialog, QGridLayout, QLabel, QPushButton, QWidget, QHBoxLayout, QComboBox, QFrame, \
     QVBoxLayout
 from PyQt5.QtCore import Qt
 
+from dialogs.popup import PlannerPopUp
 
-class PlannerQDialog(QDialog):
+
+class PlannerQDialog(PlannerPopUp):
     def __init__(self, app, window_name: str, rows: int):
-        super().__init__()
-        # self.setModal(False)
-        self.setWindowFlag(Qt.FramelessWindowHint)
-        self.setWindowIcon(QIcon("assets/logo.png"))
-        self.app = app
-        self.row_count = 1
-        self.dragging = False
-        self.local_position = None
-        self.setMinimumWidth(self.app.width() / 4)
-
-        # Align dialog with main window
-        x = app.pos().x() + app.width() / 2 - self.width() / 2
-        y = app.pos().y() + app.height() / 2 - self.height() / 2
-        self.move(x, y)
-
-        with open("assets/stylesheet.qss") as ss:
-            self.setStyleSheet(ss.read())
-
-        # Message Box
-        self.message_box = QLabel()
-        self.message_box.setObjectName("Message")
+        super().__init__(app, window_name)
 
         # Ok Button
         self.button_ok = QPushButton("Ok")
@@ -41,28 +22,6 @@ class PlannerQDialog(QDialog):
         button_cancel.clicked.connect(self.reject)
         button_cancel.setCursor(Qt.PointingHandCursor)
 
-        # X / close Button
-        button_x = QPushButton("X")
-        button_x.setFixedSize(80, 80)
-        button_x.clicked.connect(self.reject)
-        button_x.setCursor(Qt.PointingHandCursor)
-        button_x.setObjectName("Close")
-
-        # Name of Dialog / Title Bar
-        label_name = QLabel(window_name)
-        label_name.setObjectName("Name")
-        label_name.setAlignment(Qt.AlignCenter)
-        label_name.setFixedHeight(80)
-        bar_name = QWidget()
-        bar_name.setFixedSize(self.width(), 80)
-        bar_name.setObjectName("NameBar")
-        layout_name = QHBoxLayout()
-        layout_name.addWidget(label_name)
-        layout_name.addWidget(button_x)
-        layout_name.setSpacing(0)
-        layout_name.setContentsMargins(0, 0, 0, 0)
-        bar_name.setLayout(layout_name)
-
         # Configure Fields Layout
         self.fields = QGridLayout()
         self.fields.addWidget(self.message_box, rows + 3, 1, 1, 2, alignment=Qt.AlignRight)
@@ -75,23 +34,8 @@ class PlannerQDialog(QDialog):
         self.fields.addLayout(self.button_box, rows + 4, 2)
         self.fields.setAlignment(Qt.AlignCenter)
 
-        # Piece layout together
-        layout = QVBoxLayout()
-        layout.addWidget(bar_name)
-        layout.addLayout(self.fields)
-        layout.setContentsMargins(0, 0, 0, 0)
-
-        # Create frame to contain widgets to allow for rounded
-        # corners without making all the widgets transparent
-        frame = QFrame()
-        frame.setLayout(layout)
-
-        # Create the final layout to set for the dialog
-        base = QVBoxLayout()
-        base.setContentsMargins(0, 0, 0, 0)
-        base.addWidget(frame)
-        self.setLayout(base)
-        self.setAttribute(Qt.WA_TranslucentBackground)
+        self.layout.addLayout(self.fields)
+        self.layout.setContentsMargins(0, 0, 0, 0)
 
     def mousePressEvent(self, a0: QtGui.QMouseEvent) -> None:
         # Click is at the top portion of dialog

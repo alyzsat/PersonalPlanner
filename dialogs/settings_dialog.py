@@ -1,4 +1,4 @@
-from PyQt5.QtWidgets import QComboBox
+from PyQt5.QtWidgets import QComboBox, QCheckBox
 
 from dialogs.dialog import PlannerQDialog
 
@@ -17,11 +17,18 @@ class SettingsDialog(PlannerQDialog):
         self.combobox_theme.setCurrentText(self.old_theme)
         self.combobox_theme.currentIndexChanged.connect(self.test_theme)
 
+        self.checkbox_completed = QCheckBox()
+        self.checkbox_completed.setChecked(self.app.show_completed)
+        self.checkbox_completed.clicked.connect(self.completed_clicked)
+
         # Add widgets
         self.add_widget("Theme", self.combobox_theme)
+        self.add_widget("Show Completed", self.checkbox_completed)
 
         # Set theme back if canceled
         self.rejected.connect(self.reset_theme)
+
+        self.bar_name.setFixedWidth(self.width() + 100)
 
     def reset_theme(self):
         self.app.set_theme(self.old_theme, self.app)
@@ -38,3 +45,10 @@ class SettingsDialog(PlannerQDialog):
         theme = self.combobox_theme.currentText()
         self.app.current_theme = theme
         self.accept()
+
+    def completed_clicked(self):
+        if self.checkbox_completed.isChecked():
+            self.app.show_completed = True
+        else:
+            self.app.show_completed = False
+        self.app.course_page.refresh()

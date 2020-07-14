@@ -15,6 +15,11 @@ class PersonalPlanner(QWidget):
         self.planner = Planner()
         self.test_planner()  # ======================== Temporary ========================
         self.layout = QHBoxLayout(self)
+
+        # Settings
+        self.current_theme = "default"
+        self.show_completed = True
+
         self.setup_window(size)
 
         # Set up GUI components
@@ -36,22 +41,24 @@ class PersonalPlanner(QWidget):
         self.layout.addStretch()
         self.layout.addWidget(self.overview_panel)
 
-        self.current_theme = "default"
-        self.set_theme(self.current_theme, self)
-
         self.show()
 
     def test_planner(self):
         """Temporary values to test out the GUI"""
         self.planner.add_course("CS 178")
-        self.planner.add_assign("CS 178", "Homework 3", 5, 21)
-        self.planner.add_assign("CS 178", "Homework 4", 6, 4)
+        cs178 = self.planner.find_course("CS 178")
+        cs178.add_assignment("Homework 3", 5, 21)
+        cs178.add_assignment("Homework 4", 6, 4)
+
         self.planner.add_course("CS 190")
-        self.planner.add_assign("CS 190", "Project 1", 4, 28)
-        self.planner.add_assign("CS 190", "Project 2", 5, 27)
+        cs190 = self.planner.find_course("CS 190")
+        cs190.add_assignment("Project 1", 4, 28)
+        cs190.add_assignment("Project 2", 5, 27)
+
         self.planner.add_course("ICS 139W")
-        self.planner.add_assign("ICS 139W", "Discussion 3", 5, 21)
-        self.planner.add_assign("ICS 139W", "Proposal Draft", 5, 26)
+        ics139w = self.planner.find_course("ICS 139W")
+        ics139w.add_assignment("Discussion 3", 5, 21)
+        ics139w.add_assignment("Proposal Draft", 5, 26)
 
         for i in range(1, 10):
             self.planner.add_course("Fake Course #" + str(i))
@@ -74,6 +81,8 @@ class PersonalPlanner(QWidget):
         self.layout.setSpacing(0)
         self.layout.setContentsMargins(0, 0, 0, 0)
         self.setLayout(self.layout)
+
+        self.set_theme(self.current_theme, self)
 
     # On this module because of interactions outside of SideBar
     def course_clicked(self, item: QListWidgetItem):

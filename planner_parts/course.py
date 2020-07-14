@@ -15,25 +15,32 @@ class Course:
         self._name = name
 
     def add_assignment(self, name: str, due_month: int, due_day: int) -> None:
-        if self._find_index(name) == -1:
-            self._assignments.append(Assignment(name, (due_month, due_day)))
-        else:
+        if self.has_assignment(name):
             raise DuplicateAssignmentError()
+        else:
+            self._assignments.append(Assignment(name, (due_month, due_day)))
 
-    def remove_assignment(self, name: str) -> None:
-        index = self._find_index(name)
+    def remove_assignment(self, ID: int) -> None:
+        index = self._find_index(ID)
         if index != -1:
             self._assignments.pop(index)
         else:
             raise AssignmentNotFoundError()
 
-    def find_assignment(self, name: str) -> Assignment or None:
-        index = self._find_index(name)
+    def find_assignment(self, ID: int) -> Assignment or None:
+        index = self._find_index(ID)
         if index != -1:
             return self._assignments[index]
 
-    def mark_assignment(self, index: int, status: bool):
-        self._assignments[index].mark_complete(status)
+    def mark_assignment(self, ID: int, status: bool):
+        assignment = self.find_assignment(ID)
+        assignment.mark_complete(status)
+
+    def has_assignment(self, name: str) -> bool:
+        for i in range(len(self._assignments)):
+            if self._assignments[i].name().lower() == name.lower():
+                return True
+        return False
 
     def clear(self) -> None:
         self._assignments = []
@@ -41,14 +48,17 @@ class Course:
     def assignments(self) -> [Assignment]:
         return self._assignments
 
+    def incomplete_assignments(self) -> [Assignment]:
+        return [assign for assign in self._assignments if not assign.is_completed()]
+
     def name(self) -> str:
         return self._name
 
     def change_name(self, name: str) -> None:
         self._name = name
 
-    def _find_index(self, name: str) -> int:
+    def _find_index(self, ID: int) -> int:
         for i in range(len(self._assignments)):
-            if self._assignments[i].name().lower() == name.lower():
+            if self._assignments[i].ID() == ID:
                 return i
         return -1
