@@ -59,6 +59,6 @@ class Course:
 
     def _find_index(self, ID: int) -> int:
         for i in range(len(self._assignments)):
-            if self._assignments[i].ID() == ID:
+            if self._assignments[i].get_id() == ID:
                 return i
         return -1

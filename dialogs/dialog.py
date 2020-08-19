@@ -37,30 +37,10 @@ class PlannerQDialog(PlannerPopUp):
         self.layout.addLayout(self.fields)
         self.layout.setContentsMargins(0, 0, 0, 0)
 
-    def mousePressEvent(self, a0: QtGui.QMouseEvent) -> None:
-        # Click is at the top portion of dialog
-        if (0 < a0.x() < self.width()) and (0 < a0.y() < 80):
-            # Position of mouse at click relative to dialog
-            self.local_position = a0.localPos()
-            self.dragging = True
-
-    def mouseReleaseEvent(self, a0: QtGui.QMouseEvent) -> None:
-        self.dragging = False
-
-    def mouseMoveEvent(self, a0: QtGui.QMouseEvent) -> None:
-        if self.dragging:
-            self.move(a0.globalPos().x() - self.local_position.x(), a0.globalPos().y() - self.local_position.y())
-
     def add_widget(self, text: str, widget: QWidget):
         """Add more widgets along with a label. This keeps track
         of the row count to make adding more widgets easier
         """
-        if type(widget) == QComboBox:
-            # Remove Drop Shadow Effect on QComboBox's menu
-            # Daegun Kim / Philip Nelson
-            # https://stackoverflow.com/questions/27739536/remove-qcombobox-listview-shadow-effect
-            widget.findChild(QFrame).setWindowFlags(Qt.Popup | Qt.NoDropShadowWindowHint)
-
         self.row_count += 1
         self.fields.addWidget(QLabel(text), self.row_count, 1)
         self.fields.addWidget(widget, self.row_count, 2)

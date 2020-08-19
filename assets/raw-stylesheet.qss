@@ -3,8 +3,13 @@ QWidget {
     color: @text1;
 }
 
+QDialog QFrame {
+    background-color: @background1;
+    border-radius: 15px;
+}
+
 QCheckBox::indicator {
-    border-radius: 10px;
+    border-radius: 2px;
 }
 
 QCheckBox::indicator:unchecked {
@@ -15,18 +20,15 @@ QCheckBox::indicator:checked {
     background-color: @accent2;
 }
 
-QDialog QFrame {
-    background-color: @background1;
-    border-radius: 25px;
-}
-
 QComboBox {
-    border: 1px solid @background1;
+    border: 4px solid @background2;
+    border-bottom: 0px;
+    border-top: 0px;
     background-color: @background2;
     color: @text1;
-    padding: 10px;
-    padding-left: 20px;
-    border-radius: 15px;
+    padding: 5px;
+    padding-left: 10px;
+    border-radius: 5px;
 }
 
 QComboBox:on {
@@ -37,40 +39,36 @@ QComboBox:on {
 QComboBox::drop-down {
     width: 30px;
     padding-right: 20px;
-    border-top-right-radius: 15px;
-    border-bottom-right-radius: 15px;
+    border-top-right-radius: 5px;
+    border-bottom-right-radius: 5px;
 }
 
-QComboBox::down-arrow {
-    image: url(assets/themes/@theme/down_arrow.png);
-}
-
-QComboBox QAbstractItemView {
-    border: 1px solid @background1;
+QComboBox QListView {
+    border-radius: 0px;
     border-top: none;
     background-color: @background2;
     selection-background-color: @background2;
     selection-color: @accent1;
-    selection-border-radius: 3px;
+    selection-border-radius: 1px;
     outline: 0;
     padding: 5px;
 }
 
 QComboBox QScrollBar {
     background-color: @background2;
-    width: 15px;
+    width: 8px;
 }
 
 QComboBox QScrollBar::handle {
     background-color: @background1;
-    border-radius: 5px;
+    border-radius: 3px;
 }
 
-QComboBox QScrollBar::sub-line,
-QComboBox QScrollBar::add-line,
 QComboBox QScrollBar::sub-page,
-QComboBox QScrollBar::add-page {
-    background: none;
+QComboBox QScrollBar::add-page,
+QComboBox QScrollBar::sub-line,
+QComboBox QScrollBar::add-line {
+    background-color: @background2;
 }
 
 QDialog QLabel#Message {
@@ -81,18 +79,13 @@ QDialog QLabel#Message {
 
 QDialog QLabel#Name {
     font: 8pt;
-    background-color: @disabled;
+    background-color: @background3;
 }
 
 QDialog QWidget#NameBar {
-    background-color: @disabled;
-    border-top-left-radius: 25px;
-    border-top-right-radius: 25px;
-}
-
-QDialog QFrame {
-    background-color: @background1;
-    border-radius: 25px;
+    background-color: @background3;
+    border-top-left-radius: 15px;
+    border-top-right-radius: 15px;
 }
 
 QLabel#LabelCourseName {
@@ -103,9 +96,9 @@ QLineEdit {
     background-color: @background2;
     color: @text1;
     padding: 5px;
-    border-radius: 15px;
+    border-radius: 5px;
     selection-background-color: @accent3;
-    padding-left: 20px;
+    padding-left: 10px;
 }
 
 QListWidget#Courses {
@@ -116,15 +109,15 @@ QListWidget#Courses {
 QListWidget#Courses::item {
     border: 0px;
     color: @text1;
-    padding: 20px;
+    padding: 8px;
 }
 
 QListWidget#Courses::item:focus,
 QListWidget#Courses::item:selected {
     color: @accent3;
     background-color: @background2;
-    border-top-left-radius: 15px;
-    border-bottom-left-radius: 15px;
+    border-top-left-radius: 8px;
+    border-bottom-left-radius: 8px;
 }
 
 QListWidget#Courses::item:hover {
@@ -137,22 +130,13 @@ QListWidget#Upcoming  {
 
 QListWidget#Upcoming {
     margin: 0px;
-    border-radius: 20px;
+    border-radius: 10px;
     background-color: @background2;
 }
 
 QPushButton#CourseOptions {
     background-color: none;
     color: @accent2;
-    margin: 0px;
-}
-
-QPushButton#Settings {
-    border-radius: 0px;
-    background-image: url(assets/themes/@theme/settings_bars.png);
-    background-repeat: no-repeat;
-    background-color: none;
-    background-position: center;
     margin: 0px;
 }
 
@@ -165,7 +149,7 @@ QPushButton#Close {
 QPushButton#Close:hover {
     background-color: @accent2;
     border-radius: 0px;
-    border-top-right-radius: 25px;
+    border-top-right-radius: 15px;
     color: white;
     font: 7pt;
 }
@@ -174,7 +158,7 @@ QPushButton {
     border-radius: 15px;
     background-color: @accent1;
     color: @text2;
-    padding: 20px;
+    padding: 10px;
 }
 
 QPushButton:hover {
@@ -185,7 +169,7 @@ QPushButton:hover {
                         stop:0 @accent1,
                         stop:1 @accent2);
     color: @text2;
-    padding: 20px;
+    padding: 10px;
 }
 
 QPushButton:disabled {
@@ -199,6 +183,7 @@ QTableWidget#Assignments {
     gridline-color: @background2;
     outline: 0;
     padding-left: 20px;
+    padding-top: 5px;
 }
 
 QTableWidget#Assignments::item {
@@ -213,7 +198,7 @@ QTableWidget#Assignments::item:selected {
 }
 
 QTableWidget#Assignments::indicator {
-    border-radius: 10px;
+    border-radius: 2px;
 }
 
 QTableWidget#Assignments::indicator:unchecked {
@@ -254,6 +239,6 @@ QTableWidget#Calendar {
 }
 
 QFrame#OverviewPanel {
-    background-color: @background2;
+    background-color: @background3;
     padding: 20px;
 }

@@ -22,18 +22,22 @@ class PersonalPlanner(QWidget):
 
         self.setup_window(size)
 
+        # GUI components sizes
+        sidebar_width = int(self.width() / 5)
+        course_page_width = int(11 * self.width() / 20)
+        overview_panel_width = int(self.width() / 5)
+
         # Set up GUI components
-        self.sidebar = Sidebar(self, self.width())
+        self.sidebar = Sidebar(self, sidebar_width)
         self.sidebar.listwidget_courses.itemClicked.connect(self.course_clicked)
         self.sidebar.button_add_course.clicked.connect(self.add_course_clicked)
         self.sidebar.refresh()
 
-        course_page_width = 11 * self.width() / 20
         self.course_page = CoursePage(self, course_page_width)
         self.course_page.button_course_options.clicked.connect(self.course_options_clicked)
         self.course_page.refresh()
 
-        self.overview_panel = OverviewPanel(self.planner, self.width())
+        self.overview_panel = OverviewPanel(self.planner, overview_panel_width)
 
         # Add GUI components
         self.layout.addLayout(self.sidebar)

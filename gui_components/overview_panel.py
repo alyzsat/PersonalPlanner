@@ -1,26 +1,22 @@
-from PyQt5.QtCore import Qt
 from PyQt5.QtWidgets import QVBoxLayout, QFrame, QListWidget, QTableWidget
+
+from gui_components.planner_calendar import PlannerCalendar
 
 
 class OverviewPanel(QFrame):
-    def __init__(self, app, planner_width: int):
+    def __init__(self, app, size_widgets: int):
         super().__init__()
         self.app = app
 
         # Initialize widgets
-        # Not using QCalendarWidget because of styling limitations
-        # -> Building a custom calendar from QTableWidget
-        self.tablewidget_calendar = QTableWidget()
+        self.widget_calendar = PlannerCalendar()
         self.listwidget_upcoming = QListWidget()
-
-        # Sizes for widgets
-        size_widgets = planner_width / 4
 
         # Add Widgets to layout
         layout = QVBoxLayout()
         layout.setSpacing(20)
         layout.setContentsMargins(0, 0, 0, 0)
-        layout.addWidget(self.tablewidget_calendar)
+        layout.addWidget(self.widget_calendar)
         layout.addWidget(self.listwidget_upcoming)
 
         # Configure Widgets
@@ -31,8 +27,8 @@ class OverviewPanel(QFrame):
         self.setObjectName("OverviewPanel")
 
     def setup_calendar(self, width: int):
-        self.tablewidget_calendar.setFixedWidth(width)
-        self.tablewidget_calendar.setObjectName("Calendar")
+        self.widget_calendar.setFixedWidth(width)
+        self.widget_calendar.setObjectName("Calendar")
 
     def setup_upcoming(self, width: int):
         self.listwidget_upcoming.setFixedWidth(width)

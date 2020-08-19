@@ -7,7 +7,7 @@ from planner_parts.planner import Planner
 
 
 class Sidebar(QVBoxLayout):
-    def __init__(self, app, planner_width: int):
+    def __init__(self, app, size_widgets: int):
         super().__init__()
         self.app = app
         self.setSpacing(20)
@@ -16,9 +16,6 @@ class Sidebar(QVBoxLayout):
         # Initialize widgets
         self.button_add_course = QPushButton()
         self.listwidget_courses = QListWidget()
-
-        # Sizes for widgets
-        size_widgets = int(planner_width / 5)
 
         # Add Widgets to layout
         self.addWidget(self.button_add_course)

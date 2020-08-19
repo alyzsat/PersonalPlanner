@@ -26,7 +26,7 @@ class PlannerPopUp(QDialog):
 
         # X / close Button
         button_x = QPushButton("X")
-        button_x.setFixedSize(80, 80)
+        button_x.setFixedSize(80, 40)
         button_x.clicked.connect(self.reject)
         button_x.setCursor(Qt.PointingHandCursor)
         button_x.setObjectName("Close")
@@ -35,9 +35,9 @@ class PlannerPopUp(QDialog):
         label_name = QLabel(window_name)
         label_name.setObjectName("Name")
         label_name.setAlignment(Qt.AlignCenter)
-        label_name.setFixedHeight(80)
+        label_name.setFixedHeight(40)
         self.bar_name = QWidget()
-        self.bar_name.setFixedSize(self.width(), 80)
+        self.bar_name.setFixedSize(self.width(), 40)
         self.bar_name.setObjectName("NameBar")
 
         layout_name = QHBoxLayout()
@@ -80,7 +80,7 @@ class PlannerPopUp(QDialog):
 
     def mousePressEvent(self, a0: QtGui.QMouseEvent) -> None:
         # Click is at the top portion of dialog
-        if (0 < a0.x() < self.width()) and (0 < a0.y() < 80):
+        if (0 < a0.x() < self.width()) and (0 < a0.y() < 40):
             # Position of mouse at click relative to dialog
             self.local_position = a0.localPos()
             self.dragging = True

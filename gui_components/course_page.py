@@ -27,9 +27,9 @@ class CoursePage(QWidget):
         self.button_settings = QPushButton()
 
         # Sizes for Widgets
-        size_add_assign = int(width / 3)
+        size_add_assign = int(width / 4)
         size_course_options = int(width / 10)
-        size_settings = int(width / 15)
+        size_settings = int(width / 8)
         size_assignments = width
 
         # Create course bar sublayout and add to layout
@@ -72,6 +72,7 @@ class CoursePage(QWidget):
 
     def setup_settings(self, width: int):
         self.button_settings.setObjectName("Settings")
+        self.button_settings.setText("Settings")
         self.button_settings.setCursor(Qt.PointingHandCursor)
         self.button_settings.setFixedWidth(width)
         self.button_settings.clicked.connect(self.settings_clicked)
@@ -134,7 +135,7 @@ class CoursePage(QWidget):
                 self.tablewidget_assignments.setItem(i, 2, due_date)
 
                 # Item ID
-                item_id = QTableWidgetItem(str(assignment.ID()))
+                item_id = QTableWidgetItem(str(assignment.get_id()))
                 self.tablewidget_assignments.setItem(i, 3, item_id)
 
             self.tablewidget_assignments.itemChanged.connect(self.item_changed)

@@ -2,10 +2,11 @@
 "theme": "default",
 "background1": "#35393d",
 "background2": "#454a4f",
+"background3": "#2c2f33",
 "accent1": "#ffa600",
 "accent2": "#fa8561",
 "accent3": "#E4572E",
 "text1": "#ffffff",
 "text2": "#ffffff",
-"disabled": "#5b5e61"
+"disabled": "#3b3f42"
 }

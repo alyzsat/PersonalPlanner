@@ -34,5 +34,5 @@ class Assignment:
     def is_completed(self) -> bool:
         return self._completed
 
-    def ID(self) -> int:
+    def get_id(self) -> int:
         return self._id
