@@ -2,10 +2,11 @@
 "theme": "mintlight",
 "background1": "#f5f7f6",
 "background2": "#ffffff",
+"background3": "#c6d2cc",
 "accent1": "#a1d4c2",
 "accent2": "#a3ced4",
 "accent3": "#4a6d91",
 "text1": "#3e4a57",
 "text2": "#ffffff",
-"disabled": "#dfe6e2"
+"disabled": "#3b3f42"
 }

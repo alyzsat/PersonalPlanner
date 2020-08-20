@@ -124,14 +124,14 @@ QListWidget#Courses::item:hover {
     color: @accent2;
 }
 
-QListWidget#Upcoming  {
-    background-color: red;
-}
-
 QListWidget#Upcoming {
     margin: 0px;
     border-radius: 10px;
-    background-color: @background2;
+    background-color: @background1;
+}
+
+QPushButton {
+    margin: 0px;
 }
 
 QPushButton#CourseOptions {
@@ -228,14 +228,20 @@ QTableWidget#Assignments QScrollBar::handle {
 }
 
 QTableWidget#Calendar {
-    border-radius: 30px;
-    background-color: @background2;
-    color: @text2;
-    border: red;
-    gridline-color: @background2;
+    border-radius: 15px;
+    background-color: @background3;
+    gridline-color: @background3;
     outline: 0;
-    padding-left: 20px;
     margin: 0px;
+    padding: 0px;
+}
+
+QTableWidget#Calendar::item {
+    background-color: @background2;
+    color: @text1;
+    outline: 0;
+    margin: 0px;
+    padding: 0px;
 }
 
 QFrame#OverviewPanel {

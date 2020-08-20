@@ -15,8 +15,8 @@ class CoursePage(QWidget):
         self.app = app
         self.setFixedWidth(width)
         self.layout = QVBoxLayout()
-        self.layout.setContentsMargins(0, 20, 0, 50)
-        self.layout.setSpacing(20)
+        self.layout.setContentsMargins(0, 20, 0, 0)
+        self.layout.setSpacing(10)
         self.setLayout(self.layout)
 
         # Initialize Widgets
@@ -88,8 +88,8 @@ class CoursePage(QWidget):
         self.tablewidget_assignments.setColumnCount(4)
         self.tablewidget_assignments.setColumnWidth(0, int(width / 10))
         self.tablewidget_assignments.setColumnWidth(1, int(11 * width / 20))
-        self.tablewidget_assignments.setColumnWidth(2, int(width / 5))
-        self.tablewidget_assignments.setColumnWidth(3, 1)
+        self.tablewidget_assignments.setColumnWidth(2, int(width / 6))
+        self.tablewidget_assignments.hideColumn(3)
 
     def setup_add_assignment(self, width: int) -> None:
         """Button that, when clicked, opens a dialog to add

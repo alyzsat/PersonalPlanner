@@ -23,9 +23,9 @@ class PersonalPlanner(QWidget):
         self.setup_window(size)
 
         # GUI components sizes
-        sidebar_width = int(self.width() / 5)
-        course_page_width = int(11 * self.width() / 20)
-        overview_panel_width = int(self.width() / 5)
+        sidebar_width = int(self.width() / 6)
+        course_page_width = int(self.width() / 2)
+        overview_panel_width = int(2 * self.width() / 7)
 
         # Set up GUI components
         self.sidebar = Sidebar(self, sidebar_width)

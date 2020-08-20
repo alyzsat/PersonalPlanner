@@ -10,7 +10,7 @@ class Sidebar(QVBoxLayout):
     def __init__(self, app, size_widgets: int):
         super().__init__()
         self.app = app
-        self.setSpacing(20)
+        self.setSpacing(10)
         self.setContentsMargins(20, 20, 0, 50)
 
         # Initialize widgets
