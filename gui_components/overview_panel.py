@@ -9,7 +9,7 @@ class OverviewPanel(QFrame):
         self.app = app
 
         # Initialize widgets
-        self.widget_calendar = PlannerCalendar()
+        self.widget_calendar = PlannerCalendar(self.app)
         self.listwidget_upcoming = QListWidget()
 
         # Add Widgets to layout

@@ -92,6 +92,10 @@ QLabel#LabelCourseName {
     padding-left: 40px;
 }
 
+QLabel#Month {
+    background-color: @background3;
+}
+
 QLineEdit {
     background-color: @background2;
     color: @text1;
@@ -132,12 +136,33 @@ QListWidget#Upcoming {
 
 QPushButton {
     margin: 0px;
+    border-radius: 15px;
+    background-color: @accent1;
+    color: @text2;
+    padding: 10px;
+}
+
+QPushButton#CalendarArrow {
+    border-radius: 2px;
+    background-color: @background2;
+    padding: 5 8 5 8;
+}
+
+QPushButton#CalendarSlot {
+    border-radius: 1px;
+    background-color: @background3;
+    padding: 5px;
+}
+
+QPushButton#CalendarDay {
+    border-radius: 1px;
+    background-color: @background2;
+    padding: 5px;
 }
 
 QPushButton#CourseOptions {
     background-color: none;
     color: @accent2;
-    margin: 0px;
 }
 
 QPushButton#Close {
@@ -152,13 +177,6 @@ QPushButton#Close:hover {
     border-top-right-radius: 15px;
     color: white;
     font: 7pt;
-}
-
-QPushButton {
-    border-radius: 15px;
-    background-color: @accent1;
-    color: @text2;
-    padding: 10px;
 }
 
 QPushButton:hover {
@@ -225,23 +243,6 @@ QTableWidget#Assignments QScrollBar::add-page {
 QTableWidget#Assignments QScrollBar::handle {
     background: @accent2;
     border-radius: 5px;
-}
-
-QTableWidget#Calendar {
-    border-radius: 15px;
-    background-color: @background3;
-    gridline-color: @background3;
-    outline: 0;
-    margin: 0px;
-    padding: 0px;
-}
-
-QTableWidget#Calendar::item {
-    background-color: @background2;
-    color: @text1;
-    outline: 0;
-    margin: 0px;
-    padding: 0px;
 }
 
 QFrame#OverviewPanel {
