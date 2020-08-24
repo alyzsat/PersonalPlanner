@@ -167,6 +167,13 @@ QPushButton#CalendarDay {
     color: @text1;
 }
 
+QPushButton#CalendarToday {
+    border-radius: 1px;
+    background-color: @background2;
+    padding: 5px;
+    color: @accent1;
+}
+
 QPushButton#CourseOptions {
     background-color: none;
     color: @accent2;
@@ -208,6 +215,7 @@ QTableWidget#Assignments {
     gridline-color: @background2;
     outline: 0;
     padding-left: 20px;
+    padding-right: 15px;
     padding-top: 5px;
 }
 
@@ -235,21 +243,21 @@ QTableWidget#Assignments::indicator:checked {
 }
 
 QTableWidget#Assignments QScrollBar {
+    padding-top: 8px;
     background-color: @background2;
-    width: 30px;
-    padding: 10px;
+    width: 5px;
 }
 
 QTableWidget#Assignments QScrollBar::add-line,
 QTableWidget#Assignments QScrollBar::sub-line,
 QTableWidget#Assignments QScrollBar::sub-page,
 QTableWidget#Assignments QScrollBar::add-page {
-    background-color: @background2;
+    background-color: none;
 }
 
 QTableWidget#Assignments QScrollBar::handle {
-    background: @accent2;
-    border-radius: 5px;
+    background: @background1;
+    border-radius: 2px;
 }
 
 QFrame#OverviewPanel {

@@ -69,7 +69,7 @@ class PersonalPlanner(QWidget):
         for i in range(1, 10):
             self.planner.add_course("Fake Course #" + str(i))
 
-        for i in range(1, 10):
+        for i in range(1, 20):
             self.planner.get_current_course().add_assignment("Fake Assignment #" + str(i), 7, 28)
 
     def setup_window(self, size: QSize):

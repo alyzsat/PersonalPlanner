@@ -19,6 +19,7 @@ class Course:
             raise DuplicateAssignmentError()
         else:
             self._assignments.append(Assignment(name, (due_month, due_day)))
+            self.reorder()
 
     def remove_assignment(self, ID: int) -> None:
         index = self._find_index(ID)
@@ -44,6 +45,9 @@ class Course:
 
     def clear(self) -> None:
         self._assignments = []
+
+    def reorder(self) -> None:
+        self._assignments = sorted(self._assignments, key=lambda x: x.is_completed())
 
     def assignments(self) -> [Assignment]:
         return self._assignments

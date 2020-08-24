@@ -149,9 +149,11 @@ class CoursePage(QWidget):
 
         # If the checkbox is checked
         if item.column() == 0:
-            course_name = self.app.planner.get_current_course().name()
+            course = self.app.planner.get_current_course()
             status = True if item.checkState() == 2 else False
             original_assignment.mark_complete(status)
+            course.reorder()
+            self.refresh()
 
         # If the assignment name changes
         elif item.column() == 1:

@@ -72,14 +72,16 @@ class PlannerCalendar(QWidget):
         if self.current_month == 13:
             self.current_month = 1
             self.current_year += 1
-        self.refresh_label()
-        self.refresh_slots()
+        self.refresh()
 
     def previous_month(self):
         self.current_month -= 1
         if self.current_month == 0:
             self.current_month = 12
             self.current_year -= 1
+        self.refresh()
+
+    def refresh(self):
         self.refresh_label()
         self.refresh_slots()
 
@@ -105,6 +107,14 @@ class PlannerCalendar(QWidget):
                 slot = self.calendar.itemAtPosition(week, day).widget()
                 slot.setText(str(count - first_day))
                 slot.setObjectName("CalendarDay")
+
+        # Highlight today's slot
+        if self.current_month == datetime.now().month and self.current_year == datetime.now().year:
+            n = first_day + datetime.now().day
+            week = int(n / 7)
+            day = int(n % 7)
+            today = self.calendar.itemAtPosition(week, day).widget()
+            today.setObjectName("CalendarToday")
 
         self.app.set_theme(self.app.current_theme, self)
 

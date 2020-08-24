@@ -8,7 +8,7 @@ class SettingsDialog(PlannerQDialog):
         super().__init__(app, "Settings", 1)
         self.button_ok.setEnabled(True)
 
-        themes = ["Default", "DefaultLight", "Mint", "MintLight"]
+        themes = ["Default", "OrangeCreamsicle", "Mint", "MintLight"]
         self.old_theme = app.current_theme
 
         # Create widgets

@@ -1,5 +1,5 @@
 {
-"theme": "defaultlight",
+"theme": "orangecreamsicle",
 "background1": "#fff5e3",
 "background2": "#ffffff",
 "background3": "#fce8c2",
