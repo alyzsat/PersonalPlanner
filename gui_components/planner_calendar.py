@@ -1,7 +1,6 @@
 import calendar
 from PyQt5.QtCore import Qt
-from PyQt5.QtWidgets import QTableWidget, QTableWidgetItem, QVBoxLayout, QHBoxLayout, QPushButton, QLabel, QWidget, \
-    QGridLayout
+from PyQt5.QtWidgets import QVBoxLayout, QHBoxLayout, QPushButton, QLabel, QWidget, QGridLayout
 from datetime import datetime
 
 
@@ -60,8 +59,6 @@ class PlannerCalendar(QWidget):
         self.calendar.setSpacing(1)
 
     def setup_slots(self):
-        first_day, num_days = calendar.monthrange(self.current_year, self.current_month)
-        count = 0
         for i in range(6):
             for j in range(7):
                 slot = QPushButton(str())
@@ -92,22 +89,31 @@ class PlannerCalendar(QWidget):
     def refresh_slots(self):
         first_day, num_days = calendar.monthrange(self.current_year, self.current_month)
         count = 0
+        self.clear_slots()
 
-        while count < 41:
+        while count < num_days + first_day:
             count += 1
             week = int(count / 7)
             day = int(count % 7)
 
-            if count <= first_day or count - first_day > num_days:
-                slot = self.calendar.itemAtPosition(week, day).widget()
-                slot.setObjectName("CalendarSlot")
-                slot.setText("")
+            # Shift calendar days up one week if month
+            # starts on a Sunday
+            if first_day == 6:
+                week -= 1
 
-            elif count > first_day:
+            if count > first_day:
                 slot = self.calendar.itemAtPosition(week, day).widget()
                 slot.setText(str(count - first_day))
                 slot.setObjectName("CalendarDay")
 
         self.app.set_theme(self.app.current_theme, self)
+
+    def clear_slots(self):
+        for i in range(7):
+            for j in range(6):
+                slot = self.calendar.itemAtPosition(j, i).widget()
+                slot.setObjectName("CalendarSlot")
+                slot.setText("")
+
 
 

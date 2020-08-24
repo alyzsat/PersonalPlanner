@@ -32,10 +32,12 @@ class SettingsDialog(PlannerQDialog):
 
     def reset_theme(self):
         self.app.set_theme(self.old_theme, self.app)
+        self.app.set_theme(self.old_theme, self.app.overview_panel)
 
     def set_planner_theme(self, theme: str) -> None:
         self.app.set_theme(theme.lower(), self.app)
         self.app.set_theme(theme.lower(), self)
+        self.app.set_theme(theme.lower(), self.app.overview_panel)
 
     def test_theme(self, index: int):
         theme = self.combobox_theme.itemText(index)

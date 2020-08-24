@@ -2,7 +2,7 @@ from gui_components.course_page import CoursePage
 from gui_components.overview_panel import OverviewPanel
 from gui_components.sidebar import Sidebar
 from planner_parts.planner import Planner
-from PyQt5.QtWidgets import QWidget, QHBoxLayout, QListWidgetItem
+from PyQt5.QtWidgets import QWidget, QHBoxLayout, QListWidgetItem, QTableWidget
 from PyQt5.QtCore import QSize
 from PyQt5.QtGui import QIcon
 
@@ -46,6 +46,7 @@ class PersonalPlanner(QWidget):
         self.layout.addStretch()
         self.layout.addWidget(self.overview_panel)
 
+        self.set_theme(self.current_theme, self)
         self.show()
 
     def test_planner(self):
@@ -87,8 +88,6 @@ class PersonalPlanner(QWidget):
         self.layout.setContentsMargins(0, 0, 0, 0)
         self.setLayout(self.layout)
 
-        self.set_theme(self.current_theme, self)
-
     # On this module because of interactions outside of SideBar
     def course_clicked(self, item: QListWidgetItem):
         """Called when a course is selected, switches the view
@@ -120,6 +119,16 @@ class PersonalPlanner(QWidget):
         StyleSheetProcessor(theme_name).run()
         with open("assets/stylesheet.qss") as ss:
             widget.setStyleSheet(ss.read())
+            nested = widget.findChild(QWidget, "OverviewPanel")
+
+            if nested is not None:
+                self.set_theme_nested(theme_name, nested)
+
+    def set_theme_nested(self, theme_name: str, widget):
+        children = widget.findChildren(QWidget)
+        for child in children:
+            self.set_theme(theme_name, child)
+            self.set_theme_nested(theme_name, child)
 
     def test(self, info):
         # ======================== Temporary ========================

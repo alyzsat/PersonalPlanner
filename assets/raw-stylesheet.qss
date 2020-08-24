@@ -150,14 +150,16 @@ QPushButton#CalendarArrow {
 
 QPushButton#CalendarSlot {
     border-radius: 1px;
-    background-color: @background3;
+    background-color: @background1;
     padding: 5px;
+    color: @text1;
 }
 
 QPushButton#CalendarDay {
     border-radius: 1px;
     background-color: @background2;
     padding: 5px;
+    color: @text1;
 }
 
 QPushButton#CourseOptions {
