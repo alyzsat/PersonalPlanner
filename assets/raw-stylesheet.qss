@@ -144,8 +144,13 @@ QPushButton {
 
 QPushButton#CalendarArrow {
     border-radius: 2px;
-    background-color: @background2;
+    background-color: @background1;
+    color: @text1;
     padding: 5 8 5 8;
+}
+
+QPushButton#CalendarArrow:hover {
+    color: @accent1;
 }
 
 QPushButton#CalendarSlot {

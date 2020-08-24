@@ -8,5 +8,5 @@
 "accent3": "#E4572E",
 "text1": "#5e4e4a",
 "text2": "#ffffff",
-"disabled": "#f0e6df"
+"disabled": "#e6d9c1"
 }
