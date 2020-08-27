@@ -1,8 +1,8 @@
 {
 "theme": "orangecreamsicle",
-"background1": "#fff5e3",
+"background1": "#faf6ed",
 "background2": "#ffffff",
-"background3": "#fce8c2",
+"background3": "#f7ead0",
 "accent1": "#fcc358",
 "accent2": "#fa9e82",
 "accent3": "#E4572E",
