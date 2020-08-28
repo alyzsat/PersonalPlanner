@@ -6,10 +6,16 @@ QWidget {
 QDialog QFrame {
     background-color: @background1;
     border-radius: 15px;
+    border-width: 1px;
+    border-color: @background3;
+    border-style: solid;
 }
 
 QCheckBox::indicator {
     border-radius: 2px;
+    border-width: 1px;
+    border-color: @background3;
+    border-style: solid;
 }
 
 QCheckBox::indicator:unchecked {
@@ -29,6 +35,9 @@ QComboBox {
     padding: 5px;
     padding-left: 10px;
     border-radius: 5px;
+    border-width: 1px;
+    border-color: @background3;
+    border-style: solid;
 }
 
 QComboBox:on {
@@ -71,6 +80,10 @@ QComboBox QScrollBar::add-line {
     background-color: @background2;
 }
 
+QDialog QLabel {
+    border: none;
+}
+
 QDialog QLabel#Message {
     color: @accent3;
     margin: 0px;
@@ -103,6 +116,9 @@ QLineEdit {
     border-radius: 5px;
     selection-background-color: @accent3;
     padding-left: 10px;
+    border-width: 1px;
+    border-color: @background3;
+    border-style: solid;
 }
 
 QListWidget#Courses {
@@ -232,6 +248,9 @@ QTableWidget#Assignments::item:selected {
 
 QTableWidget#Assignments::indicator {
     border-radius: 2px;
+    border-width: 1px;
+    border-color: @background3;
+    border-style: solid;
 }
 
 QTableWidget#Assignments::indicator:unchecked {
@@ -245,7 +264,8 @@ QTableWidget#Assignments::indicator:checked {
 QTableWidget#Assignments QScrollBar {
     padding-top: 8px;
     background-color: @background2;
-    width: 5px;
+    width: 4px;
+    padding-bottom: 8px;
 }
 
 QTableWidget#Assignments QScrollBar::add-line,

@@ -1,3 +1,4 @@
+from PyQt5.QtCore import Qt
 from PyQt5.QtWidgets import QComboBox, QCheckBox
 
 from dialogs.dialog import PlannerQDialog
@@ -23,12 +24,10 @@ class SettingsDialog(PlannerQDialog):
 
         # Add widgets
         self.add_widget("Theme", self.combobox_theme)
-        self.add_widget("Show Completed", self.checkbox_completed)
+        self.add_widget("Show\nCompleted", self.checkbox_completed)
 
         # Set theme back if canceled
         self.rejected.connect(self.reset_theme)
-
-        self.bar_name.setFixedWidth(self.width() + 100)
 
     def reset_theme(self):
         self.app.set_theme(self.old_theme, self.app)

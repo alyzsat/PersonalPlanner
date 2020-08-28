@@ -16,11 +16,13 @@ class PlannerQDialog(PlannerPopUp):
         self.button_ok.setDefault(True)
         self.button_ok.setDisabled(True)
         self.button_ok.setCursor(Qt.PointingHandCursor)
+        self.button_ok.setFixedWidth(55)
 
         # Cancel Button
         button_cancel = QPushButton("Cancel")
         button_cancel.clicked.connect(self.reject)
         button_cancel.setCursor(Qt.PointingHandCursor)
+        button_cancel.setFixedWidth(55)
 
         # Configure Fields Layout
         self.fields = QGridLayout()
@@ -41,6 +43,7 @@ class PlannerQDialog(PlannerPopUp):
         """Add more widgets along with a label. This keeps track
         of the row count to make adding more widgets easier
         """
+        widget.setFixedWidth(120)
         self.row_count += 1
         self.fields.addWidget(QLabel(text), self.row_count, 1)
         self.fields.addWidget(widget, self.row_count, 2)
