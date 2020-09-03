@@ -248,9 +248,6 @@ QTableWidget#Assignments::item:selected {
 
 QTableWidget#Assignments::indicator {
     border-radius: 2px;
-    border-width: 1px;
-    border-color: @background3;
-    border-style: solid;
 }
 
 QTableWidget#Assignments::indicator:unchecked {

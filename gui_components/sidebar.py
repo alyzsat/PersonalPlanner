@@ -1,8 +1,9 @@
 from PyQt5.QtCore import Qt
 from PyQt5.QtGui import QIcon
-from PyQt5.QtWidgets import QVBoxLayout, QPushButton, QListWidget
+from PyQt5.QtWidgets import QVBoxLayout, QPushButton, QListWidget, QListWidgetItem
 
 from dialogs.course_dialog import CourseDialog
+from dialogs.popup import PlannerPopUp
 from planner_parts.planner import Planner
 
 
@@ -41,11 +42,19 @@ class Sidebar(QVBoxLayout):
         """Refreshes the course list view to reflect any changes
         in the list
         """
-        courses = [c.name() for c in self.app.planner.courses()]
+        courses = [(_id, name) for (_id, name, season, year) in self.app.planner.courses()]
         self.listwidget_courses.clear()
-        self.listwidget_courses.addItems(courses)
+
+        for i, n in courses:
+            item = QListWidgetItem()
+            item.setData(0, n)  # role 0 is name
+            item.setData(1, i)  # role 1 is id
+            self.listwidget_courses.addItem(item)
+
         if not self.app.planner.is_empty():
-            self.listwidget_courses.setCurrentRow(self.app.planner.get_current_course_index())
+            index = self.app.planner.get_current_course_index()
+            if index is not None:
+                self.listwidget_courses.setCurrentRow(index)
 
     def add_course_clicked(self):
         """Called when the add course button is clicked and opens a
@@ -54,7 +63,6 @@ class Sidebar(QVBoxLayout):
         dialog = CourseDialog(self.app, "Create New Course")
         ok_clicked = dialog.exec_()
         if ok_clicked:
-            name = dialog.get_info()
-            self.app.planner.add_course(name)
-            self.app.planner.set_current_course(name)
+            name, season, year = dialog.get_info()
+            self.app.planner.add_course(name, season, year)
             self.refresh()

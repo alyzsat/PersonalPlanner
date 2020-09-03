@@ -1,10 +1,12 @@
+from dialogs.popup import PlannerPopUp
 from gui_components.course_page import CoursePage
 from gui_components.overview_panel import OverviewPanel
 from gui_components.sidebar import Sidebar
 from planner_parts.planner import Planner
-from PyQt5.QtWidgets import QWidget, QHBoxLayout, QListWidgetItem, QTableWidget
+from PyQt5.QtWidgets import QWidget, QHBoxLayout, QListWidgetItem
 from PyQt5.QtCore import QSize
 from PyQt5.QtGui import QIcon
+import sqlite3
 
 from stylesheet_processor import StyleSheetProcessor
 
@@ -12,15 +14,17 @@ from stylesheet_processor import StyleSheetProcessor
 class PersonalPlanner(QWidget):
     def __init__(self, size: QSize):
         super().__init__()
-        self.planner = Planner()
-        self.test_planner()  # ======================== Temporary ========================
+        self.planner = Planner("planner.db", "planner.cfg")
         self.layout = QHBoxLayout(self)
+        self.data_file = "planner.db"
+        self.config_file = "planner.cfg"
 
         # Settings
         self.current_theme = "default"
         self.show_completed = True
 
         self.setup_window(size)
+        self.setup_connection()
 
         # GUI components sizes
         sidebar_width = int(self.width() / 6)
@@ -32,6 +36,8 @@ class PersonalPlanner(QWidget):
         self.sidebar.listwidget_courses.itemClicked.connect(self.course_clicked)
         self.sidebar.button_add_course.clicked.connect(self.add_course_clicked)
         self.sidebar.refresh()
+        if not self.planner.is_empty():
+            self.sidebar.listwidget_courses.setCurrentRow(0)
 
         self.course_page = CoursePage(self, course_page_width)
         self.course_page.button_course_options.clicked.connect(self.course_options_clicked)
@@ -49,29 +55,6 @@ class PersonalPlanner(QWidget):
         self.set_theme(self.current_theme, self)
         self.show()
 
-    def test_planner(self):
-        """Temporary values to test out the GUI"""
-        self.planner.add_course("CS 178")
-        cs178 = self.planner.find_course("CS 178")
-        cs178.add_assignment("Homework 3", 5, 21)
-        cs178.add_assignment("Homework 4", 6, 4)
-
-        self.planner.add_course("CS 190")
-        cs190 = self.planner.find_course("CS 190")
-        cs190.add_assignment("Project 1", 4, 28)
-        cs190.add_assignment("Project 2", 5, 27)
-
-        self.planner.add_course("ICS 139W")
-        ics139w = self.planner.find_course("ICS 139W")
-        ics139w.add_assignment("Discussion 3", 5, 21)
-        ics139w.add_assignment("Proposal Draft", 5, 26)
-
-        for i in range(1, 10):
-            self.planner.add_course("Fake Course #" + str(i))
-
-        for i in range(1, 20):
-            self.planner.get_current_course().add_assignment("Fake Assignment #" + str(i), 7, 28)
-
     def setup_window(self, size: QSize):
         """Set up window dimensions, placement, title, and layout"""
         width = int(size.width() / 2)
@@ -88,12 +71,52 @@ class PersonalPlanner(QWidget):
         self.layout.setContentsMargins(0, 0, 0, 0)
         self.setLayout(self.layout)
 
+    def setup_connection(self):
+        """Set up connection to planner database"""
+        connection = None
+        try:
+            connection = sqlite3.connect(self.planner.data_file())
+            c = connection.cursor()
+            c.execute(
+                """CREATE TABLE IF NOT EXISTS courses (
+                    id INTEGER PRIMARY KEY,
+                    name VARCHAR(20),
+                    season VARCHAR(10),
+                    year INTEGER
+                );
+                """
+            )
+            c.execute(
+                """CREATE TABLE IF NOT EXISTS assignments (
+                    id INTEGER PRIMARY KEY,
+                    name VARCHAR(40),
+                    course_id INTEGER,
+                    completed BOOL,
+                    due_date DATE,
+                    FOREIGN KEY (course_id)
+                        REFERENCES courses (id)
+                            ON UPDATE NO ACTION
+                );
+                """
+            )
+            connection.commit()
+
+        except sqlite3.Error as error:
+            m = "ERROR: " + str(error)
+            PlannerPopUp(self, "Database Error", message=m).show()
+            print(error)
+
+        finally:
+            if connection:
+                connection.close()
+
     # On this module because of interactions outside of SideBar
     def course_clicked(self, item: QListWidgetItem):
         """Called when a course is selected, switches the view
         to display assignments for that course
         """
-        self.planner.set_current_course(item.text())
+        course = self.planner.find_course(item.data(1))
+        self.planner.set_current_course(course)
         self.course_page.refresh()
 
     # On this module because of interactions outside of Side Bar
@@ -129,7 +152,3 @@ class PersonalPlanner(QWidget):
         for child in children:
             self.set_theme(theme_name, child)
             self.set_theme_nested(theme_name, child)
-
-    def test(self, info):
-        # ======================== Temporary ========================
-        print("Testing button", info)
