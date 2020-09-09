@@ -1,6 +1,6 @@
-from PyQt5.QtWidgets import QVBoxLayout, QFrame, QListWidget, QTableWidget
+from PyQt5.QtWidgets import QVBoxLayout, QFrame, QListWidget
 
-from gui_components.planner_calendar import PlannerCalendar
+from custom_widgets.calendar import PlannerCalendar
 
 
 class OverviewPanel(QFrame):

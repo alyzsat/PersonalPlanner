@@ -1,10 +1,8 @@
 from PyQt5.QtCore import Qt
-from PyQt5.QtGui import QIcon
 from PyQt5.QtWidgets import QVBoxLayout, QPushButton, QListWidget, QListWidgetItem
+import logging
 
-from dialogs.course_dialog import CourseDialog
-from dialogs.popup import PlannerPopUp
-from planner_parts.planner import Planner
+from custom_widgets.dialogs.course_dialog import CourseDialog
 
 
 class Sidebar(QVBoxLayout):
@@ -55,6 +53,8 @@ class Sidebar(QVBoxLayout):
             index = self.app.planner.get_current_course_index()
             if index is not None:
                 self.listwidget_courses.setCurrentRow(index)
+
+        logging.info("Refreshed course list")
 
     def add_course_clicked(self):
         """Called when the add course button is clicked and opens a

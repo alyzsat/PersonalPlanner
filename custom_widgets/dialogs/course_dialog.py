@@ -1,7 +1,7 @@
 from PyQt5.QtWidgets import QLineEdit, QComboBox
 from datetime import datetime
 from math import floor
-from dialogs.dialog import PlannerQDialog
+from custom_widgets.dialogs.dialog import PlannerQDialog
 
 
 class CourseDialog(PlannerQDialog):

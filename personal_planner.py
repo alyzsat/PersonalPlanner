@@ -1,30 +1,28 @@
-from dialogs.popup import PlannerPopUp
-from gui_components.course_page import CoursePage
-from gui_components.overview_panel import OverviewPanel
-from gui_components.sidebar import Sidebar
-from planner_parts.planner import Planner
 from PyQt5.QtWidgets import QWidget, QHBoxLayout, QListWidgetItem
 from PyQt5.QtCore import QSize
 from PyQt5.QtGui import QIcon
-import sqlite3
 
 from stylesheet_processor import StyleSheetProcessor
+from gui_components.course_page import CoursePage
+from gui_components.overview_panel import OverviewPanel
+from gui_components.sidebar import Sidebar
+from planner import Planner
 
 
 class PersonalPlanner(QWidget):
     def __init__(self, size: QSize):
         super().__init__()
-        self.planner = Planner("planner.db", "planner.cfg")
-        self.layout = QHBoxLayout(self)
         self.data_file = "planner.db"
         self.config_file = "planner.cfg"
+        self.planner = Planner(self.data_file, self.config_file)
 
         # Settings
         self.current_theme = "default"
         self.show_completed = True
 
+        self.layout = QHBoxLayout(self)
         self.setup_window(size)
-        self.setup_connection()
+        self.planner.setup_connection()
 
         # GUI components sizes
         sidebar_width = int(self.width() / 6)
@@ -70,45 +68,6 @@ class PersonalPlanner(QWidget):
         self.layout.setSpacing(0)
         self.layout.setContentsMargins(0, 0, 0, 0)
         self.setLayout(self.layout)
-
-    def setup_connection(self):
-        """Set up connection to planner database"""
-        connection = None
-        try:
-            connection = sqlite3.connect(self.planner.data_file())
-            c = connection.cursor()
-            c.execute(
-                """CREATE TABLE IF NOT EXISTS courses (
-                    id INTEGER PRIMARY KEY,
-                    name VARCHAR(20),
-                    season VARCHAR(10),
-                    year INTEGER
-                );
-                """
-            )
-            c.execute(
-                """CREATE TABLE IF NOT EXISTS assignments (
-                    id INTEGER PRIMARY KEY,
-                    name VARCHAR(40),
-                    course_id INTEGER,
-                    completed BOOL,
-                    due_date DATE,
-                    FOREIGN KEY (course_id)
-                        REFERENCES courses (id)
-                            ON UPDATE NO ACTION
-                );
-                """
-            )
-            connection.commit()
-
-        except sqlite3.Error as error:
-            m = "ERROR: " + str(error)
-            PlannerPopUp(self, "Database Error", message=m).show()
-            print(error)
-
-        finally:
-            if connection:
-                connection.close()
 
     # On this module because of interactions outside of SideBar
     def course_clicked(self, item: QListWidgetItem):

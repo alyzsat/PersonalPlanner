@@ -1,7 +1,6 @@
-from PyQt5.QtCore import Qt
 from PyQt5.QtWidgets import QComboBox, QCheckBox
 
-from dialogs.dialog import PlannerQDialog
+from custom_widgets.dialogs.dialog import PlannerQDialog
 
 
 class SettingsDialog(PlannerQDialog):

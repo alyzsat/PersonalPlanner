@@ -1,4 +1,5 @@
 import sqlite3
+import logging
 
 
 class DuplicateCourseError(Exception):
@@ -14,8 +15,48 @@ class Planner:
         self._data_file = data_file
         self._config_file = config_file
         self._current_course = None
+
+        logging.basicConfig(filename="log.txt", level=logging.DEBUG)
+
         if not self.is_empty():
             self._current_course = self.courses()[0]
+
+    def setup_connection(self):
+        """Set up connection to planner database"""
+        connection = None
+        try:
+            connection = sqlite3.connect(self._data_file)
+            c = connection.cursor()
+            c.execute(
+                """CREATE TABLE IF NOT EXISTS courses (
+                    id INTEGER PRIMARY KEY,
+                    name VARCHAR(20),
+                    season VARCHAR(10),
+                    year INTEGER
+                );
+                """
+            )
+            c.execute(
+                """CREATE TABLE IF NOT EXISTS assignments (
+                    id INTEGER PRIMARY KEY,
+                    name VARCHAR(40),
+                    course_id INTEGER,
+                    completed BOOL,
+                    due_date DATE,
+                    FOREIGN KEY (course_id)
+                        REFERENCES courses (id)
+                            ON UPDATE NO ACTION
+                );
+                """
+            )
+            connection.commit()
+
+        except sqlite3.Error as error:
+            logging.error(f"Database Error: {str(error)}")
+
+        finally:
+            if connection:
+                connection.close()
 
     def data_file(self):
         """Returns the path to the data file"""
@@ -31,7 +72,7 @@ class Planner:
         """
         return self._current_course
 
-    def get_current_course_index(self) -> int:
+    def get_current_course_index(self) -> int or None:
         courses = self.courses()
         if self._current_course is not None:
             for i in range(len(courses)):
@@ -53,7 +94,7 @@ class Planner:
             info = c.fetchone()
 
         except sqlite3.Error as e:
-            print("Planner.find_course:", e)
+            logging.error(f"Planner.find_course: {e}")
 
         finally:
             if connection:
@@ -72,7 +113,7 @@ class Planner:
             self.set_current_course(c.fetchone())
 
         except sqlite3.Error as e:
-            print("Planner.add_course", e)
+            logging.error(f"Planner.add_course{e}")
 
         finally:
             if connection:
@@ -91,13 +132,13 @@ class Planner:
             connection.commit()
 
         except sqlite3.Error as e:
-            print("Planner.update_course", e)
+            logging.error(f"Planner.update_course{e}")
 
         finally:
             if connection:
                 connection.close()
 
-    def has_course(self, name: str, season: str, year: int) -> None:
+    def has_course(self, name: str, season: str, year: int) -> bool:
         """Given a set of course information, update the details of the course
         with the provided ID
         """
@@ -110,7 +151,7 @@ class Planner:
             course_exists = len(c.fetchall()) > 0
 
         except sqlite3.Error as e:
-            print("Planner.has_course", e)
+            logging.error(f"Planner.has_course{e}")
 
         finally:
             if connection:
@@ -127,7 +168,7 @@ class Planner:
             courses = c.fetchall()
 
         except sqlite3.Error as e:
-            print("Planner.courses:", e)
+            logging.error(f"Planner.courses{e}")
 
         finally:
             if connection:
@@ -151,7 +192,7 @@ class Planner:
             assignments = c.fetchall()
 
         except sqlite3.Error as e:
-            print("Planner.get_assignments:", e)
+            logging.error(f"Planner.get_assignments{e}")
 
         finally:
             if connection:
@@ -172,7 +213,7 @@ class Planner:
             connection.commit()
 
         except sqlite3.Error as e:
-            print("Planner.add_assignment:", e)
+            logging.error(f"Planner.add_assignment{e}")
 
         finally:
             if connection:
@@ -193,7 +234,7 @@ class Planner:
             assignment_exists = len(c.fetchall()) > 0
 
         except sqlite3.Error as e:
-            print("Planner.has_assignment:", e)
+            logging.error(f"Planner.has_assignment{e}")
 
         finally:
             if connection:
@@ -211,7 +252,7 @@ class Planner:
             info = c.fetchone()
 
         except sqlite3.Error as e:
-            print("Planner.update_assignment:", e)
+            logging.error(f"Planner.find_assignment{e}")
 
         finally:
             if connection:
@@ -229,7 +270,7 @@ class Planner:
             connection.commit()
 
         except sqlite3.Error as e:
-            print("Planner.update_assignment:", e)
+            logging.error(f"Planner.update_assignment{e}")
 
         finally:
             if connection:
@@ -251,47 +292,9 @@ class Planner:
             size = len(courses)
 
         except sqlite3.Error as e:
-            print("Planner.size:", e)
+            logging.error(f"Planner.size{e}")
 
         finally:
             if connection:
                 connection.close()
             return size
-
-    # ==============================================================================
-
-    def remove_assign(self, course_name: str, assign_id: int) -> None:
-        """Removes an assignment from the given course"""
-        self._course_method(course_name, "remove_assignment", [assign_id])
-
-    def change_course_name(self, course_name: str, new_name: str) -> None:
-        """Change the name of the given course"""
-        self._course_method(course_name, "change_name", [new_name])
-
-    def remove_course(self, name: str) -> None:
-        index = self.find_index(name)
-        if index != -1:
-            self._courses.pop(index)
-            if self.is_empty():
-                self._current_course_index = None
-        else:
-            raise CourseNotFoundError()
-
-    def get_index(self, name: str) -> int:
-        for i in range(len(self._courses)):
-            if self._courses[i].name().lower() == name.lower():
-                return i
-        return -1
-
-    def _course_method(self, course_name: str, fxn: str, args: list) -> None:
-        """Helper function that calls the function (fxn) given
-        with the args given on the specified course
-        """
-        index = self.find_index(course_name)
-        if index != -1:
-            # Put commas between each argument and put quotation marks
-            # around string arguments
-            args_string = ", ".join([f"'{arg}'" if (type(arg) == str) else str(arg) for arg in args])
-            exec(f"Course.{fxn}(self._courses[{index}], " + args_string + ")")
-        else:
-            raise CourseNotFoundError()

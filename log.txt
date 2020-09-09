@@ -1,0 +1,7 @@
+INFO:root:Refreshed course list
+INFO:root:Refreshed course list
+INFO:root:Refreshed course list
+INFO:root:Refreshed course list
+INFO:root:Refreshed course list
+INFO:root:Refreshed course list
+INFO:root:Refreshed course list

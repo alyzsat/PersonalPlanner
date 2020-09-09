@@ -1,6 +1,5 @@
 from PyQt5 import QtGui
 from PyQt5.QtCore import Qt
-from PyQt5.QtGui import QIcon
 from PyQt5.QtWidgets import QPushButton, QDialog, QLabel, QVBoxLayout, QWidget, QHBoxLayout, QFrame
 
 
@@ -10,7 +9,6 @@ class PlannerPopUp(QDialog):
         super().__init__(parent=app)
 
         self.setWindowFlag(Qt.FramelessWindowHint)
-        self.setWindowIcon(QIcon("assets/logo.png"))
         self.app = app
         self.row_count = 1
         self.dragging = False
