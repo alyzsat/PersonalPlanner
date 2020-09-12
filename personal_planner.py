@@ -74,7 +74,7 @@ class PersonalPlanner(QWidget):
         """Called when a course is selected, switches the view
         to display assignments for that course
         """
-        course = self.planner.find_course(item.data(1))
+        course = self.planner.get_course(item.data(1))
         self.planner.set_current_course(course)
         self.course_page.refresh()
 

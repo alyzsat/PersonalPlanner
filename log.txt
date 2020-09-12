@@ -35,3 +35,22 @@ INFO:root:Refreshed course list
 INFO:root:Created tables
 INFO:root:Refreshed course list
 INFO:root:Refreshed course list
+INFO:root:Created tables
+INFO:root:Refreshed course list
+INFO:root:Refreshed course list
+INFO:root:Created tables
+INFO:root:Refreshed course list
+INFO:root:Created tables
+INFO:root:Refreshed course list
+INFO:root:Created tables
+INFO:root:Refreshed course list
+INFO:root:Created tables
+INFO:root:Refreshed course list
+INFO:root:Created tables
+INFO:root:Refreshed course list
+INFO:root:Created tables
+INFO:root:Refreshed course list
+INFO:root:Created tables
+INFO:root:Refreshed course list
+INFO:root:Created tables
+INFO:root:Refreshed course list

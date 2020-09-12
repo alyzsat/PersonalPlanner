@@ -120,7 +120,7 @@ class Planner:
             if connection:
                 connection.close()
 
-    def get_course(self, id: int) -> None:
+    def get_course(self, id: int) -> (int, str, str, int):
         """Returns the information (id, name, season, year) for the id given
         or None if the course isn't found
         """
@@ -130,7 +130,7 @@ class Planner:
             connection = sqlite3.connect(self._data_file)
             c = connection.cursor()
             c.execute("SELECT * FROM courses WHERE id=?", (id, ))
-            connection.commit()
+            info = c.fetchone()
 
         except Exception as e:
             logging.error(f"Planner.get_course{e}")
