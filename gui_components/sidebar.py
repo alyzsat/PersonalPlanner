@@ -61,8 +61,5 @@ class Sidebar(QVBoxLayout):
         dialog to add a new course to the planner
         """
         dialog = CourseDialog(self.app, "Create New Course")
-        ok_clicked = dialog.exec_()
-        if ok_clicked:
-            name, season, year = dialog.get_info()
-            self.app.planner.add_course(name, season, year)
-            self.refresh()
+        dialog.exec_()
+        self.refresh()

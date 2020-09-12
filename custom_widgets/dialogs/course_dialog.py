@@ -32,20 +32,21 @@ class CourseDialog(PlannerQDialog):
 
         self.lineedit_name.setFocus()
 
-    def load_info(self, info: [int, str, str, int]) -> None:
+    def load_info(self, id: None, info=None) -> None:
         """Loads the course name to edit course"""
-        id, name, season, year = info
         self.old_info = info
+        id, name, season, year = self.app.planner.get_course(id)
         self.lineedit_name.setText(name)
         self.combobox_season.setCurrentText(season)
         self.combobox_year.setCurrentText(str(year))
 
-    def get_info(self) -> (str, str, int):
+    def save_info(self) -> (int, str, str, int):
         """Return name, season, year"""
-        return self.old_info[0], \
-               self.lineedit_name.text(), \
-               self.combobox_season.currentText(), \
-               int(self.combobox_year.currentText())
+        self.app.planner.add_course(
+            self.lineedit_name.text(),
+            self.combobox_season.currentText(),
+            int(self.combobox_year.currentText())
+        )
 
     def ok_clicked(self):
         """Check if course name already exists for creating new course, or
@@ -59,4 +60,5 @@ class CourseDialog(PlannerQDialog):
         elif self.app.planner.has_course(name, season, year):
             self.set_message("Course Already Exists")
         else:
+            self.save_info()
             self.accept()

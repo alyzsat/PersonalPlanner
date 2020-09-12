@@ -2,6 +2,7 @@ from PyQt5.QtCore import Qt, QRegExp
 from PyQt5.QtGui import QRegExpValidator
 from PyQt5.QtWidgets import QVBoxLayout, QHBoxLayout, QLabel, QPushButton, QTableWidget, QTableWidgetItem, QWidget
 
+from custom_widgets.data_label import DataLabel
 from custom_widgets.dialogs.assign_dialog import AssignmentDialog
 from custom_widgets.dialogs.course_dialog import CourseDialog
 from custom_widgets.dialogs.popup import PlannerPopUp
@@ -20,7 +21,7 @@ class CoursePage(QWidget):
 
         # Initialize Widgets
         self.tablewidget_assignments = QTableWidget()
-        self.label_current_course = QLabel()
+        self.label_current_course = DataLabel()
         self.button_course_options = QPushButton()
         self.button_add_assign = QPushButton()
         self.button_settings = QPushButton()
@@ -235,10 +236,13 @@ class CoursePage(QWidget):
         assignment button
         """
         if enable:
-            self.label_current_course.setText(self.app.planner.get_current_course()[1])
+            id, name, _, _ = self.app.planner.get_current_course()
+            self.label_current_course.setText(name)
+            self.label_current_course.set_data(id)
             self.button_course_options.setText("•••")
         else:
             self.label_current_course.setText("")
+            self.label_current_course.set_data(-1)
             self.button_course_options.setText("")
 
         self.button_add_assign.setEnabled(enable)
