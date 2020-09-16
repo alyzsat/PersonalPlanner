@@ -11,12 +11,12 @@ class CourseNotFoundError(Exception):
 
 
 class Planner:
-    def __init__(self, data_file: str, config_file: str):
+    def __init__(self, data_file: str, config_file: str, date):
         self._data_file = data_file
         self._config_file = config_file
         self._current_course = None
 
-        logging.basicConfig(filename="log.txt", level=logging.DEBUG)
+        logging.basicConfig(filename=f"logs/{date.date()}-{str(date.time())[:8].replace(':', '_')}.txt", level=logging.DEBUG)
 
         if not self.is_empty():
             self._current_course = self.courses()[0]
@@ -114,7 +114,7 @@ class Planner:
             self.set_current_course(c.fetchone())
 
         except Exception as e:
-            logging.error(f"Planner.add_course{e}")
+            logging.error(f"Planner.add_course: {e}")
 
         finally:
             if connection:
@@ -133,27 +133,30 @@ class Planner:
             info = c.fetchone()
 
         except Exception as e:
-            logging.error(f"Planner.get_course{e}")
+            logging.error(f"Planner.get_course: {e}")
 
         finally:
             if connection:
                 connection.close()
             return info
 
-    def update_course(self, course_info: (int, str, str, int)) -> None:
+    def update_course(self, course_id: int, field: str, value: str or int) -> None:
         """Given a set of course information, update the details of the course
         with the provided ID
         """
-        id, name, season, year = course_info
         connection = None
         try:
             connection = sqlite3.connect(self._data_file)
             c = connection.cursor()
-            c.execute("UPDATE courses SET name=?, season=?, year=? WHERE id=?", (name, season, year, id, ))
+            query = f"UPDATE courses SET {field}=? WHERE id=?"
+            c.execute(query, (value, course_id, ))
             connection.commit()
 
+            if course_id == self.get_current_course()[0]:
+                self.set_current_course(self.get_course(course_id))
+
         except Exception as e:
-            logging.error(f"Planner.update_course{e}")
+            logging.error(f"Planner.update_course: {e}")
 
         finally:
             if connection:
@@ -172,24 +175,29 @@ class Planner:
             course_exists = len(c.fetchall()) > 0
 
         except Exception as e:
-            logging.error(f"Planner.has_course{e}")
+            logging.error(f"Planner.has_course: {e}")
 
         finally:
             if connection:
                 connection.close()
             return course_exists
 
-    def courses(self) -> list:
+    def courses(self, term: (str, int) = None) -> list:
         connection = None
         courses = []
         try:
             connection = sqlite3.connect(self._data_file)
             c = connection.cursor()
-            c.execute("SELECT * FROM courses")
+
+            if term is None:
+                c.execute("SELECT * FROM courses")
+            else:
+                season, year = term
+                c.execute("SELECT * FROM courses WHERE season=? and year=?", (season, year, ))
             courses = c.fetchall()
 
         except Exception as e:
-            logging.error(f"Planner.courses{e}")
+            logging.error(f"Planner.courses: {e}")
 
         finally:
             if connection:
@@ -207,24 +215,23 @@ class Planner:
             connection = sqlite3.connect(self._data_file)
             c = connection.cursor()
             if show_completed:
-                c.execute("SELECT * FROM assignments WHERE course_id=? ORDER BY completed", (course_id, ))
+                c.execute("SELECT * FROM assignments WHERE course_id=? ORDER BY completed, due_date DESC", (course_id, ))
             else:
                 c.execute("SELECT * FROM assignments WHERE course_id=? AND completed=0", (course_id, ))
             assignments = c.fetchall()
 
         except Exception as e:
-            logging.error(f"Planner.get_assignments{e}")
+            logging.error(f"Planner.get_assignments: {e}")
 
         finally:
             if connection:
                 connection.close()
             return assignments
 
-    def add_assignment(self, course_id: int, assignment_name: str, month: int, day: int, year: str) -> None:
+    def add_assignment(self, course_id: int, assignment_name: str, due_date: str) -> None:
         """Adds the assignment to the course with the corresponding id"""
         connection = None
         try:
-            due_date = f"{year}-{month}-{day}"
             connection = sqlite3.connect(self._data_file)
             c = connection.cursor()
             c.execute(
@@ -234,7 +241,7 @@ class Planner:
             connection.commit()
 
         except Exception as e:
-            logging.error(f"Planner.add_assignment{e}")
+            logging.error(f"Planner.add_assignment: {e}")
 
         finally:
             if connection:
@@ -255,7 +262,7 @@ class Planner:
             assignment_exists = len(c.fetchall()) > 0
 
         except Exception as e:
-            logging.error(f"Planner.has_assignment{e}")
+            logging.error(f"Planner.has_assignment: {e}")
 
         finally:
             if connection:
@@ -273,7 +280,7 @@ class Planner:
             info = c.fetchone()
 
         except Exception as e:
-            logging.error(f"Planner.find_assignment{e}")
+            logging.error(f"Planner.find_assignment: {e}")
 
         finally:
             if connection:
@@ -291,7 +298,7 @@ class Planner:
             connection.commit()
 
         except Exception as e:
-            logging.error(f"Planner.update_assignment{e}")
+            logging.error(f"Planner.update_assignment: {e}")
 
         finally:
             if connection:
@@ -313,7 +320,7 @@ class Planner:
             size = len(courses)
 
         except Exception as e:
-            logging.error(f"Planner.size{e}")
+            logging.error(f"Planner.size: {e}")
 
         finally:
             if connection:

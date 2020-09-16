@@ -2,8 +2,8 @@ from PyQt5.QtWidgets import QLabel
 
 
 class DataLabel(QLabel):
-    def __init__(self, data=None):
-        super().__init__()
+    def __init__(self, text: str, data=None):
+        super().__init__(text)
         if data is not None:
             self._data = data
 

@@ -1,3 +1,7 @@
+from datetime import datetime
+
+from math import floor
+
 from PyQt5.QtWidgets import QWidget, QHBoxLayout, QListWidgetItem
 from PyQt5.QtCore import QSize
 from PyQt5.QtGui import QIcon
@@ -12,13 +16,20 @@ from planner import Planner
 class PersonalPlanner(QWidget):
     def __init__(self, size: QSize):
         super().__init__()
+        date = datetime.now()
         self.data_file = "planner.db"
         self.config_file = "planner.cfg"
-        self.planner = Planner(self.data_file, self.config_file)
+        self.planner = Planner(self.data_file, self.config_file, date)
+
+        seasons = ["Winter", "Spring", "Summer", "Fall"]
 
         # Settings
         self.current_theme = "default"
+        self.current_term = (seasons[floor(date.month / 4)], date.year)
         self.show_completed = True
+        self.show_terms = True
+        self.show_current = False
+        self.show_term_labels = True
 
         self.layout = QHBoxLayout(self)
         self.setup_window(size)

@@ -80,6 +80,18 @@ QComboBox QScrollBar::add-line {
     background-color: @background2;
 }
 
+QDateEdit {
+    background-color: @background2;
+    color: @text1;
+    padding: 5px;
+    border-radius: 5px;
+    selection-background-color: @accent3;
+    padding-left: 10px;
+    border-width: 1px;
+    border-color: @background3;
+    border-style: solid;
+}
+
 QDialog QLabel {
     border: none;
 }
@@ -101,8 +113,18 @@ QDialog QWidget#NameBar {
     border-top-right-radius: 15px;
 }
 
+QLabel#AssignmentLabel {
+    background: none;
+    font: 9pt;
+}
+
 QLabel#LabelCourseName {
     padding-left: 40px;
+}
+
+QLabel#LabelTerm {
+    background-color: @background3;
+    color: white;
 }
 
 QLabel#Month {
@@ -124,12 +146,14 @@ QLineEdit {
 QListWidget#Courses {
     border-radius: 30px;
     outline: 0;
+    padding-left: 0px;
 }
 
 QListWidget#Courses::item {
     border: 0px;
     color: @text1;
-    padding: 8px;
+    padding: 5px;
+    margin: 0px;
 }
 
 QListWidget#Courses::item:focus,
@@ -156,6 +180,30 @@ QPushButton {
     background-color: @accent1;
     color: @text2;
     padding: 10px;
+}
+
+QPushButton#AssignmentEdit {
+    background-color: none;
+    color: @background1;
+}
+
+QPushButton#AssignmentEdit:hover {
+    background-color: none;
+    color: @accent1;
+}
+
+QPushButton#AssignmentDelete {
+    background-color: none;
+    color: @background2;
+    font: 12pt;
+    padding: 0px;
+}
+
+QPushButton#AssignmentDelete:hover {
+    background-color: none;
+    color: @accent3;
+    font: 12pt;
+    padding: 0px;
 }
 
 QPushButton#CalendarArrow {

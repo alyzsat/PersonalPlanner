@@ -1,75 +1,82 @@
 from datetime import datetime
 
-from PyQt5.QtWidgets import QLineEdit, QComboBox
+from PyQt5.QtCore import QDate
+from PyQt5.QtWidgets import QLineEdit, QDateEdit, QStyleFactory
+
 from custom_widgets.dialogs.dialog import PlannerQDialog
 
 
 class AssignmentDialog(PlannerQDialog):
-    def __init__(self, app, course: (int, str, str, int), title: str):
+    def __init__(self, app, title: str, assignment_id: int = None):
         super().__init__(app, title, 4)
-        self.course = course
+        self.course = app.planner.get_current_course()
+        y, m, d = str(datetime.now().date()).split("-")
+        date = QDate(int(y), int(m), int(d))
 
-        current_date = datetime.now()
-        months = ["January", "February", "March", "April", "May",
-                  "June", "July", "August", "September", "October",
-                  "November", "December"]
-        days = [str(i + 1) for i in range(31)]
-        years = [str(i) for i in range(current_date.year + 2, current_date.year - 5, -1)]
-
-        self.old_name = None
         # Create Widgets
         self.lineedit_name = QLineEdit()
         self.lineedit_name.textChanged.connect(self.check_text)
 
-        self.combobox_month = QComboBox()
-        self.combobox_month.addItems(months)
-        self.combobox_month.setCurrentIndex(current_date.month - 1)
-
-        self.combobox_day = QComboBox()
-        self.combobox_day.addItems(days)
-        self.combobox_day.setCurrentIndex(current_date.day - 1)
-
-        self.combobox_year = QComboBox()
-        self.combobox_year.addItems(years)
-        self.combobox_year.setCurrentIndex(2)
+        self.dateedit_due = QDateEdit()
+        self.dateedit_due.setDate(date)
+        self.dateedit_due.setStyle(QStyleFactory.create("Fusion"))
 
         # Add the Widgets
         self.add_widget("Name", self.lineedit_name)
-        self.add_widget("Month", self.combobox_month)
-        self.add_widget("Day", self.combobox_day)
-        self.add_widget("Year", self.combobox_year)
+        self.add_widget("Due Date", self.dateedit_due)
 
         self.lineedit_name.setFocus()
 
-    def get_info(self) -> (str, int, int, str):
-        """Return name, month, and day from fields"""
-        return self.lineedit_name.text(), \
-               self.combobox_month.currentIndex() + 1, \
-               self.combobox_day.currentIndex() + 1, \
-               self.combobox_year.currentText()
+        self.old_info = None
+        if assignment_id is not None:
+            self.load_info(assignment_id)
 
-    def load_info(self, info: list) -> None:
+    def get_name(self) -> (str, int, int, str):
+        """Return name from QComboBox"""
+        return self.lineedit_name.text()
+
+    def get_date(self) -> str:
+        """Return the date from QDateEdit as a string"""
+        m, d, y = self.dateedit_due.text().split("/")
+        return f"{y}-{m}-{d}"
+
+    def load_info(self, assignment_id: int) -> None:
         """Loads assignment information into dialog to edit"""
-        name, month, day, year = info
-        self.old_name = name
+        self.old_info = self.app.planner.find_assignment(assignment_id)
+
+        _, name, _, _, due_date = self.old_info
+        y, m, d = due_date.split("-")
+        date = QDate(int(y), int(m), int(d))
+
         self.lineedit_name.setText(name)
-        self.combobox_month.setCurrentIndex(month - 1)
-        self.combobox_day.setCurrentIndex(day - 1)
-        self.combobox_year.setCurrentText(year)
+        self.dateedit_due.setDate(date)
 
     def ok_clicked(self):
         """Attempts to add assignment to course"""
-        name = self.lineedit_name.text()
         course_id = self.course[0]
+        name = self.get_name()
+        date = self.get_date()
 
         # If the assignment is being edited and the name is the same
         # except with capitalization changes, accept change
-        if self.old_name is not None and name.lower() == self.old_name.lower():
+        # Also applies for if only the date is being changed
+        if self.old_info is not None and name.lower() == self.old_info[1].lower():
+            self.app.planner.update_assignment(self.old_info[0], "name", name)
+            self.app.planner.update_assignment(self.old_info[0], "due_date", date)
             self.accept()
 
         # If the assignment name is already being used, set message
         elif self.app.planner.has_assignment(course_id, name):
             self.set_message("Assignment Already Exists")
 
+        # If the assignment is being edited and the name is changed to
+        # an available name, update assignment
+        elif self.old_info is not None:
+            self.app.planner.update_assignment(self.old_info[0], "name", name)
+            self.app.planner.update_assignment(self.old_info[0], "due_date", date)
+            self.accept()
+
+        # Otherwise, the assignment is new and needs to be added
         else:
+            self.app.planner.add_assignment(self.course[0], name, date)
             self.accept()

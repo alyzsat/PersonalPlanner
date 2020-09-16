@@ -29,6 +29,7 @@ class Sidebar(QVBoxLayout):
         self.listwidget_courses.setObjectName("Courses")
         self.listwidget_courses.setFixedWidth(width)
         self.listwidget_courses.setVerticalScrollBarPolicy(Qt.ScrollBarAlwaysOff)
+        self.listwidget_courses.setHorizontalScrollBarPolicy(Qt.ScrollBarAlwaysOff)
 
     def setup_add_course(self, width: int):
         """Configures the button to add a new course"""
@@ -40,13 +41,21 @@ class Sidebar(QVBoxLayout):
         """Refreshes the course list view to reflect any changes
         in the list
         """
-        courses = [(_id, name) for (_id, name, season, year) in self.app.planner.courses()]
         self.listwidget_courses.clear()
 
-        for i, n in courses:
+        if self.app.show_current:
+            courses = self.app.planner.courses(self.app.current_term)
+        else:
+            courses = self.app.planner.courses()
+
+        for id, name, season, year in courses:
+            if self.app.show_term_labels:
+                label = f"{name}\t({season[:2]} {str(year)[2:]})"
+            else:
+                label = name
             item = QListWidgetItem()
-            item.setData(0, n)  # role 0 is name
-            item.setData(1, i)  # role 1 is id
+            item.setData(0, label)  # role 0 is name
+            item.setData(1, id)  # role 1 is id
             self.listwidget_courses.addItem(item)
 
         if not self.app.planner.is_empty():

@@ -1,11 +1,10 @@
-from PyQt5.QtCore import Qt, QRegExp
-from PyQt5.QtGui import QRegExpValidator
-from PyQt5.QtWidgets import QVBoxLayout, QHBoxLayout, QLabel, QPushButton, QTableWidget, QTableWidgetItem, QWidget
+from PyQt5.QtCore import Qt
+from PyQt5.QtWidgets import QVBoxLayout, QHBoxLayout, QPushButton, QTableWidget, QTableWidgetItem, QWidget, QDateEdit, \
+    QLabel
 
 from custom_widgets.data_label import DataLabel
 from custom_widgets.dialogs.assign_dialog import AssignmentDialog
 from custom_widgets.dialogs.course_dialog import CourseDialog
-from custom_widgets.dialogs.popup import PlannerPopUp
 from custom_widgets.dialogs.settings_dialog import SettingsDialog
 
 
@@ -21,7 +20,7 @@ class CoursePage(QWidget):
 
         # Initialize Widgets
         self.tablewidget_assignments = QTableWidget()
-        self.label_current_course = DataLabel()
+        self.label_current_course = DataLabel("")
         self.button_course_options = QPushButton()
         self.button_add_assign = QPushButton()
         self.button_settings = QPushButton()
@@ -84,11 +83,12 @@ class CoursePage(QWidget):
         self.tablewidget_assignments.verticalHeader().hide()
         self.tablewidget_assignments.horizontalHeader().hide()
         self.tablewidget_assignments.itemChanged.connect(self.item_changed)
-        self.tablewidget_assignments.setColumnCount(4)
-        self.tablewidget_assignments.setColumnWidth(0, int(width / 10))
-        self.tablewidget_assignments.setColumnWidth(1, int(11 * width / 20))
-        self.tablewidget_assignments.setColumnWidth(2, int(width / 6))
-        self.tablewidget_assignments.hideColumn(3)
+        self.tablewidget_assignments.setColumnCount(5)
+        self.tablewidget_assignments.setColumnWidth(0, int(width / 20))
+        self.tablewidget_assignments.setColumnWidth(1, int(3 * width / 7))
+        self.tablewidget_assignments.setColumnWidth(2, int(width / 9))
+        self.tablewidget_assignments.setColumnWidth(3, int(width / 8))
+        self.tablewidget_assignments.setColumnWidth(4, int(width / 12))
 
     def setup_add_assignment(self, width: int) -> None:
         """Button that, when clicked, opens a dialog to add
@@ -127,16 +127,29 @@ class CoursePage(QWidget):
                 self.tablewidget_assignments.setItem(i, 0, completed)
 
                 # Name Column
-                name = QTableWidgetItem(_name)
-                self.tablewidget_assignments.setItem(i, 1, name)
+                name = DataLabel(_name)
+                name.setObjectName("AssignmentLabel")
+                name.set_data(_id)
+                self.tablewidget_assignments.setCellWidget(i, 1, name)
 
                 # Due Date Column
-                due_date = QTableWidgetItem(_due_date)
-                self.tablewidget_assignments.setItem(i, 2, due_date)
+                y, m, d = _due_date.split("-")
+                due_date = QLabel(f"{m}/{d}")
+                due_date.setObjectName("AssignmentLabel")
+                self.tablewidget_assignments.setCellWidget(i, 2, due_date)
 
-                # Hidden Item ID Column
-                item_id = QTableWidgetItem(str(_id))
-                self.tablewidget_assignments.setItem(i, 3, item_id)
+                # Edit Column
+                edit = QPushButton("•••")
+                edit.setObjectName("AssignmentEdit")
+                edit.setCursor(Qt.PointingHandCursor)
+                edit.clicked.connect(lambda clicked, id=_id: self.update_assignment(id))
+                self.tablewidget_assignments.setCellWidget(i, 3, edit)
+
+                # Delete Column
+                delete = QPushButton("x")
+                delete.setObjectName("AssignmentDelete")
+                delete.setCursor(Qt.PointingHandCursor)
+                self.tablewidget_assignments.setCellWidget(i, 4, delete)
 
             self.tablewidget_assignments.itemChanged.connect(self.item_changed)
 
@@ -144,85 +157,32 @@ class CoursePage(QWidget):
         """Update the planner to mark whether or not the assignment
         is completed
         """
-        assignment_id = int(self.tablewidget_assignments.item(item.row(), 3).text())
+        assignment_id = int(self.tablewidget_assignments.cellWidget(item.row(), 1).get_data())
 
         # If the checkbox is checked / Unchecked
         if item.column() == 0:
             self.app.planner.update_assignment(assignment_id, "completed", int(item.checkState() == 2))
             self.refresh()
 
-        # If the assignment name changes
-        elif item.column() == 1:
-            self.update_name(item, assignment_id)
-
-        # If the date changes
-        elif item.column() == 2:
-            self.app.planner.update_assignment(assignment_id, "due_date", item.text())
-            # self.update_date(item, assignment_id)
-
-    def update_name(self, item: QTableWidgetItem, assignment_id: int):
-        """Update the name for the assignment if the name is not already being
-        used for another assignment in that course
-        """
-        current_course_id = self.app.planner.get_current_course()[0]
-        if self.app.planner.has_assignment(current_course_id, item.text()):
-            # Show popup that assignment name is already used
-            # Change name back to original name
-            PlannerPopUp(self.app, "Error", "Assignment name already in use").show()
-            name = self.app.planner.find_assignment(assignment_id)[1]
-
-            # Prevent duplicate popup from showing when assignment name
-            # is changed back
-            self.tablewidget_assignments.itemChanged.disconnect()
-            self.tablewidget_assignments.item(item.row(), item.column()).setText(name)
-            self.tablewidget_assignments.itemChanged.connect(self.item_changed)
-        else:
-            self.app.planner.update_assignment(assignment_id, "name", item.text())
-
-    def update_date(self, item: QTableWidgetItem, assignment_id: int):
-        """Update the date for the assignment if the date seems valid"""
-        original_due_date = original_assignment.due_date()
-        date_str = item.text()
-        regex = QRegExp("[01]?\d/[0123]?\d")
-        validator = QRegExpValidator(regex)
-
-        # If the date string seems like an acceptable date, save to planner
-        if validator.validate(date_str, 0)[0] == 2:
-            month, day = date_str.split("/")
-            original_assignment.change_due_date(int(month), int(day))
-
-        # Otherwise, change the date back to the original date
-        else:
-            # Show popup bubble stating invalid date error
-            PlannerPopUp(self.app, "Error", "Invalid date").show()
-
-            original_date_str = f"{original_due_date[0]}/{original_due_date[1]}"
-            self.tablewidget_assignments.item(item.row(), item.column()).setText(original_date_str)
+    def update_assignment(self, assignment_id: int):
+        """Open the assignment dialog to update the assignment name and/or due date"""
+        dialog = AssignmentDialog(self.app, "Edit Assignment: ", assignment_id)
+        dialog.exec_()
+        self.refresh()
 
     def course_options_clicked(self):
         """Opens a dialog to edit the course name"""
-        id, name, _, _ = self.app.planner.get_current_course()
-        dialog = CourseDialog(self.app, f"Edit Course: {name}")
-        course_info = self.app.planner.find_course(id)
-        dialog.load_info(course_info)
-        ok_clicked = dialog.exec_()
-        if ok_clicked:
-            new_info = dialog.get_info()
-            self.app.planner.update_course(new_info)
-            self.label_current_course.setText(new_info[1])
+        dialog = CourseDialog(self.app, f"Edit Course", self.label_current_course.get_data())
+        dialog.exec_()
+        self.refresh()
 
     def add_assignment_clicked(self):
         """Called when Add Assignment button is clicked, adds a
         new assignment to the current course
         """
-        current_course = self.app.planner.get_current_course()
-        dialog = AssignmentDialog(self.app, current_course, "Create New Assignment")
-        ok_clicked = dialog.exec_()
-
-        if ok_clicked:
-            name, month, day, year = dialog.get_info()
-            self.app.planner.add_assignment(current_course[0], name, month, day, year)
-            self.refresh()
+        dialog = AssignmentDialog(self.app, "Create New Assignment")
+        dialog.exec_()
+        self.refresh()
 
     def settings_clicked(self):
         """Called when the Settings button is clicked, opens
