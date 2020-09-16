@@ -287,6 +287,24 @@ class Planner:
                 connection.close()
             return info
 
+    def delete_assignment(self, assignment_id: int):
+        """Delete the assignment from the planner"""
+        connection = None
+        info = None
+        try:
+            connection = sqlite3.connect(self._data_file)
+            c = connection.cursor()
+            c.execute("DELETE FROM assignments WHERE id=?", (assignment_id, ))
+            connection.commit()
+
+        except Exception as e:
+            logging.error(f"Planner.delete_assignment: {e}")
+
+        finally:
+            if connection:
+                connection.close()
+            return info
+
     def update_assignment(self, assignment_id: int, field: str, value) -> None:
         """Update whether or not the assignment has been completed"""
         connection = None

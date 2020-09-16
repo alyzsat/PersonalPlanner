@@ -149,6 +149,7 @@ class CoursePage(QWidget):
                 delete = QPushButton("x")
                 delete.setObjectName("AssignmentDelete")
                 delete.setCursor(Qt.PointingHandCursor)
+                delete.clicked.connect(lambda clicked, id=_id: self.delete_assignment(id))
                 self.tablewidget_assignments.setCellWidget(i, 4, delete)
 
             self.tablewidget_assignments.itemChanged.connect(self.item_changed)
@@ -168,6 +169,11 @@ class CoursePage(QWidget):
         """Open the assignment dialog to update the assignment name and/or due date"""
         dialog = AssignmentDialog(self.app, "Edit Assignment: ", assignment_id)
         dialog.exec_()
+        self.refresh()
+
+    def delete_assignment(self, assignment_id: int):
+        """Deletes the assignment from the planner"""
+        self.app.planner.delete_assignment(assignment_id)
         self.refresh()
 
     def course_options_clicked(self):
