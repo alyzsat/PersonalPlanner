@@ -5,4 +5,4 @@
 personalplanner/assets/stylesheet.qss
 .idea/dictionaries/alyzs.xml
 personalplanner/assets/stylesheet.qss
-logs/*.txt
+data/logs/*.txt

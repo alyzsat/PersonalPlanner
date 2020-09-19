@@ -6,7 +6,7 @@ from personalplanner.custom_widgets.dialogs.dialog import PlannerQDialog
 
 class CourseDialog(PlannerQDialog):
     def __init__(self, app, title: str, course_id: int = None):
-        super().__init__(app, title, 3)
+        super().__init__(app, title, 4)
         y = datetime.now().year
         seasons = ["Winter", "Spring", "Summer", "Fall"]
         years = [str(year) for year in range(y + 1, y - 5, -1)]

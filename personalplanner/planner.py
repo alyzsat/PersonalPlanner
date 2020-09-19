@@ -107,7 +107,10 @@ class Planner:
         try:
             connection = sqlite3.connect(self._data_file)
             c = connection.cursor()
-            c.execute("INSERT INTO courses (name, season, year) VALUES (?, ?, ?)", (name, season, year, ))
+            c.execute(
+                "INSERT INTO courses (name, season, year) VALUES (?, ?, ?)",
+                (name.strip(), season, year, )
+            )
             connection.commit()
             c.execute("SELECT * FROM courses WHERE name=? AND season=? AND year=?", (name, season, year, ))
             self.set_current_course(c.fetchone())
@@ -170,7 +173,10 @@ class Planner:
         try:
             connection = sqlite3.connect(self._data_file)
             c = connection.cursor()
-            c.execute("SELECT * FROM courses WHERE name=? AND season=? AND year=? COLLATE NOCASE", (name, season, year, ))
+            c.execute(
+                "SELECT * FROM courses WHERE name=? AND season=? AND year=? COLLATE NOCASE",
+                (name.strip(), season, year, )
+            )
             course_exists = len(c.fetchall()) > 0
 
         except Exception as e:
@@ -235,7 +241,7 @@ class Planner:
             c = connection.cursor()
             c.execute(
                 "INSERT INTO assignments (name, course_id, completed, due_date) VALUES (?, ?, ?, ?)",
-                (assignment_name, course_id, 0, due_date, )
+                (assignment_name.strip(), course_id, 0, due_date, )
             )
             connection.commit()
 
@@ -256,7 +262,7 @@ class Planner:
             c = connection.cursor()
             c.execute(
                 "SELECT * FROM assignments WHERE course_id=? AND name=? COLLATE NOCASE",
-                (course_id, assignment_name, )
+                (course_id, assignment_name.strip(), )
             )
             assignment_exists = len(c.fetchall()) > 0
 
