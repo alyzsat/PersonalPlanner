@@ -116,7 +116,7 @@ class PlannerCalendar(QWidget):
             today = self.calendar.itemAtPosition(week, day).widget()
             today.setObjectName("CalendarToday")
 
-        self.app.set_theme(self.app.current_theme, self)
+        self.app.set_theme(self.app.settings.current_theme(), self)
 
     def clear_slots(self):
         for i in range(7):

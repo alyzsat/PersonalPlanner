@@ -1,11 +1,11 @@
 from PyQt5.QtCore import Qt
-from PyQt5.QtWidgets import QVBoxLayout, QHBoxLayout, QPushButton, QTableWidget, QTableWidgetItem, QWidget, QDateEdit, \
-    QLabel
+from PyQt5.QtWidgets import QVBoxLayout, QHBoxLayout, QPushButton, QTableWidget, QTableWidgetItem, QWidget, QLabel, \
+    QApplication
 
-from custom_widgets.data_label import DataLabel
-from custom_widgets.dialogs.assign_dialog import AssignmentDialog
-from custom_widgets.dialogs.course_dialog import CourseDialog
-from custom_widgets.dialogs.settings_dialog import SettingsDialog
+from personalplanner.custom_widgets.data_label import DataLabel
+from personalplanner.custom_widgets.dialogs.assign_dialog import AssignmentDialog
+from personalplanner.custom_widgets.dialogs.course_dialog import CourseDialog
+from personalplanner.custom_widgets.dialogs.settings_dialog import SettingsDialog
 
 
 class CoursePage(QWidget):
@@ -114,7 +114,7 @@ class CoursePage(QWidget):
             self.tablewidget_assignments.disconnect()
             current_course = self.app.planner.get_current_course()
 
-            assignments = self.app.planner.get_assignments(current_course[0], self.app.show_completed)
+            assignments = self.app.planner.get_assignments(current_course[0], self.app.settings.show_completed())
             n_items = len(assignments)
             self.tablewidget_assignments.setRowCount(n_items)
 
@@ -130,12 +130,14 @@ class CoursePage(QWidget):
                 name = DataLabel(_name)
                 name.setObjectName("AssignmentLabel")
                 name.set_data(_id)
+                name.setFont(QApplication.font())
                 self.tablewidget_assignments.setCellWidget(i, 1, name)
 
                 # Due Date Column
                 y, m, d = _due_date.split("-")
                 due_date = QLabel(f"{m}/{d}")
                 due_date.setObjectName("AssignmentLabel")
+                due_date.setFont(QApplication.font())
                 self.tablewidget_assignments.setCellWidget(i, 2, due_date)
 
                 # Edit Column

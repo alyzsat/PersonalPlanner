@@ -11,18 +11,17 @@ class CourseNotFoundError(Exception):
 
 
 class Planner:
-    def __init__(self, data_file: str, config_file: str, date):
+    def __init__(self, data_file: str, date):
         self._data_file = data_file
-        self._config_file = config_file
         self._current_course = None
 
-        logging.basicConfig(filename=f"logs/{date.date()}-{str(date.time())[:8].replace(':', '_')}.txt", level=logging.DEBUG)
-
+        logging.basicConfig(filename=f"data/logs/{date.date()}.txt", level=logging.DEBUG)
+        self.create_tables(date)
         if not self.is_empty():
             self._current_course = self.courses()[0]
 
-    def setup_connection(self):
-        """Set up connection to planner database"""
+    def create_tables(self, date):
+        """Create tables if there is no database created yet"""
         connection = None
         try:
             connection = sqlite3.connect(self._data_file)
@@ -50,7 +49,7 @@ class Planner:
                 """
             )
             connection.commit()
-            logging.info("Created tables")
+            logging.info(f"========== Created tables {str(date.time())} ==========")
 
         except sqlite3.Error as error:
             logging.error(f"Database Error: {str(error)}")
@@ -215,7 +214,7 @@ class Planner:
             connection = sqlite3.connect(self._data_file)
             c = connection.cursor()
             if show_completed:
-                c.execute("SELECT * FROM assignments WHERE course_id=? ORDER BY completed, due_date DESC", (course_id, ))
+                c.execute("SELECT * FROM assignments WHERE course_id=? ORDER BY completed, due_date ASC", (course_id, ))
             else:
                 c.execute("SELECT * FROM assignments WHERE course_id=? AND completed=0", (course_id, ))
             assignments = c.fetchall()

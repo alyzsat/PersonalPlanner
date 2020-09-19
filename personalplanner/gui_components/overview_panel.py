@@ -1,7 +1,7 @@
 from PyQt5.QtCore import Qt
 from PyQt5.QtWidgets import QVBoxLayout, QFrame, QListWidget, QLabel
 
-from custom_widgets.calendar import PlannerCalendar
+from personalplanner.custom_widgets.calendar import PlannerCalendar
 
 
 class OverviewPanel(QFrame):
@@ -23,7 +23,7 @@ class OverviewPanel(QFrame):
         layout.addWidget(self.listwidget_upcoming)
 
         # Configure Widgets
-        self.setup_term(app.current_term)
+        self.setup_term(app.settings.current_term())
         self.setup_calendar(int(size_widgets))
         self.setup_upcoming(int(size_widgets))
 

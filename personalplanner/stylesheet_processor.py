@@ -7,12 +7,12 @@ import json
 
 class StyleSheetProcessor:
     def __init__(self, theme_name: str):
-        with open(f"assets/themes/{theme_name}.txt", "r") as theme:
+        with open(f"personalplanner/assets/themes/{theme_name}.txt", "r") as theme:
             self.color_palette = json.load(theme)
 
     def run(self):
-        raw_ss = open("assets/raw-stylesheet.qss", "r")
-        ss = open("assets/stylesheet.qss", "w")
+        raw_ss = open("personalplanner/assets/raw-stylesheet.qss", "r")
+        ss = open("personalplanner/assets/stylesheet.qss", "w")
 
         keys = list(self.color_palette.keys())  # For consistent order
         last_key = keys[-1]

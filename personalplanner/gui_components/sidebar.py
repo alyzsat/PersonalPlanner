@@ -2,7 +2,7 @@ from PyQt5.QtCore import Qt
 from PyQt5.QtWidgets import QVBoxLayout, QPushButton, QListWidget, QListWidgetItem
 import logging
 
-from custom_widgets.dialogs.course_dialog import CourseDialog
+from personalplanner.custom_widgets.dialogs.course_dialog import CourseDialog
 
 
 class Sidebar(QVBoxLayout):
@@ -43,13 +43,13 @@ class Sidebar(QVBoxLayout):
         """
         self.listwidget_courses.clear()
 
-        if self.app.show_current:
-            courses = self.app.planner.courses(self.app.current_term)
+        if self.app.settings.show_current():
+            courses = self.app.planner.courses(self.app.settings.current_term())
         else:
             courses = self.app.planner.courses()
 
         for id, name, season, year in courses:
-            if self.app.show_term_labels:
+            if self.app.settings.show_term_labels():
                 label = f"{name}\t({season[:2]} {str(year)[2:]})"
             else:
                 label = name

@@ -115,7 +115,6 @@ QDialog QWidget#NameBar {
 
 QLabel#AssignmentLabel {
     background: none;
-    font: 9pt;
 }
 
 QLabel#LabelCourseName {
@@ -284,6 +283,7 @@ QTableWidget#Assignments {
 }
 
 QTableWidget#Assignments::item {
+    font: Arial 9pt;
     color: @text1;
     border: none;
     padding-left: 20px;

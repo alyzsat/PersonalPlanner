@@ -1,7 +1,7 @@
 from PyQt5.QtWidgets import QGridLayout, QLabel, QPushButton, QWidget, QHBoxLayout
 from PyQt5.QtCore import Qt
 
-from custom_widgets.dialogs.popup import PlannerPopUp
+from personalplanner.custom_widgets.dialogs.popup import PlannerPopUp
 
 
 class PlannerQDialog(PlannerPopUp):

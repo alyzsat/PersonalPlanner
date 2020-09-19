@@ -1,0 +1,201 @@
+ERROR:root:Database Error: unable to open database file
+ERROR:root:Planner.size: unable to open database file
+ERROR:root:Database Error: unable to open database file
+ERROR:root:Planner.size: unable to open database file
+ERROR:root:Database Error: unable to open database file
+ERROR:root:Planner.size: unable to open database file
+INFO:root:Saved settings to config file
+ERROR:root:Planner.courses: unable to open database file
+ERROR:root:Planner.size: unable to open database file
+INFO:root:Refreshed course list
+ERROR:root:Planner.size: unable to open database file
+ERROR:root:Planner.size: unable to open database file
+ERROR:root:Planner.size: unable to open database file
+ERROR:root:Database Error: unable to open database file
+ERROR:root:Planner.size: unable to open database file
+ERROR:root:Database Error: unable to open database file
+ERROR:root:Planner.size: unable to open database file
+ERROR:root:Planner.courses: unable to open database file
+ERROR:root:Planner.size: unable to open database file
+INFO:root:Refreshed course list
+ERROR:root:Planner.size: unable to open database file
+ERROR:root:Planner.size: unable to open database file
+ERROR:root:Planner.size: unable to open database file
+ERROR:root:Database Error: unable to open database file
+ERROR:root:Planner.size: unable to open database file
+ERROR:root:Planner.courses: unable to open database file
+ERROR:root:Planner.size: unable to open database file
+INFO:root:Refreshed course list
+ERROR:root:Planner.size: unable to open database file
+ERROR:root:Planner.size: unable to open database file
+ERROR:root:Planner.size: unable to open database file
+ERROR:root:Database Error: unable to open database file
+ERROR:root:Planner.size: unable to open database file
+ERROR:root:Planner.courses: unable to open database file
+ERROR:root:Planner.size: unable to open database file
+INFO:root:Refreshed course list
+ERROR:root:Planner.size: unable to open database file
+ERROR:root:Planner.size: unable to open database file
+ERROR:root:Planner.size: unable to open database file
+ERROR:root:Database Error: unable to open database file
+ERROR:root:Planner.size: unable to open database file
+ERROR:root:Planner.courses: unable to open database file
+ERROR:root:Planner.size: unable to open database file
+INFO:root:Refreshed course list
+ERROR:root:Planner.size: unable to open database file
+ERROR:root:Planner.size: unable to open database file
+ERROR:root:Planner.size: unable to open database file
+INFO:root:========== Created tables 16:47:23.600845 ==========
+INFO:root:Refreshed course list
+INFO:root:========== Created tables 16:47:46.342878 ==========
+INFO:root:Refreshed course list
+INFO:root:Refreshed course list
+INFO:root:========== Created tables 16:47:54.694913 ==========
+INFO:root:Refreshed course list
+INFO:root:========== Created tables 16:51:27.617343 ==========
+INFO:root:Refreshed course list
+INFO:root:========== Created tables 16:51:52.357811 ==========
+INFO:root:Refreshed course list
+INFO:root:========== Created tables 16:53:31.363427 ==========
+INFO:root:Refreshed course list
+INFO:root:========== Created tables 16:54:32.553398 ==========
+INFO:root:Refreshed course list
+INFO:root:========== Created tables 16:55:50.342857 ==========
+INFO:root:Refreshed course list
+INFO:root:========== Created tables 16:56:00.031302 ==========
+INFO:root:Refreshed course list
+INFO:root:========== Created tables 16:56:08.993874 ==========
+INFO:root:Refreshed course list
+INFO:root:========== Created tables 16:56:24.057391 ==========
+INFO:root:Refreshed course list
+INFO:root:========== Created tables 16:57:11.647767 ==========
+INFO:root:Refreshed course list
+INFO:root:========== Created tables 16:57:40.675441 ==========
+INFO:root:Refreshed course list
+INFO:root:========== Created tables 16:58:02.944368 ==========
+INFO:root:Refreshed course list
+INFO:root:========== Created tables 16:58:53.618808 ==========
+INFO:root:Refreshed course list
+INFO:root:========== Created tables 16:59:44.750066 ==========
+INFO:root:Refreshed course list
+INFO:root:========== Created tables 17:00:02.546344 ==========
+INFO:root:Refreshed course list
+INFO:root:========== Created tables 17:00:28.313911 ==========
+INFO:root:Refreshed course list
+INFO:root:========== Created tables 17:01:12.328245 ==========
+INFO:root:Refreshed course list
+INFO:root:========== Created tables 17:22:12.757189 ==========
+INFO:root:Refreshed course list
+INFO:root:========== Created tables 17:23:01.313401 ==========
+INFO:root:Refreshed course list
+INFO:root:========== Created tables 17:23:34.604108 ==========
+INFO:root:Refreshed course list
+INFO:root:Refreshed course list
+INFO:root:Refreshed course list
+INFO:root:========== Created tables 17:23:48.720048 ==========
+INFO:root:Refreshed course list
+INFO:root:Refreshed course list
+INFO:root:Saved settings to config file
+INFO:root:========== Created tables 17:25:13.895597 ==========
+INFO:root:Refreshed course list
+INFO:root:========== Created tables 17:25:21.469529 ==========
+INFO:root:Saved settings to config file
+INFO:root:Refreshed course list
+INFO:root:========== Created tables 17:26:58.724957 ==========
+INFO:root:Refreshed course list
+INFO:root:========== Created tables 17:27:06.629794 ==========
+INFO:root:Saved settings to config file
+INFO:root:Refreshed course list
+INFO:root:========== Created tables 17:27:15.901992 ==========
+INFO:root:Refreshed course list
+INFO:root:========== Created tables 17:37:46.731845 ==========
+INFO:root:Saved settings to config file
+INFO:root:Refreshed course list
+INFO:root:========== Created tables 17:38:24.811786 ==========
+INFO:root:Refreshed course list
+INFO:root:Refreshed course list
+INFO:root:Saved settings to config file
+INFO:root:Refreshed course list
+INFO:root:Refreshed course list
+INFO:root:Refreshed course list
+INFO:root:Refreshed course list
+INFO:root:========== Created tables 17:39:45.560926 ==========
+INFO:root:Refreshed course list
+INFO:root:Refreshed course list
+INFO:root:========== Created tables 17:39:59.397107 ==========
+INFO:root:Refreshed course list
+INFO:root:Refreshed course list
+INFO:root:Refreshed course list
+INFO:root:Saved settings to config file
+INFO:root:Refreshed course list
+INFO:root:Refreshed course list
+INFO:root:Refreshed course list
+INFO:root:Refreshed course list
+INFO:root:Refreshed course list
+INFO:root:Refreshed course list
+INFO:root:Refreshed course list
+INFO:root:Refreshed course list
+INFO:root:Refreshed course list
+INFO:root:Refreshed course list
+INFO:root:Refreshed course list
+INFO:root:Refreshed course list
+INFO:root:Refreshed course list
+INFO:root:Refreshed course list
+INFO:root:Refreshed course list
+INFO:root:Refreshed course list
+INFO:root:Refreshed course list
+INFO:root:Saved settings to config file
+INFO:root:Refreshed course list
+INFO:root:Saved settings to config file
+INFO:root:========== Created tables 17:41:40.325222 ==========
+INFO:root:Refreshed course list
+INFO:root:Refreshed course list
+INFO:root:Refreshed course list
+INFO:root:Refreshed course list
+INFO:root:========== Created tables 17:47:55.569722 ==========
+INFO:root:Refreshed course list
+INFO:root:========== Created tables 17:48:21.019165 ==========
+INFO:root:Refreshed course list
+INFO:root:Refreshed course list
+INFO:root:========== Created tables 17:48:41.983332 ==========
+INFO:root:Refreshed course list
+INFO:root:Refreshed course list
+INFO:root:Refreshed course list
+INFO:root:========== Created tables 17:49:30.761550 ==========
+INFO:root:Refreshed course list
+INFO:root:Refreshed course list
+INFO:root:========== Created tables 17:49:59.921257 ==========
+INFO:root:Refreshed course list
+INFO:root:========== Created tables 17:50:08.734478 ==========
+INFO:root:Refreshed course list
+INFO:root:Refreshed course list
+INFO:root:========== Created tables 17:50:19.256991 ==========
+INFO:root:Refreshed course list
+INFO:root:========== Created tables 17:51:11.088431 ==========
+INFO:root:Refreshed course list
+INFO:root:Refreshed course list
+INFO:root:========== Created tables 17:51:40.523461 ==========
+INFO:root:Refreshed course list
+INFO:root:Refreshed course list
+INFO:root:Refreshed course list
+INFO:root:Refreshed course list
+INFO:root:========== Created tables 17:52:05.890497 ==========
+INFO:root:Refreshed course list
+INFO:root:Refreshed course list
+INFO:root:========== Created tables 17:52:36.533981 ==========
+INFO:root:Refreshed course list
+INFO:root:========== Created tables 17:52:40.228087 ==========
+INFO:root:Refreshed course list
+INFO:root:Refreshed course list
+INFO:root:========== Created tables 17:52:55.125283 ==========
+INFO:root:Refreshed course list
+INFO:root:Refreshed course list
+INFO:root:Refreshed course list
+INFO:root:========== Created tables 17:55:40.235676 ==========
+INFO:root:Refreshed course list
+INFO:root:Refreshed course list
+INFO:root:========== Created tables 17:55:53.405774 ==========
+INFO:root:Refreshed course list
+INFO:root:Refreshed course list
+INFO:root:Refreshed course list
+INFO:root:Refreshed course list

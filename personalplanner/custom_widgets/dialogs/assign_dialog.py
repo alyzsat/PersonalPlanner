@@ -3,7 +3,7 @@ from datetime import datetime
 from PyQt5.QtCore import QDate
 from PyQt5.QtWidgets import QLineEdit, QDateEdit, QStyleFactory
 
-from custom_widgets.dialogs.dialog import PlannerQDialog
+from personalplanner.custom_widgets.dialogs.dialog import PlannerQDialog
 
 
 class AssignmentDialog(PlannerQDialog):

@@ -2,7 +2,7 @@
 *.pyc
 
 .idea/dictionaries/alyzs.xml
-assets/stylesheet.qss
+personalplanner/assets/stylesheet.qss
 .idea/dictionaries/alyzs.xml
-assets/stylesheet.qss
+personalplanner/assets/stylesheet.qss
 logs/*.txt

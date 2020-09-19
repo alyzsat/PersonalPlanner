@@ -2,7 +2,7 @@ import sys
 
 from PyQt5.QtWidgets import QApplication
 
-from personal_planner import PersonalPlanner
+from personalplanner.personal_planner import PersonalPlanner
 
 if __name__ == "__main__":
     app = QApplication(sys.argv)

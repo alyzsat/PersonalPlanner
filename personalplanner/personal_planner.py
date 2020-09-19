@@ -1,39 +1,30 @@
 from datetime import datetime
 
-from math import floor
-
 from PyQt5.QtWidgets import QWidget, QHBoxLayout, QListWidgetItem
 from PyQt5.QtCore import QSize
 from PyQt5.QtGui import QIcon
 
-from stylesheet_processor import StyleSheetProcessor
-from gui_components.course_page import CoursePage
-from gui_components.overview_panel import OverviewPanel
-from gui_components.sidebar import Sidebar
-from planner import Planner
+from personalplanner.settings import Settings
+from personalplanner.stylesheet_processor import StyleSheetProcessor
+from personalplanner.gui_components.course_page import CoursePage
+from personalplanner.gui_components.overview_panel import OverviewPanel
+from personalplanner.gui_components.sidebar import Sidebar
+from personalplanner.planner import Planner
 
 
 class PersonalPlanner(QWidget):
     def __init__(self, size: QSize):
         super().__init__()
         date = datetime.now()
-        self.data_file = "planner.db"
-        self.config_file = "planner.cfg"
-        self.planner = Planner(self.data_file, self.config_file, date)
-
-        seasons = ["Winter", "Spring", "Summer", "Fall"]
+        self.data_file = "data/planner.db"
+        self.config_file = "data/planner.ini"
+        self.planner = Planner(self.data_file, date)
 
         # Settings
-        self.current_theme = "default"
-        self.current_term = (seasons[floor(date.month / 4)], date.year)
-        self.show_completed = True
-        self.show_terms = True
-        self.show_current = False
-        self.show_term_labels = True
+        self.settings = Settings(self.config_file)
 
         self.layout = QHBoxLayout(self)
         self.setup_window(size)
-        self.planner.setup_connection()
 
         # GUI components sizes
         sidebar_width = int(self.width() / 6)
@@ -61,7 +52,7 @@ class PersonalPlanner(QWidget):
         self.layout.addStretch()
         self.layout.addWidget(self.overview_panel)
 
-        self.set_theme(self.current_theme, self)
+        self.set_theme(self.settings.current_theme(), self)
         self.show()
 
     def setup_window(self, size: QSize):
@@ -110,7 +101,7 @@ class PersonalPlanner(QWidget):
         created stylesheet.qss
         """
         StyleSheetProcessor(theme_name).run()
-        with open("assets/stylesheet.qss") as ss:
+        with open("personalplanner/assets/stylesheet.qss") as ss:
             widget.setStyleSheet(ss.read())
             nested = widget.findChild(QWidget, "OverviewPanel")
 

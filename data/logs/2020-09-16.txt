@@ -1,0 +1,174 @@
+INFO:root:========== Created tables 16:20:22.005207 ==========
+INFO:root:Refreshed course list
+INFO:root:========== Created tables 16:20:28.529614 ==========
+INFO:root:Refreshed course list
+INFO:root:========== Created tables 16:24:07.321515 ==========
+INFO:root:Refreshed course list
+INFO:root:Refreshed course list
+INFO:root:Refreshed course list
+INFO:root:Refreshed course list
+ERROR:root:Database Error: unable to open database file
+ERROR:root:Planner.size: unable to open database file
+ERROR:root:Planner.courses: unable to open database file
+ERROR:root:Planner.size: unable to open database file
+INFO:root:Refreshed course list
+ERROR:root:Planner.size: unable to open database file
+ERROR:root:Planner.size: unable to open database file
+ERROR:root:Planner.size: unable to open database file
+ERROR:root:Database Error: unable to open database file
+ERROR:root:Planner.size: unable to open database file
+ERROR:root:Planner.courses: unable to open database file
+ERROR:root:Planner.size: unable to open database file
+INFO:root:Refreshed course list
+ERROR:root:Planner.size: unable to open database file
+ERROR:root:Planner.size: unable to open database file
+ERROR:root:Planner.size: unable to open database file
+ERROR:root:Database Error: unable to open database file
+ERROR:root:Planner.size: unable to open database file
+ERROR:root:Planner.courses: unable to open database file
+ERROR:root:Planner.size: unable to open database file
+INFO:root:Refreshed course list
+ERROR:root:Planner.size: unable to open database file
+ERROR:root:Planner.size: unable to open database file
+ERROR:root:Planner.size: unable to open database file
+ERROR:root:Database Error: unable to open database file
+ERROR:root:Planner.size: unable to open database file
+ERROR:root:Planner.courses: unable to open database file
+ERROR:root:Planner.size: unable to open database file
+INFO:root:Refreshed course list
+ERROR:root:Planner.size: unable to open database file
+ERROR:root:Planner.size: unable to open database file
+ERROR:root:Planner.size: unable to open database file
+ERROR:root:Database Error: unable to open database file
+ERROR:root:Planner.size: unable to open database file
+ERROR:root:Planner.courses: unable to open database file
+ERROR:root:Planner.size: unable to open database file
+INFO:root:Refreshed course list
+ERROR:root:Planner.size: unable to open database file
+ERROR:root:Planner.size: unable to open database file
+ERROR:root:Planner.size: unable to open database file
+ERROR:root:Database Error: unable to open database file
+ERROR:root:Planner.size: unable to open database file
+ERROR:root:Planner.courses: unable to open database file
+ERROR:root:Planner.size: unable to open database file
+INFO:root:Refreshed course list
+ERROR:root:Planner.size: unable to open database file
+ERROR:root:Planner.size: unable to open database file
+ERROR:root:Planner.size: unable to open database file
+ERROR:root:Database Error: unable to open database file
+ERROR:root:Planner.size: unable to open database file
+ERROR:root:Planner.courses: unable to open database file
+ERROR:root:Planner.size: unable to open database file
+INFO:root:Refreshed course list
+ERROR:root:Planner.size: unable to open database file
+ERROR:root:Planner.size: unable to open database file
+ERROR:root:Planner.size: unable to open database file
+ERROR:root:Database Error: unable to open database file
+ERROR:root:Planner.size: unable to open database file
+ERROR:root:Planner.courses: unable to open database file
+ERROR:root:Planner.size: unable to open database file
+INFO:root:Refreshed course list
+ERROR:root:Planner.size: unable to open database file
+ERROR:root:Planner.size: unable to open database file
+ERROR:root:Planner.size: unable to open database file
+ERROR:root:Database Error: unable to open database file
+ERROR:root:Planner.size: unable to open database file
+ERROR:root:Planner.courses: unable to open database file
+ERROR:root:Planner.size: unable to open database file
+INFO:root:Refreshed course list
+ERROR:root:Planner.size: unable to open database file
+ERROR:root:Planner.size: unable to open database file
+ERROR:root:Planner.size: unable to open database file
+ERROR:root:Database Error: unable to open database file
+ERROR:root:Planner.size: unable to open database file
+ERROR:root:Planner.courses: unable to open database file
+ERROR:root:Planner.size: unable to open database file
+INFO:root:Refreshed course list
+ERROR:root:Planner.size: unable to open database file
+ERROR:root:Planner.size: unable to open database file
+ERROR:root:Planner.size: unable to open database file
+ERROR:root:Database Error: unable to open database file
+ERROR:root:Planner.size: unable to open database file
+ERROR:root:Database Error: unable to open database file
+ERROR:root:Planner.size: unable to open database file
+ERROR:root:Database Error: unable to open database file
+ERROR:root:Planner.size: unable to open database file
+ERROR:root:Planner.courses: unable to open database file
+ERROR:root:Planner.size: unable to open database file
+INFO:root:Refreshed course list
+ERROR:root:Planner.size: unable to open database file
+ERROR:root:Planner.size: unable to open database file
+ERROR:root:Planner.size: unable to open database file
+ERROR:root:Database Error: unable to open database file
+ERROR:root:Planner.size: unable to open database file
+ERROR:root:Planner.courses: unable to open database file
+ERROR:root:Planner.size: unable to open database file
+INFO:root:Refreshed course list
+ERROR:root:Planner.size: unable to open database file
+ERROR:root:Planner.size: unable to open database file
+ERROR:root:Planner.size: unable to open database file
+ERROR:root:Database Error: unable to open database file
+ERROR:root:Planner.size: unable to open database file
+ERROR:root:Database Error: unable to open database file
+ERROR:root:Planner.size: unable to open database file
+ERROR:root:Database Error: unable to open database file
+ERROR:root:Planner.size: unable to open database file
+ERROR:root:Database Error: unable to open database file
+ERROR:root:Planner.size: unable to open database file
+ERROR:root:Database Error: unable to open database file
+ERROR:root:Planner.size: unable to open database file
+ERROR:root:Database Error: unable to open database file
+ERROR:root:Planner.size: unable to open database file
+ERROR:root:Database Error: unable to open database file
+ERROR:root:Planner.size: unable to open database file
+ERROR:root:Database Error: unable to open database file
+ERROR:root:Planner.size: unable to open database file
+ERROR:root:Database Error: unable to open database file
+ERROR:root:Planner.size: unable to open database file
+ERROR:root:Database Error: unable to open database file
+ERROR:root:Planner.size: unable to open database file
+ERROR:root:Database Error: unable to open database file
+ERROR:root:Planner.size: unable to open database file
+INFO:root:Saved settings to config file
+ERROR:root:Planner.courses: unable to open database file
+ERROR:root:Planner.size: unable to open database file
+INFO:root:Refreshed course list
+ERROR:root:Planner.size: unable to open database file
+ERROR:root:Planner.size: unable to open database file
+ERROR:root:Planner.size: unable to open database file
+ERROR:root:Database Error: unable to open database file
+ERROR:root:Planner.size: unable to open database file
+ERROR:root:Planner.courses: unable to open database file
+ERROR:root:Planner.size: unable to open database file
+INFO:root:Refreshed course list
+ERROR:root:Planner.size: unable to open database file
+ERROR:root:Planner.size: unable to open database file
+ERROR:root:Planner.size: unable to open database file
+ERROR:root:Database Error: unable to open database file
+ERROR:root:Planner.size: unable to open database file
+ERROR:root:Planner.courses: unable to open database file
+ERROR:root:Planner.size: unable to open database file
+INFO:root:Refreshed course list
+ERROR:root:Planner.size: unable to open database file
+ERROR:root:Planner.size: unable to open database file
+ERROR:root:Planner.size: unable to open database file
+ERROR:root:Database Error: unable to open database file
+ERROR:root:Planner.size: unable to open database file
+ERROR:root:Planner.courses: unable to open database file
+ERROR:root:Planner.size: unable to open database file
+INFO:root:Refreshed course list
+ERROR:root:Planner.size: unable to open database file
+ERROR:root:Planner.size: unable to open database file
+ERROR:root:Planner.size: unable to open database file
+ERROR:root:Database Error: unable to open database file
+ERROR:root:Planner.size: unable to open database file
+ERROR:root:Planner.courses: unable to open database file
+ERROR:root:Planner.size: unable to open database file
+INFO:root:Refreshed course list
+ERROR:root:Planner.size: unable to open database file
+ERROR:root:Planner.size: unable to open database file
+ERROR:root:Planner.size: unable to open database file
+ERROR:root:Database Error: unable to open database file
+ERROR:root:Planner.size: unable to open database file
+ERROR:root:Database Error: unable to open database file
+ERROR:root:Planner.size: unable to open database file

@@ -15,7 +15,7 @@ class PlannerPopUp(QDialog):
         self.local_position = None
         self.setMinimumWidth(self.app.width() / 4)
 
-        with open("assets/stylesheet.qss") as ss:
+        with open("personalplanner/assets/stylesheet.qss") as ss:
             self.setStyleSheet(ss.read())
 
         # Message Box
