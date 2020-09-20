@@ -134,7 +134,13 @@ class Planner:
             c.execute("DELETE FROM courses WHERE id=?", (id,))
             connection.commit()
             logging.info(f"{str(datetime.now().time())}: Deleted course -> id={id}")
-            self.set_current_course(None)
+            c.execute("DELETE FROM assignments WHERE course_id=?", (id,))
+            connection.commit()
+            logging.info(f"{str(datetime.now().time())}: -- Deleted corresponding assignments")
+
+            # If current course is being deleted, unset current course
+            if id == self._current_course[0]:
+                self.set_current_course(None)
 
         except Exception as e:
             logging.error(f"Planner.delete_course: {e}")
