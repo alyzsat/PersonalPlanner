@@ -92,7 +92,7 @@ class CoursePage(QWidget):
         the top of the page if the course has changed.
         """
         self.tablewidget_assignments.clear()
-        if self.app.planner.is_empty():
+        if self.app.planner.is_empty() or self.app.planner.get_current_course() is None:
             self._enable_course_page(False)
         else:
             self._enable_course_page(True)

@@ -134,6 +134,7 @@ class Planner:
             c.execute("DELETE FROM courses WHERE id=?", (id,))
             connection.commit()
             logging.info(f"{str(datetime.now().time())}: Deleted course -> id={id}")
+            self.set_current_course(None)
 
         except Exception as e:
             logging.error(f"Planner.delete_course: {e}")
