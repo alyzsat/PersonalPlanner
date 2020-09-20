@@ -199,3 +199,30 @@ INFO:root:Refreshed course list
 INFO:root:Refreshed course list
 INFO:root:Refreshed course list
 INFO:root:Refreshed course list
+INFO:root:========== Created tables 18:13:32.624374 ==========
+INFO:root:Refreshed course list
+INFO:root:Refreshed course list
+INFO:root:========== Created tables 18:15:18.162604 ==========
+INFO:root:Refreshed course list
+INFO:root:========== Created tables 18:19:35.841991 ==========
+INFO:root:Refreshed course list
+INFO:root:========== Created tables 18:34:47.465790 ==========
+INFO:root:Refreshed course list
+INFO:root:========== Created tables 18:34:55.930638 ==========
+INFO:root:Refreshed course list
+INFO:root:Refreshed course list
+INFO:root:========== Created tables 18:35:09.923505 ==========
+INFO:root:Refreshed course list
+INFO:root:Refreshed course list
+INFO:root:Refreshed course list
+INFO:root:Refreshed course list
+INFO:root:Refreshed course list
+INFO:root:========== Created tables 18:40:43.034755 ==========
+INFO:root:Refreshed course list
+INFO:root:Refreshed course list
+INFO:root:Refreshed course list
+INFO:root:========== Created tables 18:42:15.860176 ==========
+INFO:root:Refreshed course list
+INFO:root:========== Created tables 18:48:28.183373 ==========
+INFO:root:========== Created tables 18:48:34.283522 ==========
+INFO:root:Refreshed course list

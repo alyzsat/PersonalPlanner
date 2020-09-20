@@ -173,6 +173,10 @@ QListWidget#Upcoming {
     background-color: @background1;
 }
 
+QMenu::item:selected {
+    background-color: @background2;
+}
+
 QPushButton {
     margin: 0px;
     border-radius: 15px;

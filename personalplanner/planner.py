@@ -1,5 +1,6 @@
 import sqlite3
 import logging
+from datetime import datetime
 
 
 class DuplicateCourseError(Exception):
@@ -114,6 +115,7 @@ class Planner:
             connection.commit()
             c.execute("SELECT * FROM courses WHERE name=? AND season=? AND year=?", (name, season, year, ))
             self.set_current_course(c.fetchone())
+            logging.info(f"{str(datetime.now().time())}: Added course -> name={name}")
 
         except Exception as e:
             logging.error(f"Planner.add_course: {e}")
@@ -121,6 +123,25 @@ class Planner:
         finally:
             if connection:
                 connection.close()
+
+    def delete_course(self, id: int) -> None:
+        """Permanently delete the course from database"""
+        connection = None
+        info = None
+        try:
+            connection = sqlite3.connect(self._data_file)
+            c = connection.cursor()
+            c.execute("DELETE FROM courses WHERE id=?", (id,))
+            connection.commit()
+            logging.info(f"{str(datetime.now().time())}: Deleted course -> id={id}")
+
+        except Exception as e:
+            logging.error(f"Planner.delete_course: {e}")
+
+        finally:
+            if connection:
+                connection.close()
+            return info
 
     def get_course(self, id: int) -> (int, str, str, int):
         """Returns the information (id, name, season, year) for the id given
@@ -153,6 +174,7 @@ class Planner:
             query = f"UPDATE courses SET {field}=? WHERE id=?"
             c.execute(query, (value, course_id, ))
             connection.commit()
+            logging.info(f"{str(datetime.now().time())}: Updated course -> id={course_id}")
 
             if course_id == self.get_current_course()[0]:
                 self.set_current_course(self.get_course(course_id))
@@ -195,7 +217,7 @@ class Planner:
             c = connection.cursor()
 
             if term is None:
-                c.execute("SELECT * FROM courses")
+                c.execute("SELECT * FROM courses ORDER BY id")
             else:
                 season, year = term
                 c.execute("SELECT * FROM courses WHERE season=? and year=?", (season, year, ))
@@ -244,6 +266,7 @@ class Planner:
                 (assignment_name.strip(), course_id, 0, due_date, )
             )
             connection.commit()
+            logging.info(f"{str(datetime.now().time())}: Add assignment -> name={assignment_name}")
 
         except Exception as e:
             logging.error(f"Planner.add_assignment: {e}")
@@ -301,6 +324,7 @@ class Planner:
             c = connection.cursor()
             c.execute("DELETE FROM assignments WHERE id=?", (assignment_id, ))
             connection.commit()
+            logging.info(f"{str(datetime.now().time())}: Deleted assignment -> id={assignment_id}")
 
         except Exception as e:
             logging.error(f"Planner.delete_assignment: {e}")
@@ -319,6 +343,7 @@ class Planner:
             query = f"UPDATE assignments SET {field}=? WHERE id=?"
             c.execute(query, (value, assignment_id, ))
             connection.commit()
+            logging.info(f"{str(datetime.now().time())}: Updated assignment -> id={assignment_id}")
 
         except Exception as e:
             logging.error(f"Planner.update_assignment: {e}")

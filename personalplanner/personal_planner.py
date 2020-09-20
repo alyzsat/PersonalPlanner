@@ -40,14 +40,13 @@ class PersonalPlanner(QWidget):
             self.sidebar.listwidget_courses.setCurrentRow(0)
 
         self.course_page = CoursePage(self, course_page_width)
-        self.course_page.button_course_options.clicked.connect(self.course_options_clicked)
         self.course_page.refresh()
 
         self.overview_panel = OverviewPanel(self, overview_panel_width)
 
         # Add GUI components
         # self.layout.addLayout(ToolBar)
-        self.layout.addLayout(self.sidebar)
+        self.layout.addWidget(self.sidebar)
         self.layout.addWidget(self.course_page)
         self.layout.addStretch()
         self.layout.addWidget(self.overview_panel)
@@ -113,3 +112,8 @@ class PersonalPlanner(QWidget):
         for child in children:
             self.set_theme(theme_name, child)
             self.set_theme_nested(theme_name, child)
+
+    def refresh(self):
+        self.sidebar.refresh()
+        self.course_page.refresh()
+        # self.overview_panel.refresh()

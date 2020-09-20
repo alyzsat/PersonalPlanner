@@ -21,13 +21,11 @@ class CoursePage(QWidget):
         # Initialize Widgets
         self.tablewidget_assignments = QTableWidget()
         self.label_current_course = DataLabel("")
-        self.button_course_options = QPushButton()
         self.button_add_assign = QPushButton()
         self.button_settings = QPushButton()
 
         # Sizes for Widgets
         size_add_assign = int(width / 4)
-        size_course_options = int(width / 10)
         size_settings = int(width / 8)
         size_assignments = width
 
@@ -37,7 +35,6 @@ class CoursePage(QWidget):
 
         # Add Widgets
         course_bar.addWidget(self.label_current_course)
-        course_bar.addWidget(self.button_course_options)
         course_bar.addStretch()
         course_bar.addWidget(self.button_add_assign)
         course_bar.addWidget(self.button_settings)
@@ -47,7 +44,6 @@ class CoursePage(QWidget):
         self.setFixedWidth(int(9 * width / 10))
         self.setup_assignments(size_assignments)
         self.setup_current_course()
-        self.setup_course_options(size_course_options)
         self.setup_add_assignment(size_add_assign)
         self.setup_settings(size_settings)
 
@@ -56,17 +52,6 @@ class CoursePage(QWidget):
         the current course to display
         """
         self.label_current_course.setObjectName("LabelCourseName")
-
-    def setup_course_options(self, width: int) -> None:
-        """Button that, when clicked, opens a dialog to edit
-        the course name
-        """
-        self.button_course_options.setFixedWidth(width)
-        self.button_course_options.setObjectName("CourseOptions")
-        self.button_course_options.setCursor(Qt.PointingHandCursor)
-
-        # Moved connection to PersonalPlanner to be able to refresh the sidebar
-        # self.button_course_options.clicked.connect(self.course_options_clicked)
 
     def setup_settings(self, width: int):
         self.button_settings.setObjectName("Settings")
@@ -207,11 +192,8 @@ class CoursePage(QWidget):
             id, name, _, _ = self.app.planner.get_current_course()
             self.label_current_course.setText(name)
             self.label_current_course.set_data(id)
-            self.button_course_options.setText("•••")
         else:
             self.label_current_course.setText("")
             self.label_current_course.set_data(-1)
-            self.button_course_options.setText("")
 
         self.button_add_assign.setEnabled(enable)
-        self.button_course_options.setEnabled(enable)

@@ -1,24 +1,29 @@
+from PyQt5 import QtGui
 from PyQt5.QtCore import Qt
-from PyQt5.QtWidgets import QVBoxLayout, QPushButton, QListWidget, QListWidgetItem
+from PyQt5.QtWidgets import QVBoxLayout, QPushButton, QListWidget, QListWidgetItem, QWidget
 import logging
 
+from personalplanner.custom_widgets.course_list import CourseList
 from personalplanner.custom_widgets.dialogs.course_dialog import CourseDialog
 
 
-class Sidebar(QVBoxLayout):
+class Sidebar(QWidget):
     def __init__(self, app, size_widgets: int):
         super().__init__()
         self.app = app
-        self.setSpacing(10)
-        self.setContentsMargins(20, 20, 0, 50)
+
+        layout = QVBoxLayout()
+        self.setLayout(layout)
+        layout.setSpacing(10)
+        layout.setContentsMargins(20, 20, 0, 50)
 
         # Initialize widgets
         self.button_add_course = QPushButton()
-        self.listwidget_courses = QListWidget()
+        self.listwidget_courses = CourseList(app)
 
         # Add Widgets to layout
-        self.addWidget(self.button_add_course)
-        self.addWidget(self.listwidget_courses)
+        layout.addWidget(self.button_add_course)
+        layout.addWidget(self.listwidget_courses)
 
         # Configure Widgets
         self.setup_add_course(size_widgets)
@@ -26,10 +31,7 @@ class Sidebar(QVBoxLayout):
 
     def setup_courses(self, width: int):
         """Configures the QListWidget for holding courses"""
-        self.listwidget_courses.setObjectName("Courses")
         self.listwidget_courses.setFixedWidth(width)
-        self.listwidget_courses.setVerticalScrollBarPolicy(Qt.ScrollBarAlwaysOff)
-        self.listwidget_courses.setHorizontalScrollBarPolicy(Qt.ScrollBarAlwaysOff)
 
     def setup_add_course(self, width: int):
         """Configures the button to add a new course"""
