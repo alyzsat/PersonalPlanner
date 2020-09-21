@@ -133,7 +133,7 @@ class CoursePage(QWidget):
                 self.tablewidget_assignments.setCellWidget(i, 3, edit)
 
                 # Delete Column
-                delete = QPushButton("x")
+                delete = QPushButton("X")
                 delete.setObjectName("AssignmentDelete")
                 delete.setCursor(Qt.PointingHandCursor)
                 delete.clicked.connect(lambda clicked, id=_id: self.delete_assignment(id))

@@ -203,10 +203,12 @@ QPushButton#AssignmentDelete {
 }
 
 QPushButton#AssignmentDelete:hover {
-    background-color: none;
+    background-color: @background1;
     color: @accent3;
     font: 12pt;
-    padding: 0px;
+    padding: 5px;
+    border-radius: 2px;
+    margin-top: 8px;
 }
 
 QPushButton#CalendarArrow {
