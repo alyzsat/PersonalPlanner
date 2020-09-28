@@ -43,6 +43,8 @@ class OverviewPanel(QFrame):
     def setup_upcoming(self, width: int):
         self.listwidget_upcoming.setFixedWidth(width)
         self.listwidget_upcoming.setObjectName("Upcoming")
+        self.listwidget_upcoming.setHorizontalScrollBarPolicy(Qt.ScrollBarAlwaysOff)
+        self.listwidget_upcoming.setVerticalScrollBarPolicy(Qt.ScrollBarAlwaysOff)
 
         self.refresh_upcoming()
 
@@ -59,15 +61,17 @@ class OverviewPanel(QFrame):
 
         for id, name, course_id, completed, due_date in assignments:
             days_until_due = self.widget_calendar.days_until_due(due_date)
-            if len(name) > 10:
-                name = name[:7] + "..."
+            if len(name) > 15:
+                name = name[:15] + "...\t"
+            else:
+                name = name + "\t\t"
             if days_until_due < 0:
                 due = f"due {days_until_due} day{'s' if days_until_due != 1 else ''} ago"
             elif days_until_due > 0:
                 due = f"due in {days_until_due} day{'s' if days_until_due != 1 else ''}"
             else:
                 due = "due Today"
-            self.listwidget_upcoming.addItem(name + '\t' + due)
+            self.listwidget_upcoming.addItem(name + due)
 
     def refresh(self):
         self.widget_calendar.refresh()

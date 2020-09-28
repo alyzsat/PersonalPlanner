@@ -156,7 +156,7 @@ class CoursePage(QWidget):
         """Open the assignment dialog to update the assignment name and/or due date"""
         dialog = AssignmentDialog(self.app, "Edit Assignment: ", assignment_id)
         dialog.exec_()
-        self.refresh()
+        self.app.refresh()
 
     def delete_assignment(self, assignment_id: int):
         """Deletes the assignment from the planner"""

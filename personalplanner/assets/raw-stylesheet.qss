@@ -178,16 +178,17 @@ QListWidget#Upcoming:item,
 QListWidget#Upcoming:item::selected {
     border-radius: 10px;
     padding: 8px;
-    padding-left: 40px;
+    padding-left: 10px;
     margin: 3px;
     background-color: @accent2;
     color: @text1;
+    font: "Consolas";
 }
 
 QListWidget#Upcoming:item::hover {
     border-radius: 10px;
-    padding: 10px;
-    padding-left: 40px;
+    padding: 8px;
+    padding-left: 10px;
     margin: 2px;
     background-color: @accent2;
     color: @text1;

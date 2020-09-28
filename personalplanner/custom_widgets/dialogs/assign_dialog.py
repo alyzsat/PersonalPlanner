@@ -38,7 +38,7 @@ class AssignmentDialog(PlannerQDialog):
     def get_date(self) -> str:
         """Return the date from QDateEdit as a string"""
         m, d, y = self.dateedit_due.text().split("/")
-        return f"{y}-{m}-{d}"
+        return f"{y}-{m}-{0 if len(d) == 1 else ''}{d}"
 
     def load_info(self, assignment_id: int) -> None:
         """Loads assignment information into dialog to edit"""
