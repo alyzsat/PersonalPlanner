@@ -262,6 +262,45 @@ class Planner:
                 connection.close()
             return assignments
 
+    def get_assignments_due(self, date: str) -> [(int, str, id, bool, str)]:
+        """Returns a list of assignments in the format
+        (id: str, name: str, course_name: id, completed: bool, due_date: str)
+        for the current course
+        """
+        assignments = []
+        connection = None
+        try:
+            connection = sqlite3.connect(self._data_file)
+            c = connection.cursor()
+            c.execute("SELECT * FROM assignments WHERE due_date=? ORDER BY due_date ASC", (date, ))
+            assignments = c.fetchall()
+
+        except Exception as e:
+            logging.error(f"Planner.get_assignments_due: {e}")
+
+        finally:
+            if connection:
+                connection.close()
+            return assignments
+
+    def assignments(self):
+        """Return all incomplete assignments ordered by due date with the closest due first"""
+        assignments = []
+        connection = None
+        try:
+            connection = sqlite3.connect(self._data_file)
+            c = connection.cursor()
+            c.execute("SELECT * FROM assignments WHERE completed=0 ORDER BY due_date ASC")
+            assignments = c.fetchall()
+
+        except Exception as e:
+            logging.error(f"Planner.get_assignments: {e}")
+
+        finally:
+            if connection:
+                connection.close()
+            return assignments
+
     def add_assignment(self, course_id: int, assignment_name: str, due_date: str) -> None:
         """Adds the assignment to the course with the corresponding id"""
         connection = None

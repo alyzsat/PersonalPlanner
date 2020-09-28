@@ -15,6 +15,7 @@ class PlannerCalendar(QWidget):
         # current month or year in time
         self.current_month = datetime.now().month
         self.current_year = datetime.now().year
+        self.current_day = None
 
         self.layout = QVBoxLayout()
         self.months = [
@@ -31,6 +32,10 @@ class PlannerCalendar(QWidget):
         self.setup_layout()
         self.setup_table()
         self.setup_slots()
+
+    def selected_date(self) -> str or None:
+        if self.current_day is not None:
+            return f"{self.current_year}-{self.current_month}-{self.current_day}"
 
     def setup_layout(self):
         calendar_bar = QHBoxLayout()
@@ -63,6 +68,7 @@ class PlannerCalendar(QWidget):
             for j in range(7):
                 slot = QPushButton(str())
                 slot.setObjectName("CalendarSlot")
+                slot.clicked.connect(lambda x, s=slot: self.day_clicked(s))
                 self.calendar.addWidget(slot, i, j)
 
         self.refresh_slots()
@@ -72,14 +78,16 @@ class PlannerCalendar(QWidget):
         if self.current_month == 13:
             self.current_month = 1
             self.current_year += 1
-        self.refresh()
+        self.current_day = None
+        self.app.overview_panel.refresh()
 
     def previous_month(self):
         self.current_month -= 1
         if self.current_month == 0:
             self.current_month = 12
             self.current_year -= 1
-        self.refresh()
+        self.current_day = None
+        self.app.overview_panel.refresh()
 
     def refresh(self):
         self.refresh_label()
@@ -107,6 +115,8 @@ class PlannerCalendar(QWidget):
                 slot = self.calendar.itemAtPosition(week, day).widget()
                 slot.setText(str(count - first_day))
                 slot.setObjectName("CalendarDay")
+                slot.setEnabled(True)
+                slot.setCursor(Qt.PointingHandCursor)
 
         # Highlight today's slot
         if self.current_month == datetime.now().month and self.current_year == datetime.now().year:
@@ -114,7 +124,21 @@ class PlannerCalendar(QWidget):
             week = int(n / 7)
             day = int(n % 7)
             today = self.calendar.itemAtPosition(week, day).widget()
-            today.setObjectName("CalendarToday")
+            if self.current_day == datetime.now().day:
+                today.setObjectName("CalendarTodaySelected")
+            else:
+                today.setObjectName("CalendarToday")
+
+        # Highlight selected day if today's slot isn't highlighted
+        if not (self.current_month == datetime.now().month
+                and self.current_year == datetime.now().year
+                and self.current_day == datetime.now().day)\
+                and self.current_day is not None:
+            n = first_day + self.current_day
+            week = int(n / 7)
+            day = int(n % 7)
+            today = self.calendar.itemAtPosition(week, day).widget()
+            today.setObjectName("CalendarSelected")
 
         self.app.set_theme(self.app.settings.current_theme(), self)
 
@@ -124,6 +148,22 @@ class PlannerCalendar(QWidget):
                 slot = self.calendar.itemAtPosition(j, i).widget()
                 slot.setObjectName("CalendarSlot")
                 slot.setText("")
+                slot.setEnabled(False)
+                slot.setCursor(Qt.PointingHandCursor)
 
+    def day_clicked(self, slot: QPushButton):
+        day = int(slot.text())
+        if day == self.current_day:
+            self.current_day = None
+        else:
+            self.current_day = day
+        self.app.overview_panel.refresh()
 
-
+    def days_until_due(self, due_date: str) -> int:
+        """Return the number of days until the assignment is due"""
+        y, m, d = due_date.split("-")
+        d1 = datetime(int(y), int(m), int(d))
+        d2 = datetime.now()
+        if d1.date() == d2.date():
+            return 0
+        return int(str(d1 - d2).split()[0])

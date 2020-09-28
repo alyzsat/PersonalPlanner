@@ -116,4 +116,4 @@ class PersonalPlanner(QWidget):
     def refresh(self):
         self.sidebar.refresh()
         self.course_page.refresh()
-        # self.overview_panel.refresh()
+        self.overview_panel.refresh()

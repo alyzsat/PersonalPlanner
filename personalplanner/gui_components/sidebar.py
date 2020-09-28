@@ -65,8 +65,6 @@ class Sidebar(QWidget):
             if index is not None:
                 self.listwidget_courses.setCurrentRow(index)
 
-        logging.info("Refreshed course list")
-
     def add_course_clicked(self):
         """Called when the add course button is clicked and opens a
         dialog to add a new course to the planner

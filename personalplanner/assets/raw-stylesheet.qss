@@ -171,6 +171,26 @@ QListWidget#Upcoming {
     margin: 0px;
     border-radius: 10px;
     background-color: @background1;
+    outline: 0;
+}
+
+QListWidget#Upcoming:item,
+QListWidget#Upcoming:item::selected {
+    border-radius: 10px;
+    padding: 8px;
+    padding-left: 40px;
+    margin: 3px;
+    background-color: @accent2;
+    color: @text1;
+}
+
+QListWidget#Upcoming:item::hover {
+    border-radius: 10px;
+    padding: 10px;
+    padding-left: 40px;
+    margin: 2px;
+    background-color: @accent2;
+    color: @text1;
 }
 
 QMenu::item:selected {
@@ -223,24 +243,50 @@ QPushButton#CalendarArrow:hover {
 }
 
 QPushButton#CalendarSlot {
-    border-radius: 1px;
+    border: 1px solid @background1;
     background-color: @background1;
     padding: 5px;
     color: @text1;
 }
 
-QPushButton#CalendarDay {
-    border-radius: 1px;
+QPushButton#CalendarSelected {
+    border: 1px solid @accent1;
     background-color: @background2;
     padding: 5px;
     color: @text1;
 }
 
-QPushButton#CalendarToday {
-    border-radius: 1px;
+QPushButton#CalendarTodaySelected {
+    border: 1px solid @accent1;
     background-color: @background2;
     padding: 5px;
     color: @accent1;
+}
+
+QPushButton#CalendarDay {
+    border: 1px solid @background2;
+    background-color: @background2;
+    padding: 5px;
+    color: @text1;
+}
+
+QPushButton#CalendarDay:hover {
+    background-color: @accent1;
+    padding: 5px;
+    color: @text1;
+}
+
+QPushButton#CalendarToday {
+    border: 1px solid @background2;
+    background-color: @background2;
+    padding: 5px;
+    color: @accent1;
+}
+
+QPushButton#CalendarToday:hover {
+    background-color: @accent1;
+    padding: 5px;
+    color: @background2;
 }
 
 QPushButton#CourseOptions {

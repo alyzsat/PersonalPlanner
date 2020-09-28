@@ -1,5 +1,5 @@
 from PyQt5.QtCore import Qt
-from PyQt5.QtWidgets import QVBoxLayout, QFrame, QListWidget, QLabel
+from PyQt5.QtWidgets import QVBoxLayout, QFrame, QLabel, QListWidgetItem, QListWidget, QListWidgetItem
 
 from personalplanner.custom_widgets.calendar import PlannerCalendar
 
@@ -43,3 +43,32 @@ class OverviewPanel(QFrame):
     def setup_upcoming(self, width: int):
         self.listwidget_upcoming.setFixedWidth(width)
         self.listwidget_upcoming.setObjectName("Upcoming")
+
+        self.refresh_upcoming()
+
+    def refresh_upcoming(self):
+        self.listwidget_upcoming.clear()
+
+        # If there is no day selected, show assignments that will be due soon
+        if self.widget_calendar.selected_date() is None:
+            assignments = self.app.planner.assignments()
+
+        # Otherwise, show assignments due on that day
+        else:
+            assignments = self.app.planner.get_assignments_due(self.widget_calendar.selected_date())
+
+        for id, name, course_id, completed, due_date in assignments:
+            days_until_due = self.widget_calendar.days_until_due(due_date)
+            if len(name) > 10:
+                name = name[:7] + "..."
+            if days_until_due < 0:
+                due = f"due {days_until_due} day{'s' if days_until_due != 1 else ''} ago"
+            elif days_until_due > 0:
+                due = f"due in {days_until_due} day{'s' if days_until_due != 1 else ''}"
+            else:
+                due = "due Today"
+            self.listwidget_upcoming.addItem(name + '\t' + due)
+
+    def refresh(self):
+        self.widget_calendar.refresh()
+        self.refresh_upcoming()

@@ -60,7 +60,13 @@ class AssignmentDialog(PlannerQDialog):
         # If the assignment is being edited and the name is the same
         # except with capitalization changes, accept change
         # Also applies for if only the date is being changed
-        if self.old_info is not None and name.lower() == self.old_info[1].lower():
+        if len(name) > 25:
+            self.set_message(f"25 character limit ({len(name) - 25} chars over)")
+
+        elif len(name) < 3:
+            self.set_message("3 character minimum")
+
+        elif self.old_info is not None and name.lower() == self.old_info[1].lower():
             self.app.planner.update_assignment(self.old_info[0], "name", name)
             self.app.planner.update_assignment(self.old_info[0], "due_date", date)
             self.accept()

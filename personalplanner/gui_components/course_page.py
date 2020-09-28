@@ -161,7 +161,7 @@ class CoursePage(QWidget):
     def delete_assignment(self, assignment_id: int):
         """Deletes the assignment from the planner"""
         self.app.planner.delete_assignment(assignment_id)
-        self.refresh()
+        self.app.refresh()
 
     def course_options_clicked(self):
         """Opens a dialog to edit the course name"""
@@ -175,7 +175,7 @@ class CoursePage(QWidget):
         """
         dialog = AssignmentDialog(self.app, "Create New Assignment")
         dialog.exec_()
-        self.refresh()
+        self.app.refresh()
 
     def settings_clicked(self):
         """Called when the Settings button is clicked, opens
