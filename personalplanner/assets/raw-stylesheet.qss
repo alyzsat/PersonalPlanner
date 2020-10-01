@@ -170,7 +170,6 @@ QListWidget#Courses::item:hover {
 QListWidget#Upcoming {
     margin: 0px;
     border-radius: 10px;
-    background-color: @background1;
     outline: 0;
 }
 
@@ -180,17 +179,7 @@ QListWidget#Upcoming:item::selected {
     padding: 8px;
     padding-left: 10px;
     margin: 3px;
-    background-color: @accent2;
-    color: @text1;
-    font: "Consolas";
-}
-
-QListWidget#Upcoming:item::hover {
-    border-radius: 10px;
-    padding: 8px;
-    padding-left: 10px;
-    margin: 2px;
-    background-color: @accent2;
+    background-color: @background2;
     color: @text1;
 }
 

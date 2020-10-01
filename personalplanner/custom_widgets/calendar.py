@@ -166,4 +166,4 @@ class PlannerCalendar(QWidget):
         d2 = datetime.now()
         if d1.date() == d2.date():
             return 0
-        return int(str(d1 - d2).split()[0])
+        return int(str(d1 - d2).split()[0]) + 1

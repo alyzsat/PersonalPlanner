@@ -1,5 +1,6 @@
 from PyQt5.QtCore import Qt
-from PyQt5.QtWidgets import QVBoxLayout, QFrame, QLabel, QListWidgetItem, QListWidget, QListWidgetItem
+from PyQt5.QtGui import QIcon
+from PyQt5.QtWidgets import QVBoxLayout, QFrame, QLabel, QListWidget, QListWidgetItem
 
 from personalplanner.custom_widgets.calendar import PlannerCalendar
 
@@ -66,12 +67,15 @@ class OverviewPanel(QFrame):
             else:
                 name = name + "\t\t"
             if days_until_due < 0:
-                due = f"due {days_until_due} day{'s' if days_until_due != 1 else ''} ago"
+                due = f"due {-days_until_due} day{'s' if -days_until_due != 1 else ''} ago"
             elif days_until_due > 0:
                 due = f"due in {days_until_due} day{'s' if days_until_due != 1 else ''}"
             else:
                 due = "due Today"
-            self.listwidget_upcoming.addItem(name + due)
+
+            item = QListWidgetItem(name + due)
+            # item.setIcon(QIcon("personalplanner/assets/logo.png"))
+            self.listwidget_upcoming.addItem(item)
 
     def refresh(self):
         self.widget_calendar.refresh()
