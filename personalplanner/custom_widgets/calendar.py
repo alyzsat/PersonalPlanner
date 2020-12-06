@@ -103,13 +103,10 @@ class PlannerCalendar(QWidget):
 
         while count < num_days + first_day:
             count += 1
-            week = int(count / 7)
-            day = int(count % 7)
-
             # Shift calendar days up one week if month
             # starts on a Sunday
-            if first_day == 6:
-                week -= 1
+            week = int(count / 7) - int(first_day == 6)
+            day = int(count % 7)
 
             if count > first_day:
                 slot = self.calendar.itemAtPosition(week, day).widget()
@@ -121,7 +118,7 @@ class PlannerCalendar(QWidget):
         # Highlight today's slot
         if self.current_month == datetime.now().month and self.current_year == datetime.now().year:
             n = first_day + datetime.now().day
-            week = int(n / 7)
+            week = int(n / 7) - int(first_day == 6)
             day = int(n % 7)
             today = self.calendar.itemAtPosition(week, day).widget()
             if self.current_day == datetime.now().day:
@@ -135,7 +132,7 @@ class PlannerCalendar(QWidget):
                 and self.current_day == datetime.now().day)\
                 and self.current_day is not None:
             n = first_day + self.current_day
-            week = int(n / 7)
+            week = int(n / 7) - int(first_day == 6)
             day = int(n % 7)
             today = self.calendar.itemAtPosition(week, day).widget()
             today.setObjectName("CalendarSelected")

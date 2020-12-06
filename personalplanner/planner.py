@@ -16,7 +16,7 @@ class Planner:
         self._data_file = data_file
         self._current_course = None
 
-        logging.basicConfig(filename=f"data/logs/{date.date()}.txt", level=logging.DEBUG)
+        logging.basicConfig(filename=f"../data/logs/{date.date()}.txt", level=logging.DEBUG)
         self.create_tables(date)
         if not self.is_empty():
             self._current_course = self.courses()[0]

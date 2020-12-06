@@ -150,7 +150,7 @@ class CoursePage(QWidget):
         # If the checkbox is checked / Unchecked
         if item.column() == 0:
             self.app.planner.update_assignment(assignment_id, "completed", int(item.checkState() == 2))
-            self.refresh()
+            self.app.refresh()
 
     def update_assignment(self, assignment_id: int):
         """Open the assignment dialog to update the assignment name and/or due date"""
@@ -167,7 +167,7 @@ class CoursePage(QWidget):
         """Opens a dialog to edit the course name"""
         dialog = CourseDialog(self.app, f"Edit Course", self.label_current_course.get_data())
         dialog.exec_()
-        self.refresh()
+        self.app.refresh()
 
     def add_assignment_clicked(self):
         """Called when Add Assignment button is clicked, adds a

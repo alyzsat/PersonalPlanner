@@ -16,8 +16,8 @@ class PersonalPlanner(QWidget):
     def __init__(self, size: QSize):
         super().__init__()
         date = datetime.now()
-        self.data_file = "data/planner.db"
-        self.config_file = "data/planner.ini"
+        self.data_file = "../data/planner.db"
+        self.config_file = "../data/planner.ini"
         self.planner = Planner(self.data_file, date)
 
         # Settings
@@ -99,7 +99,7 @@ class PersonalPlanner(QWidget):
         created stylesheet.qss
         """
         StyleSheetProcessor(theme_name).run()
-        with open("personalplanner/assets/stylesheet.qss") as ss:
+        with open("../personalplanner/assets/stylesheet.qss") as ss:
             widget.setStyleSheet(ss.read())
             nested = widget.findChild(QWidget, "OverviewPanel")
 
