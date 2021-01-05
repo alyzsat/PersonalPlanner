@@ -64,7 +64,10 @@ class Planner:
         return self._data_file
 
     def set_current_course(self, course: (int, str, str, int)) -> None:
-        """Sets the currently selected course on the planner"""
+        """Sets the currently selected course on the planner
+
+        Params: tuple(id, name, season, year)
+        """
         self._current_course = course
 
     def get_current_course(self) -> (int, str, str, int):
@@ -283,15 +286,25 @@ class Planner:
                 connection.close()
             return assignments
 
-    def assignments(self):
-        """Return all incomplete assignments ordered by due date with the closest due first"""
+    def assignments(self, show_current: bool):
+        """Return all incomplete assignments ordered by due date with the closest
+        due first
+        """
         assignments = []
         connection = None
         try:
             connection = sqlite3.connect(self._data_file)
             c = connection.cursor()
-            c.execute("SELECT * FROM assignments WHERE completed=0 ORDER BY due_date ASC")
-            assignments = c.fetchall()
+            if self._current_course is not None:
+                course_id = self.get_current_course()[0]
+                if show_current:
+                    c.execute(
+                        "SELECT * FROM assignments WHERE completed=0 AND course_id=? ORDER BY due_date ASC",
+                        (course_id, )
+                        )
+                else:
+                    c.execute("SELECT * FROM assignments WHERE completed=0 ORDER BY due_date ASC")
+                assignments = c.fetchall()
 
         except Exception as e:
             logging.error(f"Planner.get_assignments: {e}")

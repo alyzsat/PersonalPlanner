@@ -1,7 +1,5 @@
-from PyQt5 import QtGui
 from PyQt5.QtCore import Qt
-from PyQt5.QtWidgets import QVBoxLayout, QPushButton, QListWidget, QListWidgetItem, QWidget
-import logging
+from PyQt5.QtWidgets import QVBoxLayout, QPushButton, QListWidgetItem, QWidget
 
 from personalplanner.custom_widgets.course_list import CourseList
 from personalplanner.custom_widgets.dialogs.course_dialog import CourseDialog

@@ -54,7 +54,8 @@ class OverviewPanel(QFrame):
 
         # If there is no day selected, show assignments that will be due soon
         if self.widget_calendar.selected_date() is None:
-            assignments = self.app.planner.assignments()
+            # Show all assignments or just the current term's assignments
+            assignments = self.app.planner.assignments(self.app.settings.show_current())
 
         # Otherwise, show assignments due on that day
         else:

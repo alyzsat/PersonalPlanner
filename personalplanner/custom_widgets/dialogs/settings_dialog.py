@@ -71,7 +71,15 @@ class SettingsDialog(PlannerQDialog):
 
     def current_clicked(self):
         self.app.settings.set_show_current(self.checkbox_current.isChecked())
-        self.app.sidebar.refresh()
+        if self.app.settings.show_current():
+            courses = self.app.planner.courses(self.app.settings.current_term())
+        else:
+            courses = self.app.planner.courses()
+        if len(courses) > 0:
+            self.app.planner.set_current_course(courses[0])
+        else:
+            self.app.planner.set_current_course(None)
+        self.app.refresh()
 
     def term_labels_clicked(self):
         self.app.settings.set_show_term_labels(self.checkbox_term_labels.isChecked())
