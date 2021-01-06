@@ -18,8 +18,6 @@ class Planner:
 
         logging.basicConfig(filename=f"../data/logs/{date.date()}.txt", level=logging.DEBUG)
         self.create_tables(date)
-        if not self.is_empty():
-            self._current_course = self.courses()[0]
 
     def create_tables(self, date):
         """Create tables if there is no database created yet"""
@@ -76,8 +74,15 @@ class Planner:
         """
         return self._current_course
 
-    def get_current_course_index(self) -> int or None:
-        courses = self.courses()
+    def get_current_course_index(self, current_term: (str, int) = None) -> int or None:
+        """Get the current course index. If a current term is given, then
+        only check the courses for that term
+        """
+        if current_term is None:
+            courses = self.courses()
+        else:
+            courses = self.courses(current_term)
+
         if self._current_course is not None:
             for i in range(len(courses)):
                 # If the ID matches the current course's ID

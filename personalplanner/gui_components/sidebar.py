@@ -59,7 +59,10 @@ class Sidebar(QWidget):
             self.listwidget_courses.addItem(item)
 
         if not self.app.planner.is_empty():
-            index = self.app.planner.get_current_course_index()
+            if self.app.settings.show_current():
+                index = self.app.planner.get_current_course_index(self.app.settings.current_term())
+            else:
+                index = self.app.planner.get_current_course_index()
             if index is not None:
                 self.listwidget_courses.setCurrentRow(index)
 

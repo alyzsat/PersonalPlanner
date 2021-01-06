@@ -23,6 +23,13 @@ class PersonalPlanner(QWidget):
         # Settings
         self.settings = Settings(self.config_file)
 
+        # Set up current course view
+        if self.settings.show_current():
+            courses = self.planner.courses(self.settings.current_term())
+        else:
+            courses = self.planner.courses()
+        self.planner.set_current_course(courses[0])
+
         self.layout = QHBoxLayout(self)
         self.setup_window(size)
 
