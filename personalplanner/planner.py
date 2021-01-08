@@ -15,6 +15,7 @@ class Planner:
     def __init__(self, data_file: str, date):
         self._data_file = data_file
         self._current_course = None
+        self._current_term = None
 
         logging.basicConfig(filename=f"../data/logs/{date.date()}.txt", level=logging.DEBUG)
         self.create_tables(date)
@@ -67,6 +68,13 @@ class Planner:
         Params: tuple(id, name, season, year)
         """
         self._current_course = course
+
+    def set_current_term(self, term: (str, int)) -> None:
+        """Sets the currently selected course on the planner
+
+        Params: tuple(id, name, season, year)
+        """
+        self._current_term = term
 
     def get_current_course(self) -> (int, str, str, int):
         """Returns the currently selected course on the planner in
@@ -300,16 +308,25 @@ class Planner:
         try:
             connection = sqlite3.connect(self._data_file)
             c = connection.cursor()
-            if self._current_course is not None:
-                course_id = self.get_current_course()[0]
-                if show_current:
-                    c.execute(
-                        "SELECT * FROM assignments WHERE completed=0 AND course_id=? ORDER BY due_date ASC",
-                        (course_id, )
-                        )
-                else:
-                    c.execute("SELECT * FROM assignments WHERE completed=0 ORDER BY due_date ASC")
-                assignments = c.fetchall()
+            if show_current:
+                c.execute(
+                    """
+                    SELECT * FROM assignments
+                    WHERE course_id IN
+                        (SELECT id FROM courses
+                        WHERE season=? AND year=?)
+                    """,
+                    self._current_term
+                )
+            else:
+                c.execute(
+                    """
+                    SELECT * FROM assignments
+                    WHERE completed=0
+                    ORDER BY due_date ASC
+                    """
+                )
+            assignments = c.fetchall()
 
         except Exception as e:
             logging.error(f"Planner.get_assignments: {e}")

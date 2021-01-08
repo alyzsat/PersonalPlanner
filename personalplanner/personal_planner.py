@@ -29,6 +29,7 @@ class PersonalPlanner(QWidget):
         else:
             courses = self.planner.courses()
         self.planner.set_current_course(courses[0])
+        self.planner.set_current_term(self.settings.current_term())
 
         self.layout = QHBoxLayout(self)
         self.setup_window(size)
