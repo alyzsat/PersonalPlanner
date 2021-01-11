@@ -67,10 +67,14 @@ class OverviewPanel(QFrame):
                 name = name[:15] + "...\t"
             else:
                 name = name + "\t\t"
-            if days_until_due < 0:
-                due = f"due {-days_until_due} day{'s' if -days_until_due != 1 else ''} ago"
-            elif days_until_due > 0:
-                due = f"due in {days_until_due} day{'s' if days_until_due != 1 else ''}"
+            if days_until_due < -1:
+                due = f"due {-days_until_due} days ago"
+            elif days_until_due > 1:
+                due = f"due in {days_until_due} days"
+            elif days_until_due == -1:
+                due = f"due Yesterday"
+            elif days_until_due == 1:
+                due = f"due Tomorrow"
             else:
                 due = "due Today"
 

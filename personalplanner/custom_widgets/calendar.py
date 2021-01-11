@@ -163,4 +163,10 @@ class PlannerCalendar(QWidget):
         d2 = datetime.now()
         if d1.date() == d2.date():
             return 0
-        return int(str(d1 - d2).split()[0]) + 1
+        days_str = str(d1 - d2).split()[0]
+        if ":" in days_str:
+            if "-" in days_str:
+                days_str = -1
+            else:
+                days_str = 0
+        return int(days_str) + 1

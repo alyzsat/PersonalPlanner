@@ -315,6 +315,8 @@ class Planner:
                     WHERE course_id IN
                         (SELECT id FROM courses
                         WHERE season=? AND year=?)
+                        AND completed=0
+                    ORDER BY due_date ASC
                     """,
                     self._current_term
                 )
